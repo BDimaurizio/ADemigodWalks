@@ -45,7 +45,7 @@ export default class Mod {
   public DEX = 0; //accuracy, finesse, trapping
   public AGI = 0; //evasion, foraging, stealth,
   public INT = 0; //arcana, criticalchance, maxmp, crafting
-  public FAI = 0; //clarity, (FAI added to all positive affinity + opinion)
+  public WIS = 0; //clarity, (WIS added to all positive affinity + opinion)
   public WIL = 0; //ward, mentalstatusresist, (WIL added to all positive resists)
   public CHA = 0; //leadership, diplomacy, bargaining
   public LUK = 0;

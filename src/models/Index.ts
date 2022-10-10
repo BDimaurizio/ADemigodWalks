@@ -1,5 +1,3 @@
-import Job from './Job';
-
 export type ModType =
   | 'NONE'
   //equippable item mods
@@ -167,7 +165,7 @@ export type ImportantStatPossibility =
   | 'DEX'
   | 'AGI'
   | 'INT'
-  | 'FAI'
+  | 'WIS'
   | 'WIL'
   | 'CHA'
   | 'LUK'
@@ -322,7 +320,7 @@ export const statArray: ImportantStatPossibility[] = [
   'DEX',
   'AGI',
   'INT',
-  'FAI',
+  'WIS',
   'WIL',
   'CHA',
   'LUK',
@@ -445,14 +443,4 @@ export class Aspect {
   public altDescription!: string;
   public friendlyAspects!: Tag[];
   public enemyAspects!: Tag[];
-}
-
-export class JobLevelPair {
-  public job: Job;
-  public level: number;
-
-  constructor(jobName: Job, level: number = 0) {
-    this.job = jobName;
-    this.level = level;
-  }
 }

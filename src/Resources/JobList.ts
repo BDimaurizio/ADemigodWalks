@@ -3,6 +3,16 @@ import Mod from 'src/models/Mod';
 
 const JobList: Job[] = [
   new Job(
+    'Bug Catcher',
+    new Mod({
+      JudgementAmplification: 7,
+    }),
+    ['Healthy Time', 'Trait 2'],
+    [5, 10],
+    ['Fireball'],
+    [3]
+  ),
+  new Job(
     'Adventurer',
     new Mod({
       STR: 1,

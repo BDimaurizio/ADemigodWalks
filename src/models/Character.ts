@@ -6,15 +6,12 @@ import Job from './Job';
 import { combineMods } from 'src/Services/ModListManipulationService';
 import { Gender, Tag } from './Index';
 import Skill from './Skill';
-//import Skill from './Skill';
 
 export default class Character {
   public name: string;
   public gender: Gender = 'Male';
   public age: number = 25;
-  public jobsR: Record<number, Job>[] = [];
-  public jobs: Job[] = [];
-  public jobLevels: number[] = [];
+  public jobs: [Job, number][] = [];
   public permanentMod: Mod = new Mod(); //naturaltraits and naturalskills included
 
   public currentHP: number = 1;
@@ -63,9 +60,9 @@ export default class Character {
     const skillList: Skill[] = [];
     for (let i = 0; i < this.jobs.length; i++) {
       if (this.jobs[i]) {
-        modList.push(this.jobs[i].getStatModifier(this.jobLevels[i]));
-        traitList.push(...this.jobs[i].getTraits(this.jobLevels[i]));
-        skillList.push(...this.jobs[i].getSkills(this.jobLevels[i]));
+        modList.push(this.jobs[i][0].getStatModifier(this.jobs[i][1]));
+        traitList.push(...this.jobs[i][0].getTraits(this.jobs[i][1]));
+        skillList.push(...this.jobs[i][0].getSkills(this.jobs[i][1]));
       }
     }
     const output = combineMods(modList);

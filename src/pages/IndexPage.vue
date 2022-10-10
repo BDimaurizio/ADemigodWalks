@@ -70,11 +70,10 @@ export default defineComponent({
 
     let selectedCharacter = reactive(new Character('Playername'));
     selectedCharacter.jobs = [
-      getJobByName('Adventurer'),
-      getJobByName('Sailor'),
+      [getJobByName('Adventurer'), 5],
+      [getJobByName('Sailor'), 10],
+      [getJobByName('Chef'), 8],
     ];
-    selectedCharacter.jobsR = [];
-    selectedCharacter.jobLevels = [10, 10];
     selectedCharacter.inventory = testItemArray(30);
     directedInventory.value = selectedCharacter.inventory;
 
@@ -125,6 +124,7 @@ export default defineComponent({
       visiblePaneStatus.value = pane;
       selectedItem.value = undefined;
       updatePanes('my_' + pane);
+      console.log(selectedCharacter);
     }
 
     //iteminfopane

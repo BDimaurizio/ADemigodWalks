@@ -1,11 +1,11 @@
 <template>
   <h4 style="vertical-align: bottom">{{ theChara.name }}</h4>
   <div>
-    Level {{ theChara.jobLevels.reduce((partialSum, a) => partialSum + a, 0) }}
+    Level
     {{
-      theChara.jobs[theChara.jobLevels.indexOf(Math.max(...theChara.jobLevels))]
-        .name
+      theChara.jobs.reduce((partialSum, element) => partialSum + element[1], 0)
     }}
+    {{ theChara.jobs[indexOfHighestLevelClass()][0].name }}
   </div>
   <q-separator />
   <div
@@ -94,6 +94,18 @@ export default defineComponent({
       return stringBuilder;
     }
 
+    function indexOfHighestLevelClass(): number {
+      let index = 0;
+      let max = 0;
+      for (let i = 0; i < theChara.value.jobs.length; i++) {
+        if (theChara.value.jobs[i][1] > max) {
+          max = theChara.value.jobs[i][1];
+          index = i;
+        }
+      }
+      return index;
+    }
+
     return {
       ...props,
       theChara,
@@ -102,6 +114,7 @@ export default defineComponent({
       //methods
       formatStatDisplay,
       formatNegativeDisplay,
+      indexOfHighestLevelClass,
     };
   },
 });
