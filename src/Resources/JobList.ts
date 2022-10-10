@@ -8,7 +8,7 @@ const JobList: Job[] = [
       JudgementAmplification: 7,
     }),
     ['Healthy Time', 'Trait 2'],
-    [5, 10],
+    [5, 6],
     ['Fireball'],
     [3]
   ),
@@ -20,7 +20,7 @@ const JobList: Job[] = [
       INT: 1,
     }),
     ['Healthy Time', 'Trait 2'],
-    [5, 10],
+    [5, 6],
     ['Fireball'],
     [3]
   ),

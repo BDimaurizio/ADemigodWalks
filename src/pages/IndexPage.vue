@@ -70,9 +70,9 @@ export default defineComponent({
 
     let selectedCharacter = reactive(new Character('Playername'));
     selectedCharacter.jobs = [
-      [getJobByName('Adventurer'), 5],
+      [getJobByName('Adventurer'), 10],
       [getJobByName('Sailor'), 10],
-      [getJobByName('Chef'), 8],
+      [getJobByName('not a class'), 10],
     ];
     selectedCharacter.inventory = testItemArray(30);
     directedInventory.value = selectedCharacter.inventory;

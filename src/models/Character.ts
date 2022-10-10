@@ -6,6 +6,7 @@ import Job from './Job';
 import { combineMods } from 'src/Services/ModListManipulationService';
 import { Gender, Tag } from './Index';
 import Skill from './Skill';
+import { removeDuplicates } from 'src/Services/Funcs';
 
 export default class Character {
   public name: string;
@@ -68,29 +69,25 @@ export default class Character {
     const output = combineMods(modList);
     output.Traits.push(...traitList);
     output.Skills.push(...skillList);
-    output.Skills = [...new Set(output.Skills)];
-    output.Traits = [...new Set(output.Traits)];
+    output.Skills = removeDuplicates(output.Skills);
+    output.Traits = removeDuplicates(output.Traits);
     return output;
   }
 
   get traits(): Mod[] {
-    return [
-      ...new Set([
-        ...this.permanentMod.Traits,
-        ...this.equipmentStats.Traits,
-        ...this.jobStats.Traits,
-      ]),
-    ];
+    return removeDuplicates([
+      ...this.permanentMod.Traits,
+      ...this.equipmentStats.Traits,
+      ...this.jobStats.Traits,
+    ]);
   }
 
   get skills(): Skill[] {
-    return [
-      ...new Set([
-        ...this.permanentMod.Skills,
-        ...this.equipmentStats.Skills,
-        ...this.jobStats.Skills,
-      ]),
-    ];
+    return removeDuplicates([
+      ...this.permanentMod.Skills,
+      ...this.equipmentStats.Skills,
+      ...this.jobStats.Skills,
+    ]);
   }
 
   get stats(): Mod {

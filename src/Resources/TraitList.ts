@@ -23,7 +23,7 @@ const ModList: Partial<Mod>[] = [
     name: 'Trait 2',
     description: 'hehe',
     rarity: 0,
-    Crafting: 555,
+    Crafting: 10,
     tags: ['TAILORING'],
     eligibilityChecker(character) {
       if (character.currentHP < 5) return true;

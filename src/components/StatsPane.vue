@@ -5,7 +5,10 @@
     {{
       theChara.jobs.reduce((partialSum, element) => partialSum + element[1], 0)
     }}
-    {{ theChara.jobs[indexOfHighestLevelClass()][0].name }}
+    {{ theChara.jobs[indexOfHighestLevelClass()][0].name }} ({{
+      theChara.currentEXP
+    }}
+    unspent EXP)
   </div>
   <q-separator />
   <div
@@ -48,11 +51,12 @@ export default defineComponent({
 
   setup(props) {
     const theChara = ref(props.chara);
+    const cachedStats = theChara.value.stats;
     const arrayOfAllStats = ref(statArray);
 
     function formatStatDisplay(statName: ImportantStatPossibility): string {
       let stringBuilder = '';
-      const value: number = theChara.value.stats[statName];
+      const value: number = cachedStats[statName];
       if (value <= 0) return '';
 
       if (statName.toUpperCase() == statName) {
@@ -73,7 +77,7 @@ export default defineComponent({
 
     function formatNegativeDisplay(statName: ImportantStatPossibility): string {
       let stringBuilder = '';
-      const value: number = theChara.value.stats[statName];
+      const value: number = cachedStats[statName];
       if (value >= 0) return '';
 
       if (statName.toUpperCase() == statName) {
