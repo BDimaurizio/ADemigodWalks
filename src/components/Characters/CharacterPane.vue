@@ -223,7 +223,7 @@ export default defineComponent({
 
 <style scoped>
 .charaBody {
-  background-image: URL('../assets/equipmentScreen.png');
+  background-image: URL('src/assets/equipmentScreen.png');
   background-size: cover;
   background-repeat: no-repeat;
   min-width: 1px;

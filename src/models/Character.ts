@@ -41,6 +41,28 @@ export default class Character {
     return this.equippedItems[0].computeStats.tags;
   }
 
+  get jobTitle(): string {
+    let stringbuilder =
+      'Level ' +
+      this.jobs.reduce((partialSum, element) => partialSum + element[1], 0) +
+      ' ';
+    let index = 0;
+    let max = 0;
+    for (let i = 0; i < this.jobs.length; i++) {
+      if (this.jobs[i][1] > max) {
+        max = this.jobs[i][1];
+        index = i;
+      }
+    }
+    stringbuilder =
+      stringbuilder +
+      this.jobs[index][0].name +
+      ' (' +
+      this.currentEXP +
+      ' unspent EXP)';
+    return stringbuilder;
+  }
+
   get equipmentStats(): Mod {
     const allEquippedItemMods: Mod[] = [];
     for (let i = 0; i < this.equippedItems.length; i++) {

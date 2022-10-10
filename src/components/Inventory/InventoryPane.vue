@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { ref, defineComponent, onMounted } from 'vue';
-import InventoryTile from 'src/components/InventoryTile.vue';
+import InventoryTile from 'src/components/Inventory/InventoryTile.vue';
 import Item from 'src/models/Item';
 
 export default defineComponent({

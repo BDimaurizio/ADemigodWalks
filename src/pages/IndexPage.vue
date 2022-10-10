@@ -13,7 +13,7 @@
       <InventoryPane
         v-if="visiblePaneStatus == 'inventory'"
         :inventory="directedInventory"
-        :itemSortingSchema="itemSortingSchema"
+        :item-sorting-schema="itemSortingSchema"
         @inventoryClicked="inventoryClicked"
         @updateSortingSchema="updateSortingSchema"
         :key="update"
@@ -22,6 +22,11 @@
         v-else-if="visiblePaneStatus == 'stats'"
         :chara="selectedCharacter"
       ></StatsPane>
+      <JobPane
+        v-else-if="visiblePaneStatus == 'class'"
+        :jobList="selectedCharacter.jobs"
+        :job-sorting-schema="itemSortingSchema"
+      ></JobPane>
     </q-scroll-area>
     <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
       <item-info-pane
@@ -43,15 +48,22 @@ import Item from 'src/models/Item';
 import { getJobByName } from 'src/Resources/JobList';
 import { GenerateDeities } from 'src/Services/DeityGeneration';
 import { defineComponent, reactive, ref } from 'vue';
-import ItemInfoPane from '../components/ItemInfoPane.vue';
-import InventoryPane from 'src/components/InventoryPane.vue';
+import ItemInfoPane from 'src/components/Inventory/ItemInfoPane.vue';
+import InventoryPane from 'src/components/Inventory/InventoryPane.vue';
 import { testItemArray } from 'src/Services/ItemService';
-import CharacterPane from 'src/components/CharacterPane.vue';
-import StatsPane from 'src/components/StatsPane.vue';
+import CharacterPane from 'src/components/Characters/CharacterPane.vue';
+import StatsPane from 'src/components/Characters/StatsPane.vue';
+import JobPane from 'src/components/Jobs/JobPane.vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ItemInfoPane, InventoryPane, CharacterPane, StatsPane },
+  components: {
+    ItemInfoPane,
+    InventoryPane,
+    CharacterPane,
+    StatsPane,
+    JobPane,
+  },
   setup() {
     //key declarations
     const update = ref(0);
@@ -71,8 +83,8 @@ export default defineComponent({
     let selectedCharacter = reactive(new Character('Playername'));
     selectedCharacter.jobs = [
       [getJobByName('Adventurer'), 10],
-      [getJobByName('Sailor'), 10],
-      [getJobByName('not a class'), 10],
+      [getJobByName('Sailor'), 8],
+      [getJobByName('not a class'), 9],
     ];
     selectedCharacter.inventory = testItemArray(30);
     directedInventory.value = selectedCharacter.inventory;
