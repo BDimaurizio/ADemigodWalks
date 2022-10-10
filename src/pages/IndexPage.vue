@@ -73,6 +73,7 @@ export default defineComponent({
       getJobByName('Adventurer'),
       getJobByName('Sailor'),
     ];
+    selectedCharacter.jobsR = [];
     selectedCharacter.jobLevels = [10, 10];
     selectedCharacter.inventory = testItemArray(30);
     directedInventory.value = selectedCharacter.inventory;
