@@ -56,7 +56,7 @@ export default defineComponent({
     const iconPath = ref(props.item.inventoryIcon);
 
     function inventoryClicked() {
-      context.emit('inventoryClicked', props.item);
+      context.emit('inventoryClicked');
     }
 
     return {

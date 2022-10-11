@@ -9,21 +9,21 @@
     v-for="(jobObject, index) in jobArray"
     :key="jobObject"
   >
-    {{ jobObject[0].name }} {{ jobObject[1] }} {{ index }}
-    <!--<InventoryTile
+    <job-tile
       class="col"
-      :item="inventoryObject"
-      @inventoryClicked="inventoryClicked(inventoryObject, index)"
-    ></InventoryTile>-->
+      :job="jobObject"
+      @jobClicked="jobClicked(jobObject, index)"
+    ></job-tile>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, onMounted } from 'vue';
 import Job from 'src/models/Job';
+import JobTile from './JobTile.vue';
 
 export default defineComponent({
-  components: {},
+  components: { JobTile },
   props: {
     jobList: { type: Object, required: true },
     jobSortingSchema: { type: Object, required: true },

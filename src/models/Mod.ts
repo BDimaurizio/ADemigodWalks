@@ -216,6 +216,10 @@ export default class Mod {
     if (!stats) {
       return;
     }
+    stats.eligibilityChecker = (character: Character): boolean => {
+      if (character) return true;
+      return false;
+    };
     return { ...new Mod(), ...stats };
   }
 }

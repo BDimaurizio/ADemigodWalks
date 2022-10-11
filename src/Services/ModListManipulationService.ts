@@ -1,5 +1,5 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
-import { ModType, Tag } from 'src/models/Index';
+import { ModType, statArray, Tag } from 'src/models/Index';
 import Mod from 'src/models/Mod';
 
 function criterionizeArray( //valid if at least ONE OF the tags is matching
@@ -95,5 +95,38 @@ export function combineMods(modList: Mod[]): Mod {
   output.Traits = [...new Set(output.Traits)];
   output.tags = [...new Set(output.tags)];
 
+  return output;
+}
+
+export function getModStatsFormatted(theMod: Mod): [string, string] {
+  //positive values in the first tuple element, negative values in the second tuple element
+  const output: [string, string] = ['', ''];
+  for (let i = 0; i < statArray.length; i++) {
+    let stringBuilder = '';
+    const value: number = theMod[statArray[i]];
+    if (value == 0) continue;
+
+    if (statArray[i].toUpperCase() == statArray[i]) {
+      if (
+        statArray[i] == 'HP' ||
+        statArray[i] == 'MP' ||
+        statArray[i] == 'SP'
+      ) {
+        stringBuilder = 'Maximum ';
+      }
+      stringBuilder = stringBuilder + statArray[i] + ': ' + value;
+    } else {
+      stringBuilder = statArray[i].toString();
+      stringBuilder = stringBuilder.replace(/([A-Z])/g, ' $1').trim();
+      stringBuilder = stringBuilder.replace('Resist', 'Resistance');
+      stringBuilder = stringBuilder + ': ' + value;
+    }
+
+    if (value > 0) {
+      output[0] = output[0] + stringBuilder + '\n';
+    } else if (value < 0) {
+      output[1] = output[1] + stringBuilder + '\n';
+    }
+  }
   return output;
 }

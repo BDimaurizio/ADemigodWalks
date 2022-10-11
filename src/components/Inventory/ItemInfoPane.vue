@@ -3,13 +3,19 @@
   <q-separator />
   <h5 :class="itemRarityColor">{{ itemTagline }}</h5>
   <q-separator />
-  <div class="text-bold text-indigo-10" v-for="stat in array" :key="stat">
-    {{ formatStatDisplay(stat) }}
-  </div>
+  <pre
+    v-if="cachedStats"
+    class="text-bold text-indigo-10"
+    style="font-family: Arial"
+    >{{ cachedStats[0] }}</pre
+  >
   <q-separator />
-  <div class="text-bold text-red" v-for="stat in array" :key="stat">
-    {{ formatNegativeDisplay(stat) }}
-  </div>
+  <pre
+    v-if="cachedStats"
+    class="text-bold text-red"
+    style="font-family: Arial"
+    >{{ cachedStats[1] }}</pre
+  >
   <q-separator />
   <div class="q-pt-sm q-pb-sm">
     {{ theItem.description }}
@@ -44,7 +50,7 @@
 <script lang="ts">
 import Item from 'src/models/Item';
 import { ref, defineComponent } from 'vue';
-import { ImportantStatPossibility, statArray } from 'src/models/Index';
+import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
 
 export default defineComponent({
   components: {},
@@ -69,51 +75,7 @@ export default defineComponent({
   setup(props, context) {
     const theItem = ref(props.item.computeStats);
     const propWhere = ref(props.where);
-    const array = ref(statArray);
-
-    function formatStatDisplay(statName: ImportantStatPossibility): string {
-      let stringBuilder = '';
-      const value: number = theItem.value[statName];
-      if (value <= 0) return '';
-
-      if (statName.toUpperCase() == statName) {
-        if (statName == 'HP' || statName == 'MP' || statName == 'SP') {
-          stringBuilder = 'Maximum ';
-        }
-        return stringBuilder + statName + ': ' + value;
-      }
-
-      stringBuilder = statName.toString();
-      stringBuilder = stringBuilder.replace(/([A-Z])/g, ' $1').trim();
-      stringBuilder = stringBuilder.replace('Resist', 'Resistance');
-
-      stringBuilder = stringBuilder + ': ' + value;
-
-      return stringBuilder;
-    }
-
-    function formatNegativeDisplay(statName: ImportantStatPossibility): string {
-      let stringBuilder = '';
-      const value: number = theItem.value[statName];
-      if (value >= 0) return '';
-
-      if (statName.toUpperCase() == statName) {
-        if (statName == 'HP' || statName == 'MP' || statName == 'SP') {
-          stringBuilder = 'Maximum ';
-        }
-        return stringBuilder + statName + ': ' + value;
-      }
-
-      stringBuilder = statName.toString();
-      stringBuilder = stringBuilder.replace(/([A-Z])/g, ' $1').trim();
-      stringBuilder = stringBuilder.replace('Resist', 'Vulnerability');
-      stringBuilder = stringBuilder.replace('Amplification', 'Debilitation');
-      stringBuilder = stringBuilder.replace('Affinity', 'Deficiency');
-
-      stringBuilder = stringBuilder + ': ' + value;
-
-      return stringBuilder;
-    }
+    const cachedStats = ref(getModStatsFormatted(theItem.value));
 
     function onClickEquip() {
       context.emit('equipItem', props.item);
@@ -133,12 +95,10 @@ export default defineComponent({
     return {
       ...props,
       theItem,
-      array,
       propWhere,
+      cachedStats,
 
       //methods
-      formatStatDisplay,
-      formatNegativeDisplay,
       onClickEquip,
       onClickUnequip,
       onClickDiscard,

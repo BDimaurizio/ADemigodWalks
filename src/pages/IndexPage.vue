@@ -14,7 +14,7 @@
         v-if="visiblePaneStatus == 'inventory'"
         :inventory="directedInventory"
         :item-sorting-schema="itemSortingSchema"
-        @inventoryClicked="inventoryClicked"
+        @inventoryClicked="inventoryTileClicked"
         @updateSortingSchema="updateSortingSchema"
         :key="update"
       ></InventoryPane>
@@ -26,6 +26,7 @@
         v-else-if="visiblePaneStatus == 'class'"
         :jobList="selectedCharacter.jobs"
         :job-sorting-schema="itemSortingSchema"
+        @jobClicked="jobTileClicked"
       ></JobPane>
     </q-scroll-area>
     <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
@@ -38,6 +39,12 @@
         @unequipItem="unequipItem"
         @discardItem="discardItem"
       ></item-info-pane>
+      <JobInfoPane
+        v-if="selectedJob"
+        :job="selectedJob"
+        :where="directedInventoryWhere"
+        :key="selectedJob"
+      ></JobInfoPane>
     </q-scroll-area>
   </q-page>
 </template>
@@ -54,6 +61,8 @@ import { testItemArray } from 'src/Services/ItemService';
 import CharacterPane from 'src/components/Characters/CharacterPane.vue';
 import StatsPane from 'src/components/Characters/StatsPane.vue';
 import JobPane from 'src/components/Jobs/JobPane.vue';
+import Job from 'src/models/Job';
+import JobInfoPane from 'src/components/Jobs/JobInfoPane.vue';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -63,6 +72,7 @@ export default defineComponent({
     CharacterPane,
     StatsPane,
     JobPane,
+    JobInfoPane,
   },
   setup() {
     //key declarations
@@ -77,14 +87,15 @@ export default defineComponent({
       reverse: false,
     } as unknown as Record<string, boolean>);
     const visiblePaneStatus = ref('blank');
+    const selectedJob = ref();
 
     console.log(GenerateDeities(50));
 
     let selectedCharacter = reactive(new Character('Playername'));
     selectedCharacter.jobs = [
-      [getJobByName('Adventurer'), 10],
-      [getJobByName('Sailor'), 8],
-      [getJobByName('not a class'), 9],
+      [getJobByName('Adventurer'), 7],
+      [getJobByName('Sailor'), 3],
+      [getJobByName('not a class'), 5],
     ];
     selectedCharacter.inventory = testItemArray(30);
     directedInventory.value = selectedCharacter.inventory;
@@ -93,7 +104,7 @@ export default defineComponent({
 
     //inventory pane
 
-    function inventoryClicked(item: Item): void {
+    function inventoryTileClicked(item: Item): void {
       if (selectedItem.value == item) {
         updatePanes();
       }
@@ -157,6 +168,12 @@ export default defineComponent({
       updatePanes();
     }
 
+    //job pane
+
+    function jobTileClicked(job: [Job, number]): void {
+      selectedJob.value = job;
+    }
+
     return {
       //refs
       selectedItem,
@@ -165,11 +182,13 @@ export default defineComponent({
       directedInventoryWhere,
       itemSortingSchema,
       visiblePaneStatus,
+      selectedJob,
 
       //keys
       update,
 
-      inventoryClicked,
+      inventoryTileClicked,
+      jobTileClicked,
       charaClicked,
       equipItem,
       unequipItem,

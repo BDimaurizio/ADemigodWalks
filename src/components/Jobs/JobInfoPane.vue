@@ -1,6 +1,5 @@
 <template>
-  <h4 style="vertical-align: bottom">{{ theChara.name }}</h4>
-  <div>{{ theChara.jobTitle }}</div>
+  <h4>{{ theJob.name }}</h4>
   <q-separator />
   <pre
     v-if="cachedStats"
@@ -16,40 +15,34 @@
     >{{ cachedStats[1] }}</pre
   >
   <q-separator />
-  <div class="row justify-center q-mt-xl">
-    <!--
-    <q-btn
-      v-if="true"
-      class="col-5 q-pa-sm q-ma-sm"
-      label="Dismiss"
-      @click=""
-    ></q-btn>
-    -->
-  </div>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue';
-import Character from 'src/models/Character';
 import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
+import Job from 'src/models/Job';
 
 export default defineComponent({
   components: {},
   props: {
-    chara: { type: Character, required: true },
+    job: { type: Object, required: true },
+    where: { type: String, required: true },
   },
-  emits: [],
+  emits: ['levelUp'],
 
   computed: {},
 
   setup(props) {
-    const theChara = ref(props.chara);
-    const cachedStats = ref(getModStatsFormatted(theChara.value.stats));
-    console.log(theChara.value.stats);
+    const theJob = ref(props.job[0] as Job);
+    const level = ref(props.job[1]);
+    const propWhere = ref(props.where);
+    const cachedStats = ref(getModStatsFormatted(theJob.value.statsPerLevel));
 
     return {
       ...props,
-      theChara,
+      theJob,
+      level,
+      propWhere,
       cachedStats,
 
       //methods
