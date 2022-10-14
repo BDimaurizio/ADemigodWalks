@@ -33,16 +33,16 @@
       <item-info-pane
         v-if="selectedItem"
         :item="selectedItem"
-        :where="directedInventoryWhere"
+        :where="directedWhere"
         :key="selectedItem"
         @equipItem="equipItem"
         @unequipItem="unequipItem"
         @discardItem="discardItem"
       ></item-info-pane>
       <JobInfoPane
-        v-if="selectedJob"
+        v-else-if="selectedJob"
         :job="selectedJob"
-        :where="directedInventoryWhere"
+        :where="directedWhere"
         :key="selectedJob"
       ></JobInfoPane>
     </q-scroll-area>
@@ -80,14 +80,15 @@ export default defineComponent({
 
     //refs
     const selectedItem = ref();
-    const directedInventoryWhere = ref('my_inventory');
+    const selectedJob = ref();
+
+    const directedWhere = ref('my_inventory');
     const directedInventory = ref();
     const itemSortingSchema = ref({
       style: 'Name',
       reverse: false,
     } as unknown as Record<string, boolean>);
     const visiblePaneStatus = ref('blank');
-    const selectedJob = ref();
 
     console.log(GenerateDeities(50));
 
@@ -117,9 +118,9 @@ export default defineComponent({
 
     function updatePanes(where?: string): void {
       if (!where) {
-        where = directedInventoryWhere.value;
+        where = directedWhere.value;
       } else {
-        directedInventoryWhere.value = where;
+        directedWhere.value = where;
       }
       if (where.includes('inventory')) {
         directedInventory.value = selectedCharacter.inventory;
@@ -129,23 +130,29 @@ export default defineComponent({
         );
       }
       update.value++;
+      if (update.value > 999) {
+        update.value = 0;
+      }
     }
 
     //chara pane
 
     function charaClicked(item: Item): void {
       selectedItem.value = item;
-      if (directedInventoryWhere.value == 'my_chara') {
+      if (directedWhere.value == 'my_chara') {
         return;
       }
       visiblePaneStatus.value = 'inventory';
-      updatePanes('my_chara');
+      changeVisiblePane('chara');
     }
 
     //called when a pane change button is pressed
     function changeVisiblePane(pane: string): void {
-      visiblePaneStatus.value = pane;
-      selectedItem.value = undefined;
+      if (pane != 'chara') {
+        selectedItem.value = undefined;
+        visiblePaneStatus.value = pane;
+      }
+      selectedJob.value = undefined;
       updatePanes('my_' + pane);
       console.log(selectedCharacter);
     }
@@ -179,7 +186,7 @@ export default defineComponent({
       selectedItem,
       selectedCharacter,
       directedInventory,
-      directedInventoryWhere,
+      directedWhere,
       itemSortingSchema,
       visiblePaneStatus,
       selectedJob,
