@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable  @typescript-eslint/no-non-null-assertion */
 import { ref, defineComponent, onMounted } from 'vue';
 import TraitTile from 'src/components/Traits/TraitTile.vue';
 import Mod from 'src/models/Mod';
@@ -54,10 +55,11 @@ export default defineComponent({
         );
       } else if (style == 'Eligibility') {
         traitListArray.value.sort((a: Mod, b: Mod) =>
-          a.eligibilityChecker(props.chara) > b.eligibilityChecker(props.chara)
+          a.eligibilityChecker!(props.chara) >
+          b.eligibilityChecker!(props.chara)
             ? 1
-            : b.eligibilityChecker(props.chara) >
-              a.eligibilityChecker(props.chara)
+            : b.eligibilityChecker!(props.chara) >
+              a.eligibilityChecker!(props.chara)
             ? -1
             : 0
         );

@@ -206,20 +206,13 @@ export default class Mod {
   public Traits: Mod[] = [];
   public Skills: Skill[] = [];
   //trait management
-  public eligibilityChecker: (character: Character) => boolean;
+  public eligibilityChecker?: (character: Character) => boolean;
 
   constructor(stats?: Partial<Mod>) {
-    this.eligibilityChecker = (character: Character): boolean => {
-      if (character) return true;
-      return false;
-    };
     if (!stats) {
       return;
     }
-    stats.eligibilityChecker = (character: Character): boolean => {
-      if (character) return true;
-      return false;
-    };
+
     return { ...new Mod(), ...stats };
   }
 }

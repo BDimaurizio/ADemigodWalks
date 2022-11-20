@@ -120,7 +120,10 @@ export default class Character {
     ]);
     const traitsToAdd: Mod[] = [];
     for (let i = 0; i < output.Traits.length; i++) {
-      if (output.Traits[i].eligibilityChecker(this)) {
+      if (
+        typeof output.Traits[i].eligibilityChecker !== 'undefined' &&
+        output.Traits[i].eligibilityChecker!(this)
+      ) {
         traitsToAdd.push(output.Traits[i]);
       }
     }
@@ -134,7 +137,10 @@ export default class Character {
     const traitFullList = this.traits;
     for (let i = 0; i < traitFullList.length; i++) {
       if (traitFullList[i].name == name) {
-        if (traitFullList[i].eligibilityChecker(this)) {
+        if (
+          typeof traitFullList[i].eligibilityChecker !== 'undefined' &&
+          traitFullList[i].eligibilityChecker!(this)
+        ) {
           return true;
         }
         return false;
