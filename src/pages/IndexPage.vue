@@ -1,52 +1,54 @@
 <template>
-  <q-page class="row justify-evenly flex pane">
-    <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
-      <CharacterPane
-        :chara="selectedCharacter"
-        :key="update"
-        @charaClicked="charaClicked"
-        @changePane="changeVisiblePane"
-      >
-      </CharacterPane>
-    </q-scroll-area>
-    <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
-      <InventoryPane
-        v-if="visiblePaneStatus == 'inventory'"
-        :inventory="directedInventory"
-        :item-sorting-schema="itemSortingSchema"
-        @inventoryClicked="inventoryTileClicked"
-        @updateSortingSchema="updateSortingSchema"
-        :key="update"
-      ></InventoryPane>
-      <StatsPane
-        v-else-if="visiblePaneStatus == 'stats'"
-        :chara="selectedCharacter"
-      ></StatsPane>
-      <JobPane
-        v-else-if="visiblePaneStatus == 'class'"
-        :jobList="selectedCharacter.jobs"
-        :job-sorting-schema="itemSortingSchema"
-        @jobClicked="jobTileClicked"
-      ></JobPane>
-    </q-scroll-area>
-    <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
-      <item-info-pane
-        v-if="selectedItem"
-        :item="selectedItem"
-        :where="directedWhere"
-        :key="selectedItem"
-        @equipItem="equipItem"
-        @unequipItem="unequipItem"
-        @discardItem="discardItem"
-      ></item-info-pane>
-      <JobInfoPane
-        v-else-if="selectedJob"
-        :job="selectedJob"
-        :where="directedWhere"
-        :key="selectedJob"
-      ></JobInfoPane>
-    </q-scroll-area>
-  </q-page>
+  <q-page-container>
+    <q-page class="row justify-evenly flex pane">
+      <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
+        <CharacterPane
+          :chara="selectedCharacter"
+          :key="update"
+          @charaClicked="charaClicked"
+          @changePane="changeVisiblePane"
+        >
+        </CharacterPane>
+      </q-scroll-area>
+      <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
+        <InventoryPane
+          v-if="visiblePaneStatus == 'inventory'"
+          :inventory="directedInventory"
+          :item-sorting-schema="itemSortingSchema"
+          @inventoryClicked="inventoryTileClicked"
+          @updateSortingSchema="updateSortingSchema"
+          :key="update"
+        ></InventoryPane>
+        <StatsPane
+          v-else-if="visiblePaneStatus == 'stats'"
+          :chara="selectedCharacter"
+        ></StatsPane>
+        <JobPane
+          v-else-if="visiblePaneStatus == 'class'"
+          :jobList="selectedCharacter.jobs"
+          :job-sorting-schema="itemSortingSchema"
+          @jobClicked="jobTileClicked"
+        ></JobPane>
+      </q-scroll-area>
+      <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
+        <item-info-pane
+          v-if="selectedItem"
+          :item="selectedItem"
+          :where="directedWhere"
+          :key="selectedItem"
+          @equipItem="equipItem"
+          @unequipItem="unequipItem"
+          @discardItem="discardItem"
+        ></item-info-pane>
+        <JobInfoPane
+          v-else-if="selectedJob"
+          :job="selectedJob"
+          :where="directedWhere"
+          :key="selectedJob"
+        ></JobInfoPane>
+      </q-scroll-area>
+    </q-page>
+  </q-page-container>
 </template>
 
 <script lang="ts">

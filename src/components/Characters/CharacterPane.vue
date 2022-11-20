@@ -108,8 +108,7 @@
       <div class="full-height charaSheetBox"></div>
     </div>
   </div>
-
-  <div class="row justify-center q-mt-xl">
+  <div class="row justify-center">
     <q-btn
       class="col-5 q-pa-sm q-ma-sm"
       label="Stats"
@@ -226,8 +225,9 @@ export default defineComponent({
   background-image: URL('src/assets/equipmentScreen.png');
   background-size: cover;
   background-repeat: no-repeat;
+  min-height: 1px;
+  max-height: 40vh;
   min-width: 1px;
-  max-width: 450px;
   aspect-ratio: 1;
   margin: auto;
 }
