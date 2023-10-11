@@ -1,6 +1,6 @@
 <template>
-  <h4 style="vertical-align: bottom">{{ theChara.name }}</h4>
-  <div>{{ theChara.jobTitle }}</div>
+  <h4 style="vertical-align: bottom">{{ chara.name }}</h4>
+  <div>{{ chara.jobTitle }}</div>
   <q-separator />
   <pre
     v-if="cachedStats"
@@ -43,13 +43,11 @@ export default defineComponent({
   computed: {},
 
   setup(props) {
-    const theChara = ref(props.chara);
-    const cachedStats = ref(getModStatsFormatted(theChara.value.stats));
-    console.log(theChara.value.stats);
+    const cachedStats = ref(getModStatsFormatted(props.chara.stats));
+    console.log(props.chara.stats);
 
     return {
       ...props,
-      theChara,
       cachedStats,
 
       //methods

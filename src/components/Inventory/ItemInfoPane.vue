@@ -75,7 +75,7 @@ export default defineComponent({
   setup(props, context) {
     const theItem = ref(props.item.computeStats);
     const propWhere = ref(props.where);
-    const cachedStats = ref(getModStatsFormatted(theItem.value));
+    const cachedStats = ref(getModStatsFormatted(theItem.value, true));
 
     function onClickEquip() {
       context.emit('equipItem', props.item);

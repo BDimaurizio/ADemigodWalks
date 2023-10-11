@@ -4,12 +4,27 @@
     <q-btn class="col" label="Name" @click="sort('Name')"></q-btn>
     <q-btn class="col" label="Level" @click="sort('Level')"></q-btn>
   </div>
+  <h5>Trained Classes:</h5>
   <div
     class="q-ma-sm row"
     v-for="(jobObject, index) in jobArray"
     :key="jobObject"
   >
     <job-tile
+      v-if="jobObject[1] > 0"
+      class="col"
+      :job="jobObject"
+      @jobClicked="jobClicked(jobObject, index)"
+    ></job-tile>
+  </div>
+  <h5>Potential Classes:</h5>
+  <div
+    class="q-ma-sm row"
+    v-for="(jobObject, index) in jobArray"
+    :key="jobObject"
+  >
+    <job-tile
+      v-if="jobObject[1] < 1"
       class="col"
       :job="jobObject"
       @jobClicked="jobClicked(jobObject, index)"
@@ -25,7 +40,7 @@ import JobTile from './JobTile.vue';
 export default defineComponent({
   components: { JobTile },
   props: {
-    jobList: { type: Object, required: true },
+    jobList: { type: Object, required: true }, // array of tuples [job : object, level : integer]
     jobSortingSchema: { type: Object, required: true },
   },
   emits: ['jobClicked', 'updateSortingSchema'],
@@ -38,6 +53,7 @@ export default defineComponent({
     let prevIndex = -1;
 
     function jobClicked(item: [Job, number], index: number): void {
+      console.log(props.jobList);
       if (index == prevIndex) {
         return;
       }

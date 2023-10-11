@@ -20,7 +20,7 @@ const Aspects: Aspect[] = [
   {
     name: 'Battle',
     tagName: 'Battle',
-    description: 'NONE',
+    description: 'god of blattle and combat bro',
     altDescription: 'NONE',
     friendlyAspects: [
       'Might',
@@ -116,7 +116,7 @@ const Aspects: Aspect[] = [
   {
     name: 'Flame',
     tagName: 'Flame',
-    description: 'NONE',
+    description: 'fire',
     altDescription: 'NONE',
     friendlyAspects: ['Day', 'Forge', 'Magic', 'Light', 'Storm'],
     enemyAspects: ['Frost', 'Water', 'Commerce', 'Beasts'],

@@ -1,5 +1,5 @@
 <template>
-  <h4>{{ theJob.name }}</h4>
+  <h4>{{ job[0].name }}</h4>
 
   <q-separator />
   Stats per level:
@@ -21,70 +21,91 @@
   <div class="row">
     <div
       class="col-12 row levelGrid"
-      v-for="(trait, index) in theJob.traits"
+      v-for="(trait, index) in job[0].traits"
       :key="trait.name"
     >
-      <div v-if="index <= level" class="row col-12 activated">
+      <div v-if="index <= job[1]" class="row col-12 activated">
         <div class="col-2 levelGrid">{{ index }}</div>
         <div class="col-5 levelGrid">{{ notNone(trait.name) }}</div>
         <div class="col-5 levelGrid">
-          {{ notNone(theJob.skills[index].name) }}
+          {{ notNone(job[0].skills[index].name) }}
         </div>
       </div>
       <div v-else class="row col-12 unactivated">
         <div class="col-2 levelGrid">{{ index }}</div>
         <div class="col-5 levelGrid">{{ notNone(trait.name) }}</div>
         <div class="col-5 levelGrid">
-          {{ notNone(theJob.skills[index].name) }}
+          {{ notNone(job[0].skills[index].name) }}
         </div>
       </div>
     </div>
   </div>
   <q-separator />
-  <div class="row justify-center q-mt-xl">
-    <q-btn label="Level Up" class="col-5 q-pa-sm q-ma-sm"></q-btn>
-    <div class="col-5 q-pa-sm q-ma-sm">(costs {{ 100 + level * 10 }} EXP)</div>
+  <div class="row justify-center q-mt-xl" v-if="job[1] < 10">
+    <q-btn
+      label="Level Up"
+      class="col-5 q-pa-sm q-ma-sm"
+      :disable="expRequired(job[1]) > expToSpendReactive"
+      @click="levelup"
+    ></q-btn>
+    <div>
+      <div class="col-5 q-pa-sm q-ma-sm">
+        (costs {{ expRequired(job[1]) }} EXP)
+      </div>
+      <div>(You have {{ expToSpendReactive }} EXP)</div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, computed } from 'vue';
 import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
 import Job from 'src/models/Job';
 
 export default defineComponent({
   components: {},
   props: {
-    job: { type: Object, required: true },
+    job: { type: Object, required: true }, //duple. [0] is the job, [1] is the level
     where: { type: String, required: true },
+    expToSpend: { type: Number, required: true },
   },
   emits: ['levelUp'],
 
-  computed: {},
-
-  setup(props) {
-    const theJob = ref(props.job[0] as Job);
-    const level = ref(props.job[1]);
-    const propWhere = ref(props.where);
-    const cachedStats = ref(getModStatsFormatted(theJob.value.statsPerLevel));
+  setup(props, context) {
+    const cachedStats = ref(getModStatsFormatted(props.job[0].statsPerLevel));
 
     function notNone(name: string): string {
-      // TODO make these clickable and take you to the appropriate trait/skill page!
+      // TODO make these clickable and take you to the appropriate trait/skill page
       if (name == 'NONE') {
         return ' ';
       }
       return name;
     }
 
+    function levelup() {
+      if (expRequired(props.job[1]) <= props.expToSpend) {
+        const result: [Job, number, number] = [
+          props.job[0],
+          props.job[1],
+          expRequired(props.job[1]),
+        ];
+        context.emit('levelUp', result);
+      }
+    }
+
+    function expRequired(currentLevel: number): number {
+      return 100 + currentLevel * 15;
+    }
+
     return {
       ...props,
-      theJob,
-      level,
-      propWhere,
       cachedStats,
+      expToSpendReactive: computed(() => props.expToSpend),
 
       //methods
       notNone,
+      levelup,
+      expRequired,
     };
   },
 });

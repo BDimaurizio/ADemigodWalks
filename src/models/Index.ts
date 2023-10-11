@@ -165,34 +165,25 @@ export type ImportantStatPossibility =
   | 'DEX'
   | 'AGI'
   | 'INT'
-  | 'WIS'
+  | 'FAI'
   | 'WIL'
   | 'CHA'
   | 'LUK'
   | 'Accuracy'
   | 'Clarity'
   | 'Attack'
-  | 'Finesse'
   | 'Arcana'
   | 'CriticalChance'
   | 'CriticalDamage'
-  | 'Evasion'
-  | 'Supression'
   | 'Armor'
+  | 'Evasion'
   | 'Deflect'
+  | 'Block'
+  | 'Parry'
+  | 'Supression'
   | 'Ward'
   | 'PhysicalStatusResist'
   | 'MentalStatusResist'
-  | 'JudgementAmplification'
-  | 'PhysicalAmplification'
-  | 'PiercingAmplification'
-  | 'ToxicAmplification'
-  | 'PsychicAmplification'
-  | 'JudgementResist'
-  | 'PhysicalResist'
-  | 'PiercingResist'
-  | 'ToxicResist'
-  | 'PsychicResist'
   | 'AlchemyAffinity'
   | 'ArtAffinity'
   | 'BattleAffinity'
@@ -320,7 +311,7 @@ export const statArray: ImportantStatPossibility[] = [
   'DEX',
   'AGI',
   'INT',
-  'WIS',
+  'FAI',
   'WIL',
   'CHA',
   'LUK',
@@ -330,27 +321,19 @@ export const statArray: ImportantStatPossibility[] = [
   'Accuracy',
   'Clarity',
   'Attack',
-  'Finesse',
   'Arcana',
   'CriticalChance',
   'CriticalDamage',
-  'Evasion',
   'Supression',
   'Armor',
+  'Evasion',
   'Deflect',
+  'Block',
+  'Parry',
+  'Supression',
   'Ward',
   'PhysicalStatusResist',
   'MentalStatusResist',
-  'JudgementAmplification',
-  'PhysicalAmplification',
-  'PiercingAmplification',
-  'ToxicAmplification',
-  'PsychicAmplification',
-  'JudgementResist',
-  'PhysicalResist',
-  'PiercingResist',
-  'ToxicResist',
-  'PsychicResist',
   'AlchemyAffinity',
   'ArtAffinity',
   'BattleAffinity',
@@ -438,9 +421,48 @@ export const statArray: ImportantStatPossibility[] = [
 
 export class Aspect {
   public name!: string;
-  public tagName!: Tag;
+  public tagName!: AspectName;
   public description!: string;
   public altDescription!: string;
   public friendlyAspects!: Tag[];
   public enemyAspects!: Tag[];
 }
+
+export type AspectName =
+  | 'Alchemy'
+  | 'Art'
+  | 'Battle'
+  | 'Beasts'
+  | 'Blood'
+  | 'Chaos'
+  | 'Commerce'
+  | 'Creation'
+  | 'Shadow'
+  | 'Death'
+  | 'Destruction'
+  | 'Flame'
+  | 'Feasts'
+  | 'Frost'
+  | 'Honor'
+  | 'Humility'
+  | 'Knowledge'
+  | 'Life'
+  | 'Light'
+  | 'Love'
+  | 'Madness'
+  | 'Magic'
+  | 'Might'
+  | 'Nature'
+  | 'Pain'
+  | 'Plague'
+  | 'Stone'
+  | 'Revelry'
+  | 'Forge'
+  | 'Moon'
+  | 'Water'
+  | 'Storm'
+  | 'Stars'
+  | 'Day'
+  | 'Time'
+  | 'Trickery'
+  | 'Wind';

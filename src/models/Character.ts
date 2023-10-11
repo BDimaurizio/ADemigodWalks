@@ -13,7 +13,7 @@ export default class Character {
   public gender: Gender = 'Male';
   public age: number = 25;
   public jobs: [Job, number][] = [];
-  public permanentMod: Mod = new Mod(); //naturaltraits and naturalskills included
+  public tackedOnMod: Mod = new Mod(); //naturaltraits and naturalskills included, as well as temporary debuffs in the form of traits
 
   public currentHP: number = 1;
   public currentMP: number = 0;
@@ -98,7 +98,7 @@ export default class Character {
 
   get traits(): Mod[] {
     return removeDuplicates([
-      ...this.permanentMod.Traits,
+      ...this.tackedOnMod.Traits,
       ...this.equipmentStats.Traits,
       ...this.jobStats.Traits,
     ]);
@@ -106,31 +106,47 @@ export default class Character {
 
   get skills(): Skill[] {
     return removeDuplicates([
-      ...this.permanentMod.Skills,
+      ...this.tackedOnMod.Skills,
       ...this.equipmentStats.Skills,
       ...this.jobStats.Skills,
     ]);
   }
 
   get stats(): Mod {
+    //stats from
     let output = combineMods([
-      this.permanentMod,
+      this.tackedOnMod,
       this.equipmentStats,
       this.jobStats,
     ]);
-    const traitsToAdd: Mod[] = [];
+
     for (let i = 0; i < output.Traits.length; i++) {
       if (
         typeof output.Traits[i].eligibilityChecker !== 'undefined' &&
         output.Traits[i].eligibilityChecker!(this)
       ) {
-        traitsToAdd.push(output.Traits[i]);
+        output = combineMods([output, output.Traits[i]]);
       }
     }
-    if (traitsToAdd.length > 0) {
-      output = combineMods([output, ...traitsToAdd]);
-    }
-    return output;
+
+    return this.applyDerivedStats(output);
+  }
+
+  get statsWithoutTraits(): Mod {
+    const output = combineMods([
+      this.tackedOnMod,
+      this.equipmentStats,
+      this.jobStats,
+    ]);
+
+    return this.applyDerivedStats(output);
+  }
+
+  private applyDerivedStats(mod: Mod): Mod {
+    mod.HP += mod.VIT;
+    //...etc TODO
+
+    return mod;
   }
 
   public isTraitExistAndEligible(name: string): boolean {

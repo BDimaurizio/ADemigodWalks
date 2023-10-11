@@ -13,6 +13,7 @@ const ModList: Partial<Mod>[] = [
     description: 'curz',
     rarity: 0,
     tags: ['NONE'],
+    MaxRunes: -3,
   },
 ];
 

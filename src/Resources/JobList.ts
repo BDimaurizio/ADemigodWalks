@@ -5,7 +5,7 @@ const JobList: Job[] = [
   new Job(
     'Bug Catcher',
     new Mod({
-      PsychicAmplification: 7,
+      WIL: 7,
     }),
     ['Healthy Time', 'Trait 2'],
     [5, 6],

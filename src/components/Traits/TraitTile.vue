@@ -2,47 +2,36 @@
   <q-card
     class="row flex inventoryItem clickable cursor-pointer"
     style="outline: 2px ridge rgba(50, 0, 0, 0.5)"
+    :dark="!active"
     @click="inventoryClicked"
   >
     <div class="col text-h5 vertical-center">
-      {{ itemName }}
+      {{ name }}
     </div>
   </q-card>
 </template>
 
 <script lang="ts">
-import Item from 'src/models/Item';
-import { ref, defineComponent } from 'vue';
+//import Mod from 'src/models/Mod';
+import { computed, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {},
   props: {
-    item: { type: Item, required: true },
+    trait: { type: Object, required: true },
+    active: { type: Boolean, required: true },
   },
   emits: ['inventoryClicked'],
 
-  computed: {
-    itemName(): string {
-      return this.item.fullName;
-    },
-    itemRarityColor(): string {
-      return this.item.rarityColor;
-    },
-  },
-
   setup(props, context) {
-    const theItem = ref(props.item.computeStats);
-
-    const iconPath = ref(props.item.inventoryIcon);
-
     function inventoryClicked() {
       context.emit('inventoryClicked');
     }
 
     return {
       ...props,
-      theItem,
-      iconPath,
+      name: computed(() => props.trait.name),
+      colour: computed(() => (props.active ? 'red' : 'white')),
 
       //methods
       inventoryClicked,

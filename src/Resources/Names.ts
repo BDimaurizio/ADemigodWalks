@@ -248,7 +248,6 @@ export default [
   'Istiwi',
   'Couwu',
   'Oheeci',
-  'Noun',
   'Neechee',
   'Astacu',
   'Kout',
@@ -2452,7 +2451,7 @@ export default [
   'Dic',
   'Ujeejee',
   'Ejeehu',
-  'Base',
+  'Beelzebub',
   'Zah',
   'Ogoube',
   'Ostaf',
@@ -11029,4 +11028,6 @@ export default [
   'Hoku',
   'Nagash',
   'Phos',
+  'Homura',
+  'Dio',
 ];

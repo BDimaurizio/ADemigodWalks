@@ -7,26 +7,39 @@ import {
 
 const modType: ModType = 'TRAIT';
 
+//reminder: do NOT call character.stats in eligibilitychecker. call character.statsWithoutTraits instead
+
 const ModList: Partial<Mod>[] = [
   {
     name: 'Healthy Time',
-    description: 'hehe',
+    description: 'helthy time trait descriptionnnnn',
     rarity: 0,
-    CHA: 99,
+    HP: 99,
     tags: ['Feasts'],
     eligibilityChecker(character) {
-      if (character.currentHP > 5) return true;
+      if (character.statsWithoutTraits.VIT > 5) return true;
       return false;
     },
   },
   {
     name: 'Trait 2',
-    description: 'hehe',
+    description: 'trait 2 example description - this trait gives +10 crafting',
     rarity: 0,
     Crafting: 10,
-    tags: ['TAILORING'],
+    tags: [],
     eligibilityChecker(character) {
       if (character.currentHP < 5) return true;
+      return false;
+    },
+  },
+  {
+    name: 'Hat Wearer',
+    description: 'a trait that gives you +10 INT while wearing a hat',
+    rarity: 0,
+    INT: 10,
+    tags: ['TAILORING'],
+    eligibilityChecker(character) {
+      if (character.equippedItems[2]) return true;
       return false;
     },
   },
@@ -53,7 +66,7 @@ export function getTraitByCriteria(
   return getModByCriteria(
     ModList,
     modType,
-    tags,
+    tags, //oneofthese
     minRarity,
     maxRarity,
     exclusionTags,

@@ -15,6 +15,7 @@ export default class Mod {
   public rarity = 0;
   public aspects: Aspect[] = [];
   public tags: Tag[] = [];
+  public requiredTags: Tag[] = [];
   public description = 'NONE';
   public price = 0;
   public priceMultiplier = 0; // 1 point = 10% additional cost
@@ -42,43 +43,31 @@ export default class Mod {
   //primary stats
   public VIT = 0; //maxhp, maxsp, physicalstatusresist,
   public STR = 0; //attack, criticaldamage, mining
-  public DEX = 0; //accuracy, finesse, trapping
+  public DEX = 0; //accuracy, trapping, DEFLECT, PARRY
   public AGI = 0; //evasion, foraging, stealth,
   public INT = 0; //arcana, criticalchance, maxmp, crafting
-  public WIS = 0; //clarity, (WIS added to all positive affinity + opinion)
+  public FAI = 0; //clarity, (FAI added to all positive affinity + opinion)
   public WIL = 0; //ward, mentalstatusresist, (WIL added to all positive resists)
   public CHA = 0; //leadership, diplomacy, bargaining
   public LUK = 0;
   //offensive stats
   public Accuracy = 0; //chance to hit (physical & piercing attacks)
   public Clarity = 0; //chance to hit (magic attacks)
-  public Attack = 0; //damage bonus (physical attacks)
-  public Finesse = 0; //damage bonus (piercing attacks)
-  public Arcana = 0; //damage bonus (magic attacks)
+  public Attack = 0; //weapon attack damage
+  public Arcana = 0; //spell attack damage
   public CriticalChance = 0;
   public CriticalDamage = 0;
   //defensive stats
-  public Evasion = 0; //reduce accuracy
-  public Supression = 0; //reduce clarity
-  public Armor = 0; //reduce damage from sources without 'piercing' or 'magic' tags
-  public Deflect = 0; //reduce 'piercing' damage
-  public Ward = 0; //reduce 'magic' damage
+  public Armor = 0;
+  public Evasion = 0;
+  public Deflect = 0;
+  public Block = 0;
+  public Parry = 0;
+  public Supression = 0;
+  public Ward = 0;
   public PhysicalStatusResist = 0;
   public MentalStatusResist = 0;
-  //damage type stats | offensive = amplification/deficiency (increases damage/activates other effects)  | Amplification/Deficiency
-  public JudgementAmplification = 0;
-  public PhysicalAmplification = 0;
-  public PiercingAmplification = 0;
-  public ToxicAmplification = 0;
-  public PsychicAmplification = 0;
-  //damage type stats | defensive = resist/vulnerability (decreases damage/resists statuses) |
-  //(some damage types overlap with aspects: flame, frost, light, shadow, chaos, storm, magic)
-  public JudgementResist = 0;
-  public PhysicalResist = 0;
-  public PiercingResist = 0;
-  public ToxicResist = 0;
-  public PsychicResist = 0;
-  //aspect stats | offensive = affinity/deficiency (increases damage/activates other effects) | get via Character.ComputeStats[`${aspect.name}affinity`]
+  //aspect stats | offensive = affinity/deficiency (increases damage/activates other effects) | get via Character.ComputeStats[`${aspect.tagName}affinity`]
   public AlchemyAffinity = 0;
   public ArtAffinity = 0;
   public BattleAffinity = 0;
@@ -154,7 +143,7 @@ export default class Mod {
   public TimeResist = 0;
   public TrickeryResist = 0;
   public WindResist = 0;
-  //aspect stats | opinion | get via Character.ComputeStats[`${aspect.name}affinity`]
+  //aspect stats | opinion | get via Character.ComputeStats[`${aspect.tagName}affinity`]
   public AlchemyOpinion = 0;
   public ArtOpinion = 0;
   public BattleOpinion = 0;

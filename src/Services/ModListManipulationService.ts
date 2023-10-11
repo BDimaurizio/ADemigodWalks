@@ -98,7 +98,10 @@ export function combineMods(modList: Mod[]): Mod {
   return output;
 }
 
-export function getModStatsFormatted(theMod: Mod): [string, string] {
+export function getModStatsFormatted(
+  theMod: Mod,
+  enablePlus: boolean = false
+): [string, string] {
   //positive values in the first tuple element, negative values in the second tuple element
   const output: [string, string] = ['', ''];
   for (let i = 0; i < statArray.length; i++) {
@@ -106,20 +109,25 @@ export function getModStatsFormatted(theMod: Mod): [string, string] {
     const value: number = theMod[statArray[i]];
     if (value == 0) continue;
 
+    let colon = ': ';
+    if (value > 0 && enablePlus) {
+      colon = colon + '+';
+    }
+
     if (statArray[i].toUpperCase() == statArray[i]) {
       if (
         statArray[i] == 'HP' ||
         statArray[i] == 'MP' ||
         statArray[i] == 'SP'
       ) {
-        stringBuilder = 'Maximum ';
+        stringBuilder = stringBuilder + 'Maximum ';
       }
-      stringBuilder = stringBuilder + statArray[i] + ': ' + value;
+      stringBuilder = stringBuilder + statArray[i] + colon + value;
     } else {
-      stringBuilder = statArray[i].toString();
+      stringBuilder = stringBuilder + statArray[i].toString();
       stringBuilder = stringBuilder.replace(/([A-Z])/g, ' $1').trim();
       stringBuilder = stringBuilder.replace('Resist', 'Resistance');
-      stringBuilder = stringBuilder + ': ' + value;
+      stringBuilder = stringBuilder + colon + value;
     }
 
     if (value > 0) {

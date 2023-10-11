@@ -10,8 +10,24 @@
     :key="trait"
   >
     <TraitTile
+      v-if="trait.eligibilityChecker(chara)"
       class="col"
-      :item="trait"
+      :trait="trait"
+      :active="true"
+      @inventoryClicked="traitClicked(trait, index)"
+    ></TraitTile>
+  </div>
+  <q-separator />
+  <div
+    class="q-ma-sm row"
+    v-for="(trait, index) in traitListArray"
+    :key="trait"
+  >
+    <TraitTile
+      v-if="!trait.eligibilityChecker(chara)"
+      class="col"
+      :trait="trait"
+      :active="false"
       @inventoryClicked="traitClicked(trait, index)"
     ></TraitTile>
   </div>

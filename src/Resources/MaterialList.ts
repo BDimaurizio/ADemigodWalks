@@ -67,13 +67,18 @@ const ModList: Partial<Mod>[] = [
     description: 'material',
     rarity: 1,
     ChaosResist: 1,
+    FAI: 33,
     tags: ['WOOD'],
   },
   {
     name: 'Thornwood',
     description: 'material',
     rarity: 1,
+    HP: 5,
+    MP: 6,
     ChaosResist: 11,
+    ArtAffinity: 55,
+    ArtOpinion: 26,
     tags: ['WOOD'],
   },
   {
