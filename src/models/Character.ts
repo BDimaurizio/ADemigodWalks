@@ -4,7 +4,7 @@ import Item from './Item';
 import Mod from './Mod';
 import Job from './Job';
 import { combineMods } from 'src/Services/ModListManipulationService';
-import { Gender, Tag } from './Index';
+import { Gender, OpinionArray, ResistArray, Tag } from './Index';
 import Skill from './Skill';
 import { removeDuplicates } from 'src/Services/Funcs';
 
@@ -143,8 +143,56 @@ export default class Character {
   }
 
   private applyDerivedStats(mod: Mod): Mod {
+    const OpinionTags = OpinionArray;
+    const ResistTags = ResistArray;
+    //VIT
     mod.HP += mod.VIT;
-    //...etc TODO
+    mod.SP += mod.VIT;
+    if (mod.PhysicalStatusResist > 0) mod.PhysicalStatusResist += mod.VIT;
+    //STR
+    mod.Attack += mod.STR;
+    mod.CriticalDamage += mod.STR;
+    if (mod.Mining > 0) mod.Mining += mod.STR;
+    //DEX
+    mod.Accuracy += mod.DEX;
+    if (mod.Deflect > 0) mod.Deflect += mod.DEX;
+    if (mod.Parry > 0) mod.Parry += mod.DEX;
+    //AGI
+    mod.Evasion += mod.AGI;
+    if (mod.Stealth > 0) mod.Stealth += mod.AGI;
+    if (mod.Survival > 0) mod.Survival += mod.AGI;
+    //INT
+    mod.Arcana += mod.INT;
+    mod.CriticalChance += mod.INT;
+    mod.MP += mod.INT;
+    mod.Crafting += mod.INT;
+    //FAI
+    mod.Clarity += mod.FAI;
+    if (mod.Medicine > 0) mod.Medicine += mod.FAI;
+    for (let i = 0; i < OpinionTags.length; i++) {
+      if (mod[OpinionTags[i]] > 9) {
+        mod[OpinionTags[i]] += mod.FAI;
+      } else if (mod[OpinionTags[i]] < -9) {
+        mod[OpinionTags[i]] += mod.FAI / 3;
+      }
+    }
+    //WIL
+    if (mod.Ward > 0) mod.Ward += mod.WIL;
+    if (mod.MentalStatusResist > 0) mod.MentalStatusResist += mod.WIL;
+    for (let i = 0; i < ResistTags.length; i++) {
+      if (mod[ResistTags[i]] > 0) {
+        mod[ResistTags[i]] += mod.FAI;
+      }
+    }
+    //CHA
+    mod.Leadership += mod.CHA;
+    mod.Diplomacy += mod.CHA;
+    mod.Bargaining += mod.CHA;
+    //LUK
+    mod.CriticalChance += mod.LUK;
+    //trait-based bonuses
+    //if (you have the trait Intimidating) mod.Leadership += mod.STR
+    //etc.....
 
     return mod;
   }
@@ -222,8 +270,13 @@ export default class Character {
         index = 6;
         break;
       case 'Trinket':
-        this.equippedTrinkets.push(item);
-        return true;
+        if (this.stats.Attunement > this.equippedTrinkets.length) {
+          this.equippedTrinkets.push(item);
+          return true;
+        } else {
+          this.inventory.push(item);
+          return false;
+        }
       default:
         return false;
     }

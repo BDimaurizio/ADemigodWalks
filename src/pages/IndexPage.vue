@@ -70,7 +70,7 @@
         ></DeityDetailsPane>
         <TraitInfoPane
           v-else-if="selectedTrait"
-          :trait="selectedTrait"
+          :trait="(selectedTrait as Mod)"
           :active="true"
           :key="selectedTrait"
         ></TraitInfoPane>
@@ -124,6 +124,7 @@ export default defineComponent({
     const selectedJob = ref();
     const selectedDeity = ref();
     const selectedTrait = ref();
+    const selectedSpell = ref();
 
     const directedWhere = ref('my_inventory');
     const directedInventory = ref();
@@ -210,6 +211,8 @@ export default defineComponent({
       }
       selectedJob.value = undefined;
       selectedDeity.value = undefined;
+      selectedTrait.value = undefined;
+      selectedSpell.value = undefined;
       updatePanes('my_' + pane);
       console.log(selectedCharacter.value);
     }
@@ -275,6 +278,7 @@ export default defineComponent({
       pantheon,
       selectedDeity,
       selectedTrait,
+      selectedSpell,
 
       //keys
       update,

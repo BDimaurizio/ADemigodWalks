@@ -11,8 +11,17 @@ const modType: ModType = 'TRAIT';
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'Healthy Time',
-    description: 'helthy time trait descriptionnnnn',
+    name: 'Test Trait',
+    description: 'gihierbhlearvke',
+    rarity: 99999,
+    tags: [],
+    eligibilityChecker() {
+      return false;
+    },
+  },
+  {
+    name: 'Super Duper Healthy',
+    description: 'test trait - gives you 99 hp if you have at least 6 VIT',
     rarity: 0,
     HP: 99,
     tags: ['Feasts'],
@@ -22,8 +31,9 @@ const ModList: Partial<Mod>[] = [
     },
   },
   {
-    name: 'Trait 2',
-    description: 'trait 2 example description - this trait gives +10 crafting',
+    name: 'Low Health Crafter',
+    description:
+      'test trait - this trait gives +10 crafting if your current HP is below 5',
     rarity: 0,
     Crafting: 10,
     tags: [],
@@ -34,7 +44,8 @@ const ModList: Partial<Mod>[] = [
   },
   {
     name: 'Hat Wearer',
-    description: 'a trait that gives you +10 INT while wearing a hat',
+    description:
+      'test trait - a trait that gives you +10 INT while wearing a hat',
     rarity: 0,
     INT: 10,
     tags: ['TAILORING'],

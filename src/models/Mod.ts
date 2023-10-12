@@ -35,7 +35,7 @@ export default class Mod {
   public MaxSockets = 0;
   public MaxRunes = 0;
   public MaxEnchantments = 0;
-  public MaxTrinkets = 0;
+  public Attunement = 0; //max trinkets
   //fluctuating stats (max only)
   public HP = 0;
   public MP = 0;
@@ -43,8 +43,8 @@ export default class Mod {
   //primary stats
   public VIT = 0; //maxhp, maxsp, physicalstatusresist,
   public STR = 0; //attack, criticaldamage, mining
-  public DEX = 0; //accuracy, trapping, DEFLECT, PARRY
-  public AGI = 0; //evasion, foraging, stealth,
+  public DEX = 0; //accuracy, DEFLECT, PARRY
+  public AGI = 0; //evasion, stealth, survival
   public INT = 0; //arcana, criticalchance, maxmp, crafting
   public FAI = 0; //clarity, (FAI added to all positive affinity + opinion)
   public WIL = 0; //ward, mentalstatusresist, (WIL added to all positive resists)
@@ -186,8 +186,7 @@ export default class Mod {
   public Diplomacy = 0;
   public Bargaining = 0;
   public Crafting = 0; //traits: Carpentry, Smithing, Jewlerymaking, Engineering, Runesmithing, Gemcutting, Enchanting, etc...
-  public Foraging = 0; //includes herblore
-  public Trapping = 0; //includes skinning
+  public Survival = 0; //includes foraging, herblore, trapping, skinning
   public Mining = 0;
   public Stealth = 0;
   public Medicine = 0;

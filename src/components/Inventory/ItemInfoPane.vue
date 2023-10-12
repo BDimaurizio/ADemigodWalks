@@ -79,7 +79,7 @@ export default defineComponent({
 
     function onClickEquip() {
       context.emit('equipItem', props.item);
-      propWhere.value = 'my_chara';
+      propWhere.value = 'my_chara'; //todo fix this switching the button to unequip even if the equip is unsucessful
     }
 
     function onClickUnequip() {

@@ -21,18 +21,17 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue';
+import { defineComponent, computed } from 'vue';
 //import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
-import Mod from 'src/models/Mod';
 
 export default defineComponent({
   components: {},
   props: {
-    trait: { type: Mod, required: true },
+    trait: { type: Object, required: true },
     active: { type: Boolean, required: true },
   },
 
-  setup(props, context) {
+  setup(props) {
     //const cachedStats = ref(getModStatsFormatted(props.trait));
 
     return {

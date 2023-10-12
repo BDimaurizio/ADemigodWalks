@@ -136,7 +136,7 @@
     ></q-btn>
     <q-btn
       class="col-5 q-pa-sm q-ma-sm"
-      label="Skills"
+      label="Skills / Spells"
       @click="changePane('skills')"
     ></q-btn>
     <q-btn

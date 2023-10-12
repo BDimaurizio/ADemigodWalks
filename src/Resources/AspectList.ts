@@ -412,3 +412,11 @@ export function getAspect(tagName: Tag): Aspect {
 export function getAllAspects(): Aspect[] {
   return Aspects.slice();
 }
+
+export function getAllAspectTags(): string[] {
+  const result = [];
+  for (let i = 0; i < Aspects.length; i++) {
+    result.push(Aspects[i].tagName);
+  }
+  return result;
+}

@@ -1303,5 +1303,5 @@ export default [
   'Yellow',
   'Young',
   'Zealous',
-  'Zigzag',
+  'Succulent',
 ];

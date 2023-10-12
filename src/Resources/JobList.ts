@@ -6,9 +6,10 @@ const JobList: Job[] = [
     'Bug Catcher',
     new Mod({
       WIL: 7,
+      Attunement: 1,
     }),
-    ['Healthy Time', 'Trait 2'],
-    [5, 6],
+    ['Super Duper Healthy', 'Low Health Crafter', 'wergwer'],
+    [5, 6, 7],
     ['Fireball'],
     [3]
   ),
@@ -19,7 +20,7 @@ const JobList: Job[] = [
       DEX: 1,
       INT: 1,
     }),
-    ['Healthy Time', 'Trait 2'],
+    ['Super Duper Healthy', 'Low Health Crafter'],
     [5, 6],
     ['Fireball'],
     [3]
@@ -29,7 +30,7 @@ const JobList: Job[] = [
     new Mod({
       LUK: 1,
     }),
-    ['Healthy Time', 'Trait 2'],
+    ['Super Duper Healthy', 'Low Health Crafter'],
     [2, 4],
     ['Fireball'],
     [9]

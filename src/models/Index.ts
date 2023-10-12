@@ -156,7 +156,7 @@ export type ImportantStatPossibility =
   | 'MaxSockets'
   | 'MaxRunes'
   | 'MaxEnchantments'
-  | 'MaxTrinkets'
+  | 'Attunement'
   | 'HP'
   | 'MP'
   | 'SP'
@@ -299,13 +299,15 @@ export type ImportantStatPossibility =
   | 'Diplomacy'
   | 'Bargaining'
   | 'Crafting'
-  | 'Foraging'
-  | 'Trapping'
+  | 'Survival'
   | 'Mining'
   | 'Stealth'
   | 'Medicine';
 
 export const statArray: ImportantStatPossibility[] = [
+  'HP',
+  'MP',
+  'SP',
   'VIT',
   'STR',
   'DEX',
@@ -315,9 +317,6 @@ export const statArray: ImportantStatPossibility[] = [
   'WIL',
   'CHA',
   'LUK',
-  'HP',
-  'MP',
-  'SP',
   'Accuracy',
   'Clarity',
   'Attack',
@@ -334,6 +333,7 @@ export const statArray: ImportantStatPossibility[] = [
   'Ward',
   'PhysicalStatusResist',
   'MentalStatusResist',
+  'Attunement',
   'AlchemyAffinity',
   'ArtAffinity',
   'BattleAffinity',
@@ -412,11 +412,130 @@ export const statArray: ImportantStatPossibility[] = [
   'Diplomacy',
   'Bargaining',
   'Crafting',
-  'Foraging',
-  'Trapping',
+  'Survival',
   'Mining',
   'Stealth',
   'Medicine',
+];
+
+export const AffinityArray: ImportantStatPossibility[] = [
+  'AlchemyAffinity',
+  'ArtAffinity',
+  'BattleAffinity',
+  'BeastsAffinity',
+  'BloodAffinity',
+  'ChaosAffinity',
+  'CommerceAffinity',
+  'CreationAffinity',
+  'ShadowAffinity',
+  'DeathAffinity',
+  'DestructionAffinity',
+  'FlameAffinity',
+  'FeastsAffinity',
+  'FrostAffinity',
+  'HonorAffinity',
+  'HumilityAffinity',
+  'KnowledgeAffinity',
+  'LifeAffinity',
+  'LightAffinity',
+  'LoveAffinity',
+  'MadnessAffinity',
+  'MagicAffinity',
+  'MightAffinity',
+  'NatureAffinity',
+  'PainAffinity',
+  'PlagueAffinity',
+  'RevelryAffinity',
+  'StoneAffinity',
+  'ForgeAffinity',
+  'MoonAffinity',
+  'WaterAffinity',
+  'StormAffinity',
+  'StarsAffinity',
+  'DayAffinity',
+  'TimeAffinity',
+  'TrickeryAffinity',
+  'WindAffinity',
+];
+
+export const ResistArray: ImportantStatPossibility[] = [
+  'AlchemyResist',
+  'ArtResist',
+  'BattleResist',
+  'BeastsResist',
+  'BloodResist',
+  'ChaosResist',
+  'CommerceResist',
+  'CreationResist',
+  'ShadowResist',
+  'DeathResist',
+  'DestructionResist',
+  'FlameResist',
+  'FeastsResist',
+  'FrostResist',
+  'HonorResist',
+  'HumilityResist',
+  'KnowledgeResist',
+  'LifeResist',
+  'LightResist',
+  'LoveResist',
+  'MadnessResist',
+  'MagicResist',
+  'MightResist',
+  'NatureResist',
+  'PainResist',
+  'PlagueResist',
+  'RevelryResist',
+  'StoneResist',
+  'ForgeResist',
+  'MoonResist',
+  'WaterResist',
+  'StormResist',
+  'StarsResist',
+  'DayResist',
+  'TimeResist',
+  'TrickeryResist',
+  'WindResist',
+];
+
+export const OpinionArray: ImportantStatPossibility[] = [
+  'AlchemyOpinion',
+  'ArtOpinion',
+  'BattleOpinion',
+  'BeastsOpinion',
+  'BloodOpinion',
+  'ChaosOpinion',
+  'CommerceOpinion',
+  'CreationOpinion',
+  'ShadowOpinion',
+  'DeathOpinion',
+  'DestructionOpinion',
+  'FlameOpinion',
+  'FeastsOpinion',
+  'FrostOpinion',
+  'HonorOpinion',
+  'HumilityOpinion',
+  'KnowledgeOpinion',
+  'LifeOpinion',
+  'LightOpinion',
+  'LoveOpinion',
+  'MadnessOpinion',
+  'MagicOpinion',
+  'MightOpinion',
+  'NatureOpinion',
+  'PainOpinion',
+  'PlagueOpinion',
+  'RevelryOpinion',
+  'StoneOpinion',
+  'ForgeOpinion',
+  'MoonOpinion',
+  'WaterOpinion',
+  'StormOpinion',
+  'StarsOpinion',
+  'DayOpinion',
+  'TimeOpinion',
+  'TrickeryOpinion',
+  'WindOpinion',
 ];
 
 export class Aspect {
