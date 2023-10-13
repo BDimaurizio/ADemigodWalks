@@ -3,9 +3,10 @@ import Choice from './Choice';
 
 export default class Happening {
   public id: string;
+  public title: string = '';
   public text: string;
   public choices: Choice[];
-  public context: string = ''; //contaxt passed from previous happening/choice
+  public context: string = ''; //context passed from previous happening/choice
   public onArrival: (party: Character[]) => void;
 
   constructor(
