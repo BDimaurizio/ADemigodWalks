@@ -28,6 +28,7 @@
       v-if="propWhere.includes('my_inventory')"
       class="col-5 q-pa-sm q-ma-sm"
       label="Equip"
+      :disable="item.baseBodyMod.slot == 'Trinket' && !chara.checkAttunement()"
       @click="onClickEquip"
     ></q-btn>
     <q-btn
@@ -51,12 +52,14 @@
 import Item from 'src/models/Item';
 import { ref, defineComponent } from 'vue';
 import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
+import Character from 'src/models/Character';
 
 export default defineComponent({
   components: {},
   props: {
     item: { type: Item, required: true },
     where: { type: String, required: true },
+    chara: { type: Character, required: true },
   },
   emits: ['equipItem', 'unequipItem', 'discardItem'],
 
@@ -75,7 +78,7 @@ export default defineComponent({
   setup(props, context) {
     const theItem = ref(props.item.computeStats);
     const propWhere = ref(props.where);
-    const cachedStats = ref(getModStatsFormatted(theItem.value, true));
+    const cachedStats = ref(getModStatsFormatted(theItem.value, true, false));
 
     function onClickEquip() {
       context.emit('equipItem', props.item);

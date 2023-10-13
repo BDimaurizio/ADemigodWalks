@@ -1,6 +1,6 @@
 <template>
   <h4 style="vertical-align: bottom">{{ chara.name }}</h4>
-  <div>{{ chara.jobTitle }}</div>
+  <div>{{ chara.jobTitle }} ({{ chara.currentEXP }} unspent EXP)</div>
   <q-separator />
   <pre
     v-if="cachedStats"
@@ -43,8 +43,9 @@ export default defineComponent({
   computed: {},
 
   setup(props) {
-    const cachedStats = ref(getModStatsFormatted(props.chara.stats));
-    console.log(props.chara.stats);
+    const cachedStats = ref(
+      getModStatsFormatted(props.chara.stats, false, true)
+    );
 
     return {
       ...props,

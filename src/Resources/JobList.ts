@@ -6,7 +6,7 @@ const JobList: Job[] = [
     'Bug Catcher',
     new Mod({
       WIL: 7,
-      Attunement: 1,
+      Attunement: 0.1,
     }),
     ['Super Duper Healthy', 'Low Health Crafter', 'wergwer'],
     [5, 6, 7],

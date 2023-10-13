@@ -19,21 +19,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { PropType, defineComponent } from 'vue';
 import Deity from 'src/models/Deity';
-import Character from 'src/models/Character';
 import { getDeityFavorability } from 'src/Services/DeityOperation';
+import Mod from 'src/models/Mod';
 
 export default defineComponent({
   components: {},
   props: {
     Deity: { type: Deity, required: true },
-    chara: { type: Character, required: true },
+    stats: { type: Object as PropType<Mod>, required: true },
   },
 
   setup(props) {
-    const favorability = ref(
-      getDeityFavorability(props.chara, props.Deity as Deity)
+    const cachedStats: Mod = { ...props.stats };
+    const favorability = getDeityFavorability(
+      cachedStats,
+      props.Deity as Deity
     );
 
     return {

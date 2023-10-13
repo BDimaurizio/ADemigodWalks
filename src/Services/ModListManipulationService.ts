@@ -100,14 +100,19 @@ export function combineMods(modList: Mod[]): Mod {
 
 export function getModStatsFormatted(
   theMod: Mod,
-  enablePlus: boolean = false
+  enablePlus: boolean = false,
+  enableTrunc: boolean = false
 ): [string, string] {
   //positive values in the first tuple element, negative values in the second tuple element
   const output: [string, string] = ['', ''];
   for (let i = 0; i < statArray.length; i++) {
     let stringBuilder = '';
-    const value: number = theMod[statArray[i]];
+    let value: number = theMod[statArray[i]];
     if (value == 0) continue;
+
+    if (enableTrunc && Math.trunc(value) != 0) {
+      value = Math.trunc(value);
+    }
 
     let colon = ': ';
     if (value > 0 && enablePlus) {

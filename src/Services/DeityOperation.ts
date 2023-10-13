@@ -1,8 +1,7 @@
-import Character from 'src/models/Character';
 import Deity from 'src/models/Deity';
+import Mod from 'src/models/Mod';
 
-export function getDeityFavorability(chara: Character, deity: Deity): string {
-  const stats = chara.stats;
+export function getDeityFavorability(stats: Mod, deity: Deity): string {
   const wis = stats.FAI;
   let favCalc = 0;
   for (let i = 0; i < deity.Aspects.length; i++) {
@@ -23,7 +22,7 @@ export function getDeityFavorability(chara: Character, deity: Deity): string {
   } else if (wis < 20) {
     if (favCalc > 30) return 'You are favored by ' + deity.Name;
     if (favCalc > 10) return deity.Name + ' is pleased with you';
-    if (favCalc > -10) return deity.Name + ' does not deign to notice you';
+    if (favCalc > -10) return deity.Name + ' is indifferent towards you';
     if (favCalc > -30) return deity.Name + ' is displeased with you';
     return 'You are despised by ' + deity.Name;
   } else if (wis < 40) {
@@ -33,7 +32,7 @@ export function getDeityFavorability(chara: Character, deity: Deity): string {
     if (favCalc > 20) return deity.Name + ' is very pleased with you';
     if (favCalc > 10) return deity.Name + ' is pleased with you';
     if (favCalc > 0) return deity.Name + ' is indifferent towards you';
-    if (favCalc > -10) return deity.Name + ' does not deign to notice you';
+    if (favCalc > -10) return deity.Name + ' is mostly indifferent towards you';
     if (favCalc > -20) return deity.Name + ' is displeased with you';
     if (favCalc > -30) return deity.Name + ' is very displeased with you';
     if (favCalc > -40) return 'You are despised by ' + deity.Name;
@@ -85,7 +84,7 @@ export function getDeityFavorability(chara: Character, deity: Deity): string {
     if (favCalc > -10)
       return (
         deity.Name +
-        ' does not deign to notice you' +
+        ' is mostly indifferent towards you' +
         '. Favorability: ' +
         Math.floor(favCalc)
       );

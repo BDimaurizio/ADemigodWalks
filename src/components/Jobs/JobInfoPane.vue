@@ -72,7 +72,9 @@ export default defineComponent({
   emits: ['levelUp'],
 
   setup(props, context) {
-    const cachedStats = ref(getModStatsFormatted(props.job[0].statsPerLevel));
+    const cachedStats = ref(
+      getModStatsFormatted(props.job[0].statsPerLevel, false, false)
+    );
 
     function notNone(name: string): string {
       // TODO make these clickable and take you to the appropriate trait/skill page

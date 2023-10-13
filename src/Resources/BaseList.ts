@@ -93,7 +93,7 @@ const ModList: Partial<Mod>[] = [
     rarity: 0,
     inventoryIcon: new URL('src/assets/Icons/Armor/Armor.png', import.meta.url),
     slot: 'Heavy Armor',
-    tags: [],
+    tags: ['METAL-SPECIFIC'],
   },
   {
     name: 'Buckler',

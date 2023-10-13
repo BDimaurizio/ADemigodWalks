@@ -7,6 +7,7 @@
           :key="update"
           @charaClicked="charaClicked"
           @changePane="changeVisiblePane"
+          @return-to-protag="returnToProtag"
         >
         </CharacterPane>
       </q-scroll-area>
@@ -22,12 +23,13 @@
         <StatsPane
           v-else-if="visiblePaneStatus == 'stats'"
           :chara="(selectedCharacter as Character)"
+          :key="update + 1"
         ></StatsPane>
         <JobPane
           v-else-if="visiblePaneStatus == 'class'"
           :jobList="selectedCharacter.jobs"
           :job-sorting-schema="itemSortingSchema"
-          :key="update + 1"
+          :key="update + 2"
           @jobClicked="jobTileClicked"
         ></JobPane>
         <FavorabilityDisplay
@@ -43,6 +45,19 @@
           :chara="(selectedCharacter as Character)"
           @trait-list-clicked="traitClicked"
         ></TraitListPane>
+        <SkillListPane
+          v-else-if="visiblePaneStatus == 'skills'"
+          :skill-list="selectedCharacter.skills"
+          :sorting-schema="itemSortingSchema"
+          :chara="(selectedCharacter as Character)"
+          @skill-list-clicked="skillClicked"
+        ></SkillListPane>
+        <PartyList
+          v-else-if="visiblePaneStatus == 'party'"
+          :partyMemberList="party"
+          :partyMemberSortingSchema="itemSortingSchema"
+          @partyMemberClicked="partyMemberClicked"
+        ></PartyList>
       </q-scroll-area>
       <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
         <item-info-pane
@@ -50,6 +65,7 @@
           :item="selectedItem"
           :where="directedWhere"
           :key="selectedItem"
+          :chara="(selectedCharacter as Character)"
           @equipItem="equipItem"
           @unequipItem="unequipItem"
           @discardItem="discardItem"
@@ -58,14 +74,14 @@
           v-else-if="selectedJob"
           :job="selectedJob"
           :where="directedWhere"
-          :key="selectedJob"
+          :key="update + selectedJob"
           :exp-to-spend="selectedCharacter.currentEXP"
           @level-up="levelup"
         ></JobInfoPane>
         <DeityDetailsPane
           v-else-if="selectedDeity"
           :Deity="selectedDeity"
-          :chara="(selectedCharacter as Character)"
+          :stats="(selectedCharacter.stats as Mod)"
           :key="selectedDeity"
         ></DeityDetailsPane>
         <TraitInfoPane
@@ -74,6 +90,18 @@
           :active="true"
           :key="selectedTrait"
         ></TraitInfoPane>
+        <SkillInfoPane
+          v-else-if="selectedSkill"
+          :skill="(selectedSkill as Skill)"
+          :active="true"
+          :key="selectedSkill"
+        ></SkillInfoPane>
+        <PartyMemberInfoPane
+          v-else-if="selectedPartyMember"
+          :partyMember="(selectedPartyMember as Character)"
+          :key="selectedPartyMember"
+          @on-click-inspect="onClickInspect"
+        ></PartyMemberInfoPane>
       </q-scroll-area>
     </q-page>
   </q-page-container>
@@ -82,12 +110,10 @@
 <script lang="ts">
 import Character from 'src/models/Character';
 import Item from 'src/models/Item';
-import { getJobByName } from 'src/Resources/JobList';
 import { GenerateDeities } from 'src/Services/DeityGeneration';
 import { defineComponent, ref } from 'vue';
 import ItemInfoPane from 'src/components/Inventory/ItemInfoPane.vue';
 import InventoryPane from 'src/components/Inventory/InventoryPane.vue';
-import { testItemArray } from 'src/Services/ItemService';
 import CharacterPane from 'src/components/Characters/CharacterPane.vue';
 import StatsPane from 'src/components/Characters/StatsPane.vue';
 import JobPane from 'src/components/Jobs/JobPane.vue';
@@ -97,9 +123,15 @@ import FavorabilityDisplay from 'src/components/Divinity/FavorabilityDisplay.vue
 import Deity from 'src/models/Deity';
 import DeityDetailsPane from 'src/components/Divinity/DeityDetailsPane.vue';
 import TraitListPane from 'src/components/Traits/TraitListPane.vue';
-import { getTraitByName } from 'src/Resources/TraitList';
 import TraitInfoPane from 'src/components/Traits/TraitInfoPane.vue';
 import Mod from 'src/models/Mod';
+import SkillListPane from 'src/components/Skills/SkillListPane.vue';
+import Skill from 'src/models/Skill';
+import SkillInfoPane from 'src/components/Skills/SkillInfoPane.vue';
+import PartyList from 'src/components/Characters/PartyList.vue';
+import { testCharacter, testProtagonist } from 'src/Services/CharacterService';
+import PartyMemberInfoPane from 'src/components/Characters/PartyMemberInfoPane.vue';
+import { GenerateWorld } from 'src/Services/WorldGeneration';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -114,6 +146,10 @@ export default defineComponent({
     DeityDetailsPane,
     TraitListPane,
     TraitInfoPane,
+    SkillListPane,
+    SkillInfoPane,
+    PartyList,
+    PartyMemberInfoPane,
   },
   setup() {
     //key declarations
@@ -124,7 +160,10 @@ export default defineComponent({
     const selectedJob = ref();
     const selectedDeity = ref();
     const selectedTrait = ref();
-    const selectedSpell = ref();
+    const selectedSkill = ref();
+    const selectedPartyMember = ref();
+
+    const activeLocation = ref();
 
     const directedWhere = ref('my_inventory');
     const directedInventory = ref();
@@ -135,20 +174,16 @@ export default defineComponent({
     const visiblePaneStatus = ref('blank');
     const pantheon = ref(GenerateDeities(7));
 
-    let selectedCharacter = ref(new Character('Playername'));
-    selectedCharacter.value.jobs = [
-      [getJobByName('Adventurer'), 7],
-      [getJobByName('Sailor'), 0],
-      [getJobByName('not a class'), 5],
-    ];
-    selectedCharacter.value.inventory = testItemArray(30);
-    directedInventory.value = selectedCharacter.value.inventory;
-    selectedCharacter.value.tackedOnMod.FAI = 29;
-    selectedCharacter.value.tackedOnMod.VIT = 6;
-    selectedCharacter.value.currentEXP = 500;
-    selectedCharacter.value.tackedOnMod.Traits.push(
-      getTraitByName('Hat Wearer')
-    );
+    const party = ref([] as Character[]);
+
+    party.value.push(testProtagonist('victor'));
+    party.value.push(testCharacter('albert'));
+    party.value.push(testCharacter('betty'));
+    party.value.push(testCharacter('xavier'));
+    party.value.push(testCharacter('molly'));
+    party.value.push(testCharacter('grace'));
+
+    let selectedCharacter = ref(party.value[0]);
 
     ///////////////////////emits:
 
@@ -162,6 +197,7 @@ export default defineComponent({
     }
 
     function updateSortingSchema(schema: Record<string, boolean>) {
+      console.log('schema');
       itemSortingSchema.value = schema;
     }
 
@@ -174,11 +210,9 @@ export default defineComponent({
         directedWhere.value = where;
       }
       if (where.includes('inventory')) {
-        directedInventory.value = selectedCharacter.value.inventory;
+        directedInventory.value = selectedCharacter.value.getInventory();
       } else if (where.includes('chara')) {
-        directedInventory.value = selectedCharacter.value.equippedItems.concat(
-          selectedCharacter.value.equippedTrinkets
-        );
+        directedInventory.value = selectedCharacter.value.getEquipment();
       }
       update.value++;
       if (update.value > 999) {
@@ -199,6 +233,25 @@ export default defineComponent({
 
     //called when a pane change button is pressed
     function changeVisiblePane(pane: string): void {
+      //test functionality
+      if (pane == 'map') {
+        const size = 10;
+        const map = GenerateWorld(size);
+        let mapform: number[][] = [];
+        for (let i = 0; i < size; i++) {
+          mapform.push([]);
+        }
+        for (let i = 0; i < map.length; i++) {
+          for (let j = 0; j < map[i].length; j++) {
+            mapform[i][j] = map[i][j].threat;
+          }
+        }
+        for (let k = 0; k < mapform.length; k++) {
+          console.log(mapform[k]);
+        }
+      }
+      //end test
+
       if (
         visiblePaneStatus.value == pane &&
         visiblePaneStatus.value != 'inventory'
@@ -212,7 +265,8 @@ export default defineComponent({
       selectedJob.value = undefined;
       selectedDeity.value = undefined;
       selectedTrait.value = undefined;
-      selectedSpell.value = undefined;
+      selectedSkill.value = undefined;
+      selectedPartyMember.value = undefined;
       updatePanes('my_' + pane);
       console.log(selectedCharacter.value);
     }
@@ -243,13 +297,7 @@ export default defineComponent({
 
     function levelup(job: [Job, number, number]): void {
       //job, level, exp cost
-      for (let i = 0; i < selectedCharacter.value.jobs.length; i++) {
-        if (selectedCharacter.value.jobs[i][0].name == job[0].name) {
-          selectedCharacter.value.currentEXP -= job[2];
-          selectedCharacter.value.jobs[i][1]++;
-          break;
-        }
-      }
+      selectedCharacter.value.levelUp(job[0], job[2]);
       updatePanes();
     }
 
@@ -266,6 +314,40 @@ export default defineComponent({
       selectedTrait.value = trait;
     }
 
+    //skills
+
+    function skillClicked(skill: Skill): void {
+      selectedSkill.value = skill;
+    }
+
+    //party
+
+    function partyMemberClicked(partyMember: Character): void {
+      selectedPartyMember.value = partyMember;
+    }
+
+    function onClickInspect(partyMember: Character): void {
+      for (let i = 0; i < party.value.length; i++) {
+        if (partyMember == party.value[i]) {
+          selectedCharacter.value = party.value[i];
+          break;
+        }
+      }
+      changeVisiblePane('stats');
+      updatePanes();
+    }
+
+    function returnToProtag(): void {
+      for (let i = 0; i < party.value.length; i++) {
+        if (party.value[i].isProtagonist) {
+          selectedCharacter.value = party.value[i];
+          break;
+        }
+      }
+      changeVisiblePane('stats');
+      updatePanes();
+    }
+
     return {
       //refs
       selectedItem,
@@ -278,7 +360,10 @@ export default defineComponent({
       pantheon,
       selectedDeity,
       selectedTrait,
-      selectedSpell,
+      selectedSkill,
+      party,
+      selectedPartyMember,
+      activeLocation,
 
       //keys
       update,
@@ -293,7 +378,11 @@ export default defineComponent({
       changeVisiblePane,
       deityClicked,
       traitClicked,
+      skillClicked,
       levelup,
+      partyMemberClicked,
+      onClickInspect,
+      returnToProtag,
     };
   }, //need to generate in order: base, material, quality, prefix?, the rest
 });

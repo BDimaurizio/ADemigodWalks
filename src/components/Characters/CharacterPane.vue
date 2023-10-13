@@ -63,8 +63,8 @@
             no-spinner
             no-transition
           />
-          <div v-if="selectedChara.equippedTrinkets.length > 1">
-            + {{ selectedChara.equippedTrinkets.length - 1 }}
+          <div v-if="selectedChara.getTrinkets().length > 1">
+            + {{ selectedChara.getTrinkets().length - 1 }}
           </div>
           <div v-else>●</div>
         </div>
@@ -115,9 +115,16 @@
       @click="changePane('stats')"
     ></q-btn>
     <q-btn
+      v-if="chara.isProtagonist"
       class="col-5 q-pa-sm q-ma-sm"
       label="Party"
       @click="changePane('party')"
+    ></q-btn>
+    <q-btn
+      v-else
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Return"
+      @click="returnToProtag"
     ></q-btn>
     <q-btn
       class="col-5 q-pa-sm q-ma-sm"
@@ -149,6 +156,16 @@
       label="Crafting"
       @click="changePane('crafting')"
     ></q-btn>
+    <q-btn
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Map"
+      @click="changePane('map')"
+    ></q-btn>
+    <q-btn
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Location"
+      @click="changePane('location')"
+    ></q-btn>
   </div>
 </template>
 
@@ -161,7 +178,7 @@ export default defineComponent({
   props: {
     chara: { type: Character, required: true },
   },
-  emits: ['charaClicked', 'changePane'],
+  emits: ['charaClicked', 'changePane', 'returnToProtag'],
   computed: {},
 
   setup(props, context) {
@@ -170,12 +187,12 @@ export default defineComponent({
     function computeSlotDisplay(index: number): URL {
       if (index == -1) {
         return (
-          selectedChara.equippedTrinkets[0]?.inventoryIcon ??
+          selectedChara.getTrinkets()[0]?.inventoryIcon ??
           new URL('src/assets/Icons/empty.png', import.meta.url)
         );
       } else {
         return (
-          selectedChara.equippedItems[index]?.inventoryIcon ??
+          selectedChara.getEquipment()[index]?.inventoryIcon ??
           new URL('src/assets/Icons/empty.png', import.meta.url)
         );
       }
@@ -184,11 +201,11 @@ export default defineComponent({
     function computeItemRarityColor(index: number): string {
       if (index == -1) {
         return (
-          selectedChara.equippedTrinkets[0]?.rarityColor ?? 'text-transparent'
+          selectedChara.getTrinkets()[0]?.rarityColor ?? 'text-transparent'
         );
       } else {
         return (
-          selectedChara.equippedItems[index]?.rarityColor ?? 'text-transparent'
+          selectedChara.getEquipment()[index]?.rarityColor ?? 'text-transparent'
         );
       }
     }
@@ -197,14 +214,18 @@ export default defineComponent({
 
     function charaClicked(index: number) {
       if (index == -1) {
-        context.emit('charaClicked', selectedChara.equippedTrinkets[0]);
+        context.emit('charaClicked', selectedChara.getTrinkets()[0]);
         return;
       }
-      context.emit('charaClicked', selectedChara.equippedItems[index]);
+      context.emit('charaClicked', selectedChara.getEquipment()[index]);
     }
 
     function changePane(pane: string) {
       context.emit('changePane', pane);
+    }
+
+    function returnToProtag() {
+      context.emit('returnToProtag');
     }
 
     return {
@@ -215,6 +236,7 @@ export default defineComponent({
       computeItemRarityColor,
       charaClicked,
       changePane,
+      returnToProtag,
     };
   },
 });

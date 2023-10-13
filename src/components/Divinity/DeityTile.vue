@@ -14,16 +14,16 @@
 </template>
 
 <script lang="ts">
-import Character from 'src/models/Character';
 import Deity from 'src/models/Deity';
+import Mod from 'src/models/Mod';
 import { getDeityFavorability } from 'src/Services/DeityOperation';
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   components: {},
   props: {
     Deity: { type: Object, required: true },
-    chara: { type: Character, required: true },
+    stats: { type: Object as PropType<Mod>, required: true },
   },
   emits: ['deityClicked'],
 
@@ -31,7 +31,7 @@ export default defineComponent({
 
   setup(props, context) {
     const favorability = ref(
-      getDeityFavorability(props.chara, props.Deity as Deity)
+      getDeityFavorability(props.stats, props.Deity as Deity)
     );
 
     function deityClicked() {

@@ -16,10 +16,10 @@ function getRandomName() {
 function GenerateDeityName(): string {
   let stringBuilder = getRandomName();
 
-  const rollForApostrophe = Math.floor(Math.random() * 8); //0-8 inclusive
-  const rollForDash = Math.floor(Math.random() * 8); //0-8 inclusive
-  const rollForSpace = Math.floor(Math.random() * 8); //0-8 inclusive
-  const rollForAdjective = Math.floor(Math.random() * 8); //0-8 inclusive
+  const rollForApostrophe = Math.floor(Math.random() * 9); //0-8 inclusive
+  const rollForDash = Math.floor(Math.random() * 9); //0-8 inclusive
+  const rollForSpace = Math.floor(Math.random() * 9); //0-8 inclusive
+  const rollForAdjective = Math.floor(Math.random() * 9); //0-8 inclusive
 
   if (rollForApostrophe == 0) {
     stringBuilder = stringBuilder + "'";

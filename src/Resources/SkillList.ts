@@ -7,7 +7,12 @@ const SkillList: Skill[] = [
     description: 'boom haha',
     target: 'ENEMY',
     maxTargets: 1,
+    mpCost: 5,
+    spCost: 0,
     tags: ['Flame', 'Magic'],
+    eligibilityChecker(character): boolean {
+      return !!character;
+    },
     skillCast(caster, victims): boolean {
       //const damage = 5 + caster.computeCertainStats('FlameAffinity', 'MagicAffinity')
       victims.forEach((victim) => {
@@ -22,7 +27,10 @@ const SkillList: Skill[] = [
     description: 'Target cats are launched into the sun',
     target: 'ENEMY',
     maxTargets: 999,
+    spCost: 0,
+    mpCost: 0,
     tags: ['Beasts', 'Magic', 'Day', 'Cat'],
+    //no eligibilitychecker what do it do
     skillCast(caster, victims): boolean {
       for (let i = 0; i < victims.length; i++) {
         if (victims[i].stats.tags.includes('Cat')) {

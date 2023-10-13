@@ -585,3 +585,13 @@ export type AspectName =
   | 'Time'
   | 'Trickery'
   | 'Wind';
+
+export type Terrain =
+  | 'Water'
+  | 'Plains'
+  | 'Forest'
+  | 'Mountain'
+  | 'Desert'
+  | 'Swamp'
+  | 'Jungle'
+  | 'Tundra';

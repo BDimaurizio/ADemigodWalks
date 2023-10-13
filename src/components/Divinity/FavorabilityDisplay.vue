@@ -2,7 +2,7 @@
   <div v-for="deity in pantheon" :key="deity.Aspects[0].name" class="q-ma-sm">
     <DeityTile
       :Deity="deity"
-      :chara="chara"
+      :stats="cachedStats"
       @deityClicked="deityClicked"
     ></DeityTile>
     <q-separator />
@@ -20,7 +20,7 @@ export default defineComponent({
     DeityTile,
   },
   props: {
-    chara: { type: Character, required: true },
+    chara: { type: Object as PropType<Character>, required: true },
     pantheon: { type: Array as PropType<Array<Deity>>, required: true },
   },
   emits: ['deityClicked'],
@@ -28,6 +28,8 @@ export default defineComponent({
   computed: {},
 
   setup(props, context) {
+    const cachedStats = { ...props.chara.stats };
+
     function deityClicked(deity: Deity) {
       context.emit('deityClicked', deity);
     }
@@ -35,6 +37,7 @@ export default defineComponent({
     return {
       ...props,
       deityClicked,
+      cachedStats,
     };
   },
 });

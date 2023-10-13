@@ -50,7 +50,7 @@ const ModList: Partial<Mod>[] = [
     INT: 10,
     tags: ['TAILORING'],
     eligibilityChecker(character) {
-      if (character.equippedItems[2]) return true;
+      if (character.getSpecificEquipment(2)) return true;
       return false;
     },
   },

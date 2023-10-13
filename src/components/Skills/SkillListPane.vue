@@ -6,61 +6,56 @@
   </div>
   <div
     class="q-ma-sm row"
-    v-for="(trait, index) in traitListArray"
-    :key="trait"
+    v-for="(skill, index) in skillListArray"
+    :key="skill"
   >
-    <TraitTile
+    <SkillTile
       class="col"
-      :trait="trait"
-      :active="trait.cachedEligibility"
-      @inventoryClicked="traitClicked(trait, index)"
-    ></TraitTile>
+      :skill="skill"
+      :active="skill.eligibilityChecker(chara)"
+      @inventoryClicked="skillClicked(skill, index)"
+    ></SkillTile>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 import { ref, defineComponent, onMounted } from 'vue';
-import TraitTile from 'src/components/Traits/TraitTile.vue';
+import SkillTile from './SkillTile.vue';
 import Mod from 'src/models/Mod';
 import Character from 'src/models/Character';
 
 export default defineComponent({
-  components: { TraitTile },
+  components: { SkillTile },
   props: {
-    traitList: { type: Object, required: true },
+    skillList: { type: Object, required: true },
     sortingSchema: { type: Object, required: true },
     chara: { type: Character, required: true },
   },
-  emits: ['traitListClicked', 'updateSortingSchema'],
+  emits: ['skillListClicked', 'updateSortingSchema'],
 
   computed: {},
 
   setup(props, context) {
-    const traitListArray = ref(props.traitList.filter(Boolean));
-    for (let i = 0; i < traitListArray.value.length; i++) {
-      traitListArray.value[i].cachedEligibility = //
-        traitListArray.value[i].eligibilityChecker(props.chara); //
-    }
-
+    const skillListArray = ref(props.skillList.filter(Boolean));
     const sortingSchema = ref(props.sortingSchema);
     let prevIndex = -1;
 
-    function traitClicked(item: Mod, index: number): void {
+    function skillClicked(item: Mod, index: number): void {
       if (index == prevIndex) {
         return;
       }
       prevIndex = index;
-      context.emit('traitListClicked', item);
+      context.emit('skillListClicked', item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
       if (style == 'Name') {
-        traitListArray.value.sort((a: Mod, b: Mod) =>
+        skillListArray.value.sort((a: Mod, b: Mod) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
       } else if (style == 'Eligibility') {
-        traitListArray.value.sort((a: Mod, b: Mod) =>
+        skillListArray.value.sort((a: Mod, b: Mod) =>
           a.eligibilityChecker!(props.chara) >
           b.eligibilityChecker!(props.chara)
             ? 1
@@ -78,7 +73,7 @@ export default defineComponent({
         sortingSchema.value.reverse = !sortingSchema.value.reverse;
       }
       if (sortingSchema.value.reverse) {
-        traitListArray.value.reverse();
+        skillListArray.value.reverse();
       }
 
       sortingSchema.value.style = style;
@@ -91,10 +86,10 @@ export default defineComponent({
 
     return {
       ...props,
-      traitListArray,
+      skillListArray,
 
       //methods
-      traitClicked,
+      skillClicked,
       sort,
     };
   },

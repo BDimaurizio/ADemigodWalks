@@ -4,70 +4,58 @@
     <q-btn class="col" label="Name" @click="sort('Name')"></q-btn>
     <q-btn class="col" label="Level" @click="sort('Level')"></q-btn>
   </div>
-  <h5>Trained Classes:</h5>
+  <h5>Party Members:</h5>
   <div
     class="q-ma-sm row"
-    v-for="(jobObject, index) in jobArray"
-    :key="jobObject"
+    style="vertical-align: top"
+    v-for="(partyMemberObject, index) in partyMemberArray"
+    :key="partyMemberObject"
   >
-    <job-tile
-      v-if="jobObject[1] > 0"
+    <PartyMemberTile
+      v-if="partyMemberObject"
       class="col"
-      :job="jobObject"
-      @jobClicked="jobClicked(jobObject, index)"
-    ></job-tile>
-  </div>
-  <h5>Potential Classes:</h5>
-  <div
-    class="q-ma-sm row"
-    v-for="(jobObject, index) in jobArray"
-    :key="jobObject"
-  >
-    <job-tile
-      v-if="jobObject[1] < 1"
-      class="col"
-      :job="jobObject"
-      @jobClicked="jobClicked(jobObject, index)"
-    ></job-tile>
+      :partyMember="partyMemberObject"
+      @partyMemberClicked="partyMemberClicked(partyMemberObject, index)"
+    ></PartyMemberTile>
   </div>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent, onMounted } from 'vue';
-import Job from 'src/models/Job';
-import JobTile from './JobTile.vue';
+import PartyMemberTile from './PartyMemberTile.vue';
+import Character from 'src/models/Character';
 
 export default defineComponent({
-  components: { JobTile },
+  components: { PartyMemberTile },
   props: {
-    jobList: { type: Object, required: true }, // array of tuples [job : object, level : integer]
-    jobSortingSchema: { type: Object, required: true },
+    partyMemberList: { type: Object, required: true }, // array of characters
+    partyMemberSortingSchema: { type: Object, required: true },
   },
-  emits: ['jobClicked', 'updateSortingSchema'],
+  emits: ['partyMemberClicked', 'updateSortingSchema'],
 
   computed: {},
 
   setup(props, context) {
-    const jobArray = ref(props.jobList.filter(Boolean));
-    const sortingSchema = ref(props.jobSortingSchema);
+    const partyMemberArray = ref(props.partyMemberList.filter(Boolean));
+    const sortingSchema = ref(props.partyMemberSortingSchema);
     let prevIndex = -1;
 
-    function jobClicked(item: [Job, number], index: number): void {
+    function partyMemberClicked(partyMember: Character, index: number): void {
       if (index == prevIndex) {
         return;
       }
       prevIndex = index;
-      context.emit('jobClicked', item);
+      context.emit('partyMemberClicked', partyMember);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
       if (style == 'Name') {
-        jobArray.value.sort((a: [Job, number], b: [Job, number]) =>
-          a[0].name > b[0].name ? 1 : b[0].name > a[0].name ? -1 : 0
+        partyMemberArray.value.sort((a: Character, b: Character) =>
+          a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
       } else if (style == 'Level') {
-        jobArray.value.sort((a: [Job, number], b: [Job, number]) =>
-          a[1] < b[1] ? 1 : b[1] < a[1] ? -1 : 0
+        partyMemberArray.value.sort((a: Character, b: Character) =>
+          a.totalLevel < b.totalLevel ? 1 : b.totalLevel < a.totalLevel ? -1 : 0
         );
       }
 
@@ -78,7 +66,7 @@ export default defineComponent({
         sortingSchema.value.reverse = !sortingSchema.value.reverse;
       }
       if (sortingSchema.value.reverse) {
-        jobArray.value.reverse();
+        partyMemberArray.value.reverse();
       }
 
       sortingSchema.value.style = style;
@@ -91,10 +79,10 @@ export default defineComponent({
 
     return {
       ...props,
-      jobArray,
+      partyMemberArray,
 
       //methods
-      jobClicked,
+      partyMemberClicked,
       sort,
     };
   },
