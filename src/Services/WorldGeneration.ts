@@ -1,14 +1,11 @@
 import Tile from 'src/models/Tile';
+import { Terrain, TerrainArray } from 'src/models/Index';
 
 function GenerateBasicTile(progenitor: Tile): Tile {
   const coinflip = Math.floor(Math.random() * 2);
-  const output = new Tile(
-    'inner',
-    progenitor.threat + coinflip,
-    'Forest',
-    0,
-    0
-  );
+  const terrain: Terrain =
+    TerrainArray[Math.floor(Math.random() * TerrainArray.length)];
+  const output = new Tile('t', progenitor.threat + coinflip, terrain, 0, 0);
   return output;
 }
 

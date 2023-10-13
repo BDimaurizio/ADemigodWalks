@@ -595,3 +595,14 @@ export type Terrain =
   | 'Swamp'
   | 'Jungle'
   | 'Tundra';
+
+export const TerrainArray: Terrain[] = [
+  'Water',
+  'Plains',
+  'Forest',
+  'Mountain',
+  'Desert',
+  'Swamp',
+  'Jungle',
+  'Tundra',
+];
