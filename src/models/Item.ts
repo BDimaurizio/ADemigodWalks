@@ -26,7 +26,6 @@ export default class Item {
     return new Mod();
   }
 
-  //functions
   get fullName(): string {
     let stringBuilder = '';
 
@@ -37,6 +36,24 @@ export default class Item {
     }
     for (let i = 1; i < this.BaseMods.length; i++) {
       if (this.BaseMods[i]) {
+        stringBuilder = stringBuilder + this.BaseMods[i].name + ' ';
+      }
+    }
+    stringBuilder = stringBuilder.trim();
+
+    return stringBuilder;
+  }
+
+  get fullNameWithoutMateiral(): string {
+    let stringBuilder = '';
+
+    if (this.BaseMods[0] && this.BaseMods[0].modType == 'BLESSING') {
+      stringBuilder = stringBuilder + 'Blessed ';
+    } else if (this.BaseMods[0] && this.BaseMods[0].modType == 'CURSE') {
+      stringBuilder = stringBuilder + 'Cursed ';
+    }
+    for (let i = 1; i < this.BaseMods.length; i++) {
+      if (this.BaseMods[i] && i != 2) {
         stringBuilder = stringBuilder + this.BaseMods[i].name + ' ';
       }
     }

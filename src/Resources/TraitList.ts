@@ -87,6 +87,95 @@ const ModList: Partial<Mod>[] = [
       return true;
     },
   },
+  {
+    name: 'Explorer',
+    description: 'blah',
+    rarity: 0,
+    Survival: 1,
+    tags: ['Nature'],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: "Sage's Touch",
+    description:
+      'When you read a scroll, you have a small chance to not consume it',
+    rarity: 1,
+    tags: ['Magic'],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Power-Hungry',
+    description: 'When you read a scroll, you gain a small amount of EXP',
+    rarity: 1,
+    tags: ['Magic'],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Heroic Aura',
+    description:
+      'While wearing a cape, your Vitality is added to your Leadership',
+    rarity: 1,
+    tags: [],
+    eligibilityChecker(character) {
+      return character.equipmentStats.tags.includes('Cape');
+    },
+  },
+  {
+    name: 'Righteous Cause',
+    description: 'Your mental status resistance is increased by your Faith',
+    rarity: 1,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Treasure Seeker',
+    description:
+      "You've got a keen eye for treasure. You're sure to find some soon...",
+    rarity: 1,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Quarterstaff Proficiency',
+    description: '+5 Max SP while weilding a quarterstaff',
+    SP: 5,
+    rarity: 0,
+    tags: [],
+    eligibilityChecker(character) {
+      return (
+        character.getSpecificEquipment(0)?.baseBodyMod.name == 'Quarterstaff'
+      );
+    },
+  },
+  {
+    name: 'Martial Adept',
+    description: '',
+    rarity: 0,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Mental Adept',
+    description: '',
+    MP: 3,
+    rarity: 0,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
 ];
 
 export function getTraitByIndex(index: number): Mod {

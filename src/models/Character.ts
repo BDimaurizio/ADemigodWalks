@@ -12,7 +12,7 @@ import {
   Tag,
 } from './Index';
 import Skill from './Skill';
-import { removeDuplicates } from 'src/Services/Funcs';
+import { removeDuplicateTags, removeDuplicates } from 'src/Services/Funcs';
 
 export default class Character {
   public name: string;
@@ -136,6 +136,23 @@ export default class Character {
     ]);
   }
 
+  get tags(): Tag[] {
+    return removeDuplicateTags([
+      ...this.tackedOnMod.tags,
+      ...this.equipmentStats.tags,
+      ...this.jobStats.tags,
+      ...combineMods(this.getAllEligibleTraitsFromList(this.traits)).tags,
+    ]);
+  }
+
+  get tagsWithoutTraits(): Tag[] {
+    return removeDuplicateTags([
+      ...this.tackedOnMod.tags,
+      ...this.equipmentStats.tags,
+      ...this.jobStats.tags,
+    ]);
+  }
+
   get stats(): Mod {
     console.log('performance');
     let output;
@@ -228,9 +245,27 @@ export default class Character {
     output.Bargaining += mod.CHA;
     //LUK
     output.CriticalChance += mod.LUK;
+
     //trait-based bonuses
-    //if (you have the trait Intimidating) mod.Leadership += mod.STR
-    //etc.....
+    //VIT
+    if (this.isTraitExistAndEligible('Heroic Aura')) {
+      output.Leadership += mod.VIT;
+    }
+    //STR
+
+    //DEX
+
+    //INT
+
+    //FAI
+    if (this.isTraitExistAndEligible('Righteous Cause')) {
+      output.MentalStatusResist += mod.FAI;
+    }
+    //WIL
+
+    //CHA
+
+    //LUK
 
     return output;
   }
@@ -478,6 +513,7 @@ export default class Character {
       if (this.tackedOnMod.Traits[i].name == name) {
         found = true;
         this.tackedOnMod.Traits.splice(i, 1);
+        i--;
       }
     }
     return found;
@@ -506,5 +542,10 @@ export default class Character {
         `${this.name}'s ${this.equippedItems[index]!.fullName} was transformed!`
       );
     }
+  };
+
+  gainEXP = (amount: number): void => {
+    this.currentEXP += amount;
+    this.updateLog(`${this.name} gained ${amount} EXP`);
   };
 }

@@ -108,6 +108,17 @@ export default defineComponent({
 
     function onClickConsume() {
       props.item.consume(props.chara);
+      if (props.chara.isTraitExistAndEligible("Sage's Touch")) {
+        const roll =
+          Math.random() * 50 +
+          Math.log(Math.abs(props.chara.stats.INT) + 1) * 4;
+        if (roll > 45) {
+          return; // small chance (10-20% depending on your int) to preserve the scroll
+        }
+      }
+      if (props.chara.isTraitExistAndEligible('Power-Hungry')) {
+        props.chara.gainEXP(10);
+      }
       onClickDiscard();
     }
 

@@ -4,6 +4,8 @@ import { getSpecificItem, testItemArray } from './ItemService';
 import { getBaseModByName } from 'src/Resources/BaseList';
 import { getConsumableModByName } from 'src/Resources/ConsumableList';
 import { getSuffixOfSpell } from 'src/Resources/SuffixList';
+import { getTraitByName } from 'src/Resources/TraitList';
+import { getMaterialModByName } from 'src/Resources/MaterialList';
 
 export function testProtagonist(name: string): Character {
   const output: Character = new Character(name);
@@ -11,7 +13,6 @@ export function testProtagonist(name: string): Character {
   output.tackOnStat('HP', 5);
   output.currentEXP = 500;
   output.gainJob(getJobByName('Adventurer'), 0);
-  output.clearLog();
   output.addItemToInventory([
     getSpecificItem([getBaseModByName('Orb')]),
     getSpecificItem([
@@ -22,7 +23,14 @@ export function testProtagonist(name: string): Character {
       getConsumableModByName('Scroll'),
       getSuffixOfSpell('Vital Blessing'),
     ]),
+    getSpecificItem([
+      getBaseModByName('Quarterstaff'),
+      getMaterialModByName('Wood'),
+    ]),
   ]);
+  output.tackOnTrait(getTraitByName('Heroic Aura'));
+
+  output.clearLog();
   return output;
 }
 

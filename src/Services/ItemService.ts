@@ -1,8 +1,13 @@
 import Item from 'src/models/Item';
 import Mod from 'src/models/Mod';
 import { getBaseModByCriteria } from 'src/Resources/BaseList';
-import { getMaterialModByCriteria } from 'src/Resources/MaterialList';
+import {
+  getMaterialModByCriteria,
+  getMaterialModByName,
+} from 'src/Resources/MaterialList';
+import { getPrefixModByName } from 'src/Resources/PrefixList';
 import { getQualityModByCriteria } from 'src/Resources/QualityList';
+import { getSuffixModByName } from 'src/Resources/SuffixList';
 
 export function testItemArray(howMany: number): Item[] {
   const output: Item[] = [];
@@ -23,3 +28,13 @@ export function getSpecificItem(MODS: Mod[]): Item {
   //TODO validate
   return output;
 }
+
+//blessing
+//curse
+//quality
+//material
+//prefix
+//base
+//suffix
+//consumable
+//misc

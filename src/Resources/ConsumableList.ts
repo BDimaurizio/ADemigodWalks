@@ -45,7 +45,7 @@ const ModList: Partial<Mod>[] = [
   },
 ];
 
-export function getConsumableModByIndex(index: number): Mod {
+function getConsumableModByIndex(index: number): Mod {
   if (index < 0) index = 0;
   const result = ModList[index];
   return prepareModForExport(result, modType);

@@ -30,6 +30,15 @@ export function removeDuplicates<T extends Mod | Skill | Job | Aspect>(
   });
 }
 
+export function removeDuplicateTags(array: Tag[]): Tag[] {
+  const seen = new Set();
+  return array.filter((el) => {
+    const duplicate = seen.has(el);
+    seen.add(el);
+    return !duplicate;
+  });
+}
+
 export function mergeTuples( //depricated
   arr1: [string, Date][],
   arr2: [string, Date][]

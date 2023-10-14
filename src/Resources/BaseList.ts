@@ -17,7 +17,7 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: 'Light Weapon',
-    tags: ['Piercing'],
+    tags: ['Piercing', 'Blade', 'Weapon'],
   },
   {
     name: 'Club',
@@ -28,7 +28,7 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: 'Medium Weapon',
-    tags: [],
+    tags: ['Weapon', 'Blunt'],
   },
   {
     name: 'Axe',
@@ -36,7 +36,7 @@ const ModList: Partial<Mod>[] = [
     rarity: 0,
     inventoryIcon: new URL('src/assets/Icons/Weapons/Axe.png', import.meta.url),
     slot: 'Heavy Weapon',
-    tags: [],
+    tags: ['Weapon', 'Blade'],
   },
   {
     name: 'Greatsword',
@@ -47,7 +47,7 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: 'Very Heavy Weapon',
-    tags: [],
+    tags: ['Weapon', 'Blade'],
   },
   {
     name: 'Cap',
@@ -82,7 +82,7 @@ const ModList: Partial<Mod>[] = [
     rarity: 0,
     inventoryIcon: new URL('src/assets/Icons/Armor/Cloak.png', import.meta.url),
     slot: 'Light Armor',
-    tags: [],
+    tags: ['Cape'],
   },
   {
     name: 'Jerkin',
@@ -204,6 +204,55 @@ const ModList: Partial<Mod>[] = [
     WIL: 1,
     inventoryIcon: new URL('src/assets/Icons/Gems/redOrb.png', import.meta.url),
     slot: 'Implement',
+    tags: [],
+  },
+  {
+    name: 'Robes',
+    description: '',
+    rarity: 0,
+    importantA: 'FAI',
+    importantB: 'Clarity',
+    Clarity: 1,
+    inventoryIcon: new URL(
+      'src/assets/Icons/Armor/cloak_2.png',
+      import.meta.url
+    ),
+    slot: 'Light Armor',
+    tags: [],
+  },
+  {
+    name: 'Quarterstaff',
+    description: '',
+    rarity: 0,
+    inventoryIcon: new URL(
+      'src/assets/Icons/Weapons/W_Staff01.png',
+      import.meta.url
+    ),
+    slot: 'Heavy Weapon',
+    tags: ['Weapon', 'Blunt'],
+  },
+  {
+    name: 'Wand',
+    description: '',
+    rarity: 0,
+    inventoryIcon: new URL(
+      'src/assets/Icons/Weapons/wand_2.png',
+      import.meta.url
+    ),
+    slot: 'Implement',
+    tags: ['Magic'],
+  },
+  {
+    name: 'Tunic',
+    description: '',
+    rarity: 0,
+    importantA: 'STR',
+    importantB: 'Accuracy',
+    inventoryIcon: new URL(
+      'src/assets/Icons/Armor/A_Clothing02.png',
+      import.meta.url
+    ),
+    slot: 'Light Armor',
     tags: [],
   },
 ];

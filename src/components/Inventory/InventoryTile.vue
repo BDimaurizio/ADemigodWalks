@@ -38,12 +38,17 @@ export default defineComponent({
   components: {},
   props: {
     item: { type: Item, required: true },
+    showMaterial: { type: Boolean, required: true },
   },
   emits: ['inventoryClicked'],
 
   computed: {
     itemName(): string {
-      return this.item.fullName;
+      if (this.$props.showMaterial) {
+        return this.item.fullName;
+      } else {
+        return this.item.fullNameWithoutMateiral;
+      }
     },
     itemRarityColor(): string {
       return this.item.rarityColor;

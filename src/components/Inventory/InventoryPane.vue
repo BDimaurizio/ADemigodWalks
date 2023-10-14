@@ -1,9 +1,14 @@
 <template>
   <div class="row">
-    <q-icon class="col" style="font-size: 2em" name="sort_by_alpha"></q-icon>
-    <q-btn class="col" label="Name" @click="sort('Name')"></q-btn>
-    <q-btn class="col" label="Rarity" @click="sort('Rarity')"></q-btn>
-    <q-btn class="col" label="Type" @click="sort('Type')"></q-btn>
+    <q-icon class="col-2" style="font-size: 2em" name="sort_by_alpha"></q-icon>
+    <q-btn class="col-2" label="Name" @click="sort('Name')"></q-btn>
+    <q-btn class="col-2" label="Rarity" @click="sort('Rarity')"></q-btn>
+    <q-btn class="col-2" label="Type" @click="sort('Type')"></q-btn>
+    <q-checkbox
+      class="col"
+      label="Show Material"
+      v-model="showMaterial"
+    ></q-checkbox>
   </div>
   <div
     class="q-ma-sm row"
@@ -13,6 +18,7 @@
     <InventoryTile
       class="col"
       :item="inventoryObject"
+      :showMaterial="showMaterial"
       @inventoryClicked="inventoryClicked(inventoryObject, index)"
     ></InventoryTile>
   </div>
@@ -37,6 +43,8 @@ export default defineComponent({
     const inventoryArray = ref(props.inventory.filter(Boolean));
     const sortingSchema = ref(props.itemSortingSchema);
     let prevIndex = -1;
+
+    const showMaterial = ref(false);
 
     function inventoryClicked(item: Item, index: number): void {
       if (index == prevIndex) {
@@ -91,6 +99,7 @@ export default defineComponent({
     return {
       ...props,
       inventoryArray,
+      showMaterial,
 
       //methods
       inventoryClicked,

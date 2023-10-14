@@ -34,13 +34,18 @@
     <div v-if="itemSelectionsRemaining > 0">
       <div class="row">
         <q-icon
-          class="col"
+          class="col-2"
           style="font-size: 2em"
           name="sort_by_alpha"
         ></q-icon>
-        <q-btn class="col" label="Name" @click="sortItem('Name')"></q-btn>
-        <q-btn class="col" label="Rarity" @click="sortItem('Rarity')"></q-btn>
-        <q-btn class="col" label="Type" @click="sortItem('Type')"></q-btn>
+        <q-btn class="col-2" label="Name" @click="sortItem('Name')"></q-btn>
+        <q-btn class="col-2" label="Rarity" @click="sortItem('Rarity')"></q-btn>
+        <q-btn class="col-2" label="Type" @click="sortItem('Type')"></q-btn>
+        <q-checkbox
+          class="col"
+          label="Show Material"
+          v-model="showMaterial"
+        ></q-checkbox>
       </div>
       <h5>Select {{ itemSelectionsRemaining }} target(s):</h5>
       <div
@@ -51,6 +56,7 @@
         <InventoryTile
           class="col"
           :item="(inventoryObject as Item)"
+          :show-material="showMaterial"
           @inventoryClicked="inventoryClicked(inventoryObject as Item, index)"
         ></InventoryTile>
       </div>
@@ -93,6 +99,7 @@ export default defineComponent({
     const inventoryArray = ref(
       props.partyMemberList[0].getInventory().filter(Boolean)
     );
+    const showMaterial = ref(false);
 
     const charSelectionsRemaining = ref(props.skill.characterTargets);
     const itemSelectionsRemaining = ref(props.skill.itemTargets);
@@ -215,6 +222,7 @@ export default defineComponent({
       ...props,
       partyMemberArray,
       inventoryArray,
+      showMaterial,
       charSelectionsRemaining,
       itemSelectionsRemaining,
       charSelectionTargets,

@@ -36,6 +36,14 @@ const ModList: Partial<Mod>[] = [
     rarity: 1,
     tags: ['Battle'],
   },
+  {
+    name: "Acolyte's",
+    description: 'f',
+    FAI: 1,
+    Attunement: 1,
+    rarity: 1,
+    tags: ['Battle'],
+  },
 ];
 
 export function getPrefixModByIndex(index: number): Mod {

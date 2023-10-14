@@ -8,6 +8,7 @@ import {
 const modType: ModType = 'MATERIAL';
 
 const ModList: Partial<Mod>[] = [
+  //wood
   {
     name: 'Driftwood',
     description:
@@ -87,6 +88,274 @@ const ModList: Partial<Mod>[] = [
     rarity: 1,
     ChaosResist: 22,
     tags: ['WOOD'],
+  },
+
+  //bone
+  {
+    name: 'Ivory',
+    description: 'material',
+    rarity: 1,
+    tags: ['BONE'],
+  },
+  {
+    name: 'Antler',
+    description: 'material',
+    rarity: 1,
+    tags: ['BONE'],
+  },
+  {
+    name: 'Bone',
+    description: 'bonematerial',
+    rarity: 1,
+    tags: ['BONE'],
+  },
+  {
+    name: 'Baleen',
+    description: 'whalebone',
+    rarity: 1,
+    tags: ['BONE'],
+  },
+
+  //hide
+  {
+    name: 'Patchwork',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER', 'CLOTH'],
+  },
+  {
+    name: 'Leather',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER'],
+  },
+  {
+    name: 'Hide',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER'],
+  },
+  {
+    name: 'Wolfskin',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER'],
+  },
+  {
+    name: 'Deerskin',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER'],
+  },
+  {
+    name: 'Suede',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['LEATHER'],
+  },
+
+  //cloth
+  {
+    name: 'Cloth',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+  {
+    name: 'Wool',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+  {
+    name: 'Linen',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+  {
+    name: 'Cotton',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+  {
+    name: 'Silk',
+    description: '',
+    rarity: 1,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+  {
+    name: 'Velvet',
+    description: '',
+    rarity: 50,
+    ChaosResist: 22,
+    tags: ['CLOTH'],
+  },
+
+  //metal
+  {
+    name: 'Copper',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Tin',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Bronze',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Iron',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Steel',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Titanium',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Aluminium',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Zinc',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Brass',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Silver',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Gold',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Platinum',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Cobalt',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Meteorite',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Elderite',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+  {
+    name: 'Divinite',
+    description: '',
+    rarity: 0,
+    tags: ['METAL'],
+  },
+
+  //stone
+  {
+    name: 'Stone',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Obsidian',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Jade',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Marble',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Glass',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Quartz',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Crystal',
+    description: '',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Pewter',
+    description: 'tin stone',
+    rarity: 0,
+    tags: ['STONE'],
+  },
+  {
+    name: 'Corundum',
+    description: 'asuminum crystal',
+    rarity: 0,
+    tags: ['STONE'],
   },
 ];
 

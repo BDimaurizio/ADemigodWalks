@@ -133,6 +133,14 @@ export type Tag =
   | 'LEATHER'
   | 'HIDE'
   | 'CLOTH'
+  //weapon types
+  | 'Weapon'
+  | 'Tool'
+  | 'Blade'
+  | 'Blunt'
+  | 'Stabbing'
+  //clothing types
+  | 'Cape'
   //crafting types
   | 'CARPENTRY' // WOOD, BONE
   | 'SMITHING' // METAL

@@ -5,6 +5,7 @@ import {
   prepareModForExport,
 } from 'src/Services/ModListManipulationService';
 import { getSkillByName } from './SkillList';
+import Skill from 'src/models/Skill';
 
 const modType: ModType = 'SUFFIX';
 
@@ -16,6 +17,27 @@ const ModList: Partial<Mod>[] = [
     STR: 1,
     rarity: 1,
     tags: ['Destruction', 'Battle'],
+  },
+  {
+    name: 'of Strength',
+    description: '',
+    STR: 1,
+    rarity: 0,
+    tags: ['Destruction', 'Battle'],
+  },
+  {
+    name: 'of Vitality',
+    description: '',
+    VIT: 1,
+    rarity: 0,
+    tags: ['Battle'],
+  },
+  {
+    name: 'of Punishment',
+    description: '',
+    CriticalChance: 1,
+    rarity: 0,
+    tags: ['Judgement'],
   },
 ];
 
@@ -30,8 +52,14 @@ export function getSuffixModByName(name: string): Mod {
   return getSuffixModByIndex(index);
 }
 
-export function getSuffixOfSpell(name: string): Mod {
-  const skill = getSkillByName(name);
+export function getSuffixOfSpell(input: string | Skill): Mod {
+  let skill;
+  if (typeof input == 'string') {
+    skill = getSkillByName(input);
+  } else {
+    skill = input;
+  }
+
   const output = new Mod({
     name: 'of ' + skill.name,
     description: 'Allows you to cast the spell: ' + skill.name,

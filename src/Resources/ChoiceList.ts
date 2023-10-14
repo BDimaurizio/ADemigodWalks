@@ -1,11 +1,12 @@
 import { getSpecificItem } from 'src/Services/ItemService';
 import Choice from 'src/models/Choice';
 import { getPrefixModByName } from './PrefixList';
-import { getBaseModByName } from './BaseList';
+import { getBaseModByCriteria, getBaseModByName } from './BaseList';
 import { getConsumableModByName } from './ConsumableList';
 import { getMiscModByName } from './MiscList';
 import { getTraitByName } from './TraitList';
-import { getSuffixModByName } from './SuffixList';
+import { getSuffixModByName, getSuffixOfSpell } from './SuffixList';
+import { getMaterialModByName } from './MaterialList';
 
 export function getChoiceByIndex(
   index: number,
@@ -108,12 +109,15 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
+      party[0].tackOnTrait(getTraitByName('Explorer'));
       party[0].addItemToInventory([
         getSpecificItem([
+          getMaterialModByName('Patchwork'),
           getPrefixModByName("Traveler's"),
           getBaseModByName('Boots'),
         ]),
         getSpecificItem([
+          getMaterialModByName('Patchwork'),
           getPrefixModByName("Traveler's"),
           getBaseModByName('Cloak'),
         ]),
@@ -131,10 +135,20 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      party[0].addItemToInventory([
-        getSpecificItem([getMiscModByName('Lucky Coin')]),
-      ]);
       party[0].tackOnTrait(getTraitByName('Greedy'));
+      party[0].tackOnTrait(getTraitByName('Treasure Seeker'));
+      party[0].addItemToInventory([
+        getSpecificItem([
+          getMaterialModByName('Silver'),
+          getMiscModByName('Lucky Coin'),
+        ]),
+      ]);
+      party[0].addItemToInventory([
+        getSpecificItem([
+          getBaseModByName('Ring'),
+          getMaterialModByName('Gold'),
+        ]),
+      ]);
     },
   },
   {
@@ -146,11 +160,16 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
+      party[0].tackOnTrait(getTraitByName('Power-Hungry'));
       party[0].addItemToInventory([
         getSpecificItem([getBaseModByName('Orb')]),
         getSpecificItem([
           getConsumableModByName('Scroll'),
-          getSuffixModByName('of Power Enhance'),
+          getSuffixOfSpell('Power Enhance'),
+        ]),
+        getSpecificItem([
+          getBaseModByCriteria([], 0, 0),
+          getSuffixModByName('of Vitality'),
         ]),
       ]);
     },
@@ -182,24 +201,39 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
+      party[0].tackOnTrait(getTraitByName('Heroic Aura'));
       party[0].addItemToInventory([
         getSpecificItem([
           getBaseModByName('Cape'),
           getPrefixModByName('Heroic'),
+        ]),
+        getSpecificItem([
+          getBaseModByCriteria([], 0, 0),
+          getSuffixModByName('of Vitality'),
         ]),
       ]);
     },
   },
   {
     id: 'motivation-divinejudgement',
-    text: 'I want to smite the enemies of my God',
+    text: 'I want to smite the enemies of my god',
     nextHappeningID: 'init-occupation',
     nextHappeningContext: 'divinity',
     eligibility() {
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName('Righteous Cause'));
+      party[0].addItemToInventory([
+        getSpecificItem([
+          getBaseModByName('Robes'),
+          getPrefixModByName("Acolyte's"),
+        ]),
+        getSpecificItem([
+          getBaseModByCriteria(['Blunt'], 0, 0),
+          getSuffixModByName('of Punishment'),
+        ]),
+      ]);
     },
   },
   {
@@ -211,7 +245,12 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName('Martial Adept'));
+      party[0].tackOnTrait(getTraitByName('Quarterstaff Proficiency'));
+      party[0].addItemToInventory([
+        getSpecificItem([getBaseModByName('Quarterstaff')]),
+        getSpecificItem([getBaseModByCriteria([], 0, 0)]),
+      ]);
     },
   },
   {
@@ -223,7 +262,14 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName('Mental Adept'));
+      party[0].addItemToInventory([
+        getSpecificItem([getBaseModByName('Quarterstaff')]),
+        getSpecificItem([
+          getBaseModByName('Wand'),
+          getSuffixOfSpell('Fireball'),
+        ]),
+      ]);
     },
   },
   {
