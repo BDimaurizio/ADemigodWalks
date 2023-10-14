@@ -163,7 +163,7 @@
     ></q-btn>
     <q-btn
       class="col-5 q-pa-sm q-ma-sm"
-      label="Happening"
+      label="Adventure"
       @click="changePane('happening')"
     ></q-btn>
   </div>

@@ -19,6 +19,7 @@ export type ModType =
   | '_CALC_'
   //mods for non-equippable items
   | 'MISC'
+  | 'CONSUMABLE'
   | 'QUEST';
 
 export type ItemSlot =

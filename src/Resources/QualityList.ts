@@ -142,12 +142,6 @@ const ModList: Partial<Mod>[] = [
     rarity: 4,
     tags: [],
   },
-  {
-    name: 'God-Wraught',
-    description: '',
-    rarity: 20,
-    tags: [],
-  },
 ];
 
 export function getQualityModByIndex(index: number): Mod {

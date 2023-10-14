@@ -13,7 +13,7 @@ export default class Choice {
     text: string,
     nextHappeningID: string,
     eligibility: (party: Character[], context: string) => boolean,
-    onSelection: (party: Character[]) => boolean
+    onSelection: (party: Character[]) => void
   ) {
     this.id = id;
     this.text = text;

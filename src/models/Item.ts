@@ -9,6 +9,9 @@ export default class Item {
   public EnchantmentMods: Mod[] = [];
   public PlusMods: Mod[] = [];
 
+  private cachedCompute: Mod = new Mod();
+  private cacheDirty: boolean = true;
+
   //constructor
   constructor(modArray: Mod[]) {
     for (let i = 0; i < modArray.length; i++) {
@@ -25,6 +28,7 @@ export default class Item {
       } else if (
         modArray[i].modType == 'BASE' ||
         modArray[i].modType == 'MISC' ||
+        modArray[i].modType == 'CONSUMABLE' ||
         modArray[i].modType == 'QUEST'
       ) {
         this.BaseMods[4] = modArray[i];
@@ -67,6 +71,11 @@ export default class Item {
   }
 
   get computeStats(): Mod {
+    if (!this.cacheDirty) {
+      console.log('cache success');
+      return this.cachedCompute;
+    }
+    console.log('performance compute');
     let modList = this.BaseMods.concat(
       this.SocketMods,
       this.RuneMods,
@@ -78,14 +87,18 @@ export default class Item {
     const stats = combineMods(modList);
 
     if (this.BaseMods[4]) {
-      stats[this.BaseMods[4].importantA] += this.BaseMods[4].importantAval;
-      stats[this.BaseMods[4].importantB] += this.BaseMods[4].importantBval;
-      stats[this.BaseMods[4].importantC] += this.BaseMods[4].importantCval;
+      console.log(this.BaseMods[4]);
+      console.log(this.BaseMods[4].importantAval);
+      stats[this.BaseMods[4].importantA] += stats.importantAval;
+      stats[this.BaseMods[4].importantB] += stats.importantBval;
+      stats[this.BaseMods[4].importantC] += stats.importantCval;
     }
 
     stats.slot = this.BaseMods[4].slot;
     stats.description = 'TODO add description';
 
+    this.cachedCompute = stats;
+    this.cacheDirty = false;
     return stats;
   }
 
@@ -138,5 +151,10 @@ export default class Item {
 
     //otherwise, just serve up the base icon
     return this.baseBodyMod.inventoryIcon;
+  }
+
+  public transform(): void {
+    //transformmmmm
+    this.cacheDirty = true;
   }
 }

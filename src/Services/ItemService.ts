@@ -1,4 +1,5 @@
 import Item from 'src/models/Item';
+import Mod from 'src/models/Mod';
 import { getBaseModByCriteria } from 'src/Resources/BaseList';
 import { getMaterialModByCriteria } from 'src/Resources/MaterialList';
 import { getQualityModByCriteria } from 'src/Resources/QualityList';
@@ -14,5 +15,11 @@ export function testItemArray(howMany: number): Item[] {
       ])
     );
   }
+  return output;
+}
+
+export function getSpecificItem(MODS: Mod[]): Item {
+  const output = new Item(MODS);
+  //TODO validate
   return output;
 }

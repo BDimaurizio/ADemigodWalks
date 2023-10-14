@@ -12,7 +12,6 @@ export default defineComponent({
   components: {},
   props: {
     skill: { type: Object, required: true },
-    active: { type: Boolean, required: true },
   },
 
   setup(props) {

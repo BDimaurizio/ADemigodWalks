@@ -54,6 +54,27 @@ const ModList: Partial<Mod>[] = [
       return false;
     },
   },
+  {
+    name: 'Greedy',
+    description: 'You have a keen eye for money and always haggle for a deal',
+    rarity: 0,
+    Bargaining: 3,
+    tags: ['Commerce'],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: 'Friendly',
+    description: 'blah',
+    rarity: 0,
+    Leadership: 1,
+    Diplomacy: 1,
+    tags: ['Humility'],
+    eligibilityChecker() {
+      return true;
+    },
+  },
 ];
 
 export function getTraitByIndex(index: number): Mod {

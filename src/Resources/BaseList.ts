@@ -77,6 +77,14 @@ const ModList: Partial<Mod>[] = [
     tags: [],
   },
   {
+    name: 'Cape',
+    description: '',
+    rarity: 0,
+    inventoryIcon: new URL('src/assets/Icons/Armor/Cloak.png', import.meta.url),
+    slot: 'Light Armor',
+    tags: [],
+  },
+  {
     name: 'Jerkin',
     description: '',
     rarity: 0,
@@ -164,6 +172,38 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: 'Trinket',
+    tags: [],
+  },
+  {
+    name: 'Amulet',
+    description: '',
+    rarity: 0,
+    inventoryIcon: new URL(
+      'src/assets/Icons/Trinkets/Ac_Necklace02.png',
+      import.meta.url
+    ),
+    slot: 'Trinket',
+    tags: [],
+  },
+  {
+    name: 'Bracelet',
+    description: '',
+    rarity: 0,
+    inventoryIcon: new URL(
+      'src/assets/Icons/Trinkets/Ac_Ring02.png',
+      import.meta.url
+    ),
+    slot: 'Trinket',
+    tags: [],
+  },
+  {
+    name: 'Orb',
+    description: '',
+    rarity: 0,
+    importantA: 'WIL',
+    WIL: 1,
+    inventoryIcon: new URL('src/assets/Icons/Gems/redOrb.png', import.meta.url),
+    slot: 'Implement',
     tags: [],
   },
 ];

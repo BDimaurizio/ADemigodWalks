@@ -58,6 +58,13 @@
           :partyMemberSortingSchema="itemSortingSchema"
           @partyMemberClicked="partyMemberClicked"
         ></PartyList>
+        <HappeningPane
+          style="max-width: 29vw"
+          v-else-if="visiblePaneStatus == 'happening'"
+          :happening="currentHappening"
+          @choiceClicked="choiceClicked"
+          :key="update + currentHappening.title"
+        ></HappeningPane>
       </q-scroll-area>
       <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
         <item-info-pane
@@ -93,7 +100,6 @@
         <SkillInfoPane
           v-else-if="selectedSkill"
           :skill="(selectedSkill as Skill)"
-          :active="true"
           :key="selectedSkill"
         ></SkillInfoPane>
         <PartyMemberInfoPane
@@ -102,6 +108,11 @@
           :key="selectedPartyMember"
           @on-click-inspect="onClickInspect"
         ></PartyMemberInfoPane>
+        <LogPane
+          v-else-if="visiblePaneStatus == 'happening'"
+          :log="logCollection"
+          :key="update"
+        ></LogPane>
       </q-scroll-area>
     </q-page>
   </q-page-container>
@@ -132,6 +143,9 @@ import PartyList from 'src/components/Characters/PartyList.vue';
 import { testCharacter, testProtagonist } from 'src/Services/CharacterService';
 import PartyMemberInfoPane from 'src/components/Characters/PartyMemberInfoPane.vue';
 import { GenerateWorld } from 'src/Services/WorldGeneration';
+import HappeningPane from 'src/components/Happening/HappeningPane.vue';
+import { getHappeningByID } from 'src/Resources/HappeningList';
+import LogPane from 'src/components/Happening/LogPane.vue';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -150,7 +164,10 @@ export default defineComponent({
     SkillInfoPane,
     PartyList,
     PartyMemberInfoPane,
+    HappeningPane,
+    LogPane,
   },
+
   setup() {
     //key declarations
     const update = ref(0);
@@ -163,7 +180,9 @@ export default defineComponent({
     const selectedSkill = ref();
     const selectedPartyMember = ref();
 
+    const currentHappening = ref(getHappeningByID('setout'));
     const activeLocation = ref();
+    const logCollection = ref([] as [string, Date][]);
 
     const directedWhere = ref('my_inventory');
     const directedInventory = ref();
@@ -176,7 +195,7 @@ export default defineComponent({
 
     const party = ref([] as Character[]);
 
-    party.value.push(testProtagonist('victor'));
+    party.value.push(testProtagonist(''));
     party.value.push(testCharacter('albert'));
     party.value.push(testCharacter('betty'));
     party.value.push(testCharacter('xavier'));
@@ -184,8 +203,6 @@ export default defineComponent({
     party.value.push(testCharacter('grace'));
 
     let selectedCharacter = ref(party.value[0]);
-
-    ///////////////////////emits:
 
     //inventory pane
 
@@ -204,6 +221,9 @@ export default defineComponent({
     function updatePanes(where?: string): void {
       console.log(where);
       console.log(directedWhere.value);
+      if (visiblePaneStatus.value == 'happening') {
+        updateLogCollection();
+      }
       if (!where) {
         where = directedWhere.value;
       } else {
@@ -348,6 +368,67 @@ export default defineComponent({
       updatePanes();
     }
 
+    //happening
+
+    function choiceClicked(index: number, input: string): void {
+      currentHappening.value.choices[index].onSelection(
+        party.value as Character[]
+      );
+
+      specialInput(currentHappening.value.id, input);
+
+      const oldHappening = currentHappening.value;
+
+      currentHappening.value = getHappeningByID(
+        oldHappening.choices[index].nextHappeningID
+      );
+
+      currentHappening.value.context =
+        oldHappening.choices[index].nextHappeningContext;
+
+      currentHappening.value.onArrival(party.value as Character[]);
+
+      updatePanes();
+    }
+
+    function specialInput(context: string, input: string): void {
+      switch (context) {
+        case 'nameInput':
+          selectedCharacter.value.name = input;
+          break;
+        case 'something':
+          //something
+          break;
+      }
+    }
+
+    function updateLogCollection(): void {
+      //add the old logs to the logbuilder
+      let logBuilder: [string, Date][] = logCollection.value;
+
+      //add all party members logs to the logbuilder
+      for (let i = 0; i < party.value.length; i++) {
+        logBuilder = logBuilder.concat(party.value[i].log);
+        party.value[i].clearLog();
+      }
+
+      //check if the logs even changed
+      if (logBuilder.length == logCollection.value.length) {
+        console.log('no change');
+        return;
+      }
+
+      //sort the array
+      logBuilder.sort((a: [string, Date], b: [string, Date]) =>
+        a[1] < b[1] ? 1 : b[1] < a[1] ? -1 : 0
+      );
+
+      //truncate the array
+      logBuilder.length = Math.min(logBuilder.length, 50);
+
+      logCollection.value = logBuilder;
+    }
+
     return {
       //refs
       selectedItem,
@@ -364,6 +445,8 @@ export default defineComponent({
       party,
       selectedPartyMember,
       activeLocation,
+      currentHappening,
+      logCollection,
 
       //keys
       update,
@@ -383,6 +466,7 @@ export default defineComponent({
       partyMemberClicked,
       onClickInspect,
       returnToProtag,
+      choiceClicked,
     };
   }, //need to generate in order: base, material, quality, prefix?, the rest
 });

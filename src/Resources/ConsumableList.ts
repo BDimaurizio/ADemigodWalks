@@ -5,51 +5,45 @@ import {
   prepareModForExport,
 } from 'src/Services/ModListManipulationService';
 
-const modType: ModType = 'PREFIX';
+const modType: ModType = 'CONSUMABLE';
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'Ritual',
-    description: 'rrrrrrr',
+    name: 'Rations',
+    description: '',
     rarity: 0,
-    tags: ['WOOD'],
+    inventoryIcon: new URL(
+      'src/assets/Icons/Food/I_C_Bread.png',
+      import.meta.url
+    ),
+    slot: 'Consumable',
+    tags: ['Feasts'],
   },
   {
-    name: "Traveler's",
-    description: 'trav',
+    name: 'Scroll',
+    description: 'A scroll that can be used to cast the contained spell',
     rarity: 0,
-    tags: ['CLOTH'],
-  },
-  {
-    name: 'Friendship',
-    description: 'f',
-    Leadership: 1,
-    Diplomacy: 1,
-    rarity: 0,
-    tags: ['Humility'],
-  },
-  {
-    name: 'Heroic',
-    description: 'f',
-    STR: 1,
-    VIT: 1,
-    rarity: 1,
-    tags: ['Battle'],
+    inventoryIcon: new URL(
+      'src/assets/Icons/Books/scroll_new.png',
+      import.meta.url
+    ),
+    slot: 'Consumable',
+    tags: ['Magic'],
   },
 ];
 
-export function getPrefixModByIndex(index: number): Mod {
+export function getConsumableModByIndex(index: number): Mod {
   if (index < 0) index = 0;
   const result = ModList[index];
   return prepareModForExport(result, modType);
 }
 
-export function getPrefixModByName(name: string): Mod {
+export function getConsumableModByName(name: string): Mod {
   const index = ModList.findIndex((element) => element.name === name);
-  return getPrefixModByIndex(index);
+  return getConsumableModByIndex(index);
 }
 
-export function getPrefixModByCriteria(
+export function getConsumableModByCriteria(
   tags: Tag[],
   minRarity: number,
   maxRarity: number,

@@ -4,15 +4,24 @@ import {
   getModByCriteria,
   prepareModForExport,
 } from 'src/Services/ModListManipulationService';
+import { getSkillByName } from './SkillList';
 
 const modType: ModType = 'SUFFIX';
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'of the pyre',
-    description: 'spicy',
-    rarity: 0,
-    tags: ['Flame'],
+    name: 'of Power',
+    description: 'It makes you feel more powerful just by holding it',
+    importantAval: 1,
+    STR: 1,
+    rarity: 1,
+    tags: ['Destruction', 'Battle'],
+  },
+  {
+    name: 'of Power Enhance',
+    description: 'wooble',
+    Skills: [getSkillByName('Power Enhance')],
+    tags: ['Destruction', 'Battle'],
   },
 ];
 

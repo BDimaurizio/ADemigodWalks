@@ -5,15 +5,14 @@
     @click="choiceClicked"
   >
     <div class="col text-h5 vertical-center">
-      {{ name }}
+      {{ choice.text }}
     </div>
   </q-card>
 </template>
 
 <script lang="ts">
-//import Mod from 'src/models/Mod';
 import Choice from 'src/models/Choice';
-import { PropType, computed, defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {},
@@ -23,17 +22,15 @@ export default defineComponent({
   emits: ['choiceClicked'],
 
   setup(props, context) {
-    function inventoryClicked() {
-      context.emit('inventoryClicked');
+    function choiceClicked() {
+      context.emit('choiceClicked');
     }
 
     return {
       ...props,
-      name: computed(() => props.trait.name),
-      colour: computed(() => (props.active ? 'red' : 'white')),
 
       //methods
-      inventoryClicked,
+      choiceClicked,
     };
   },
 });

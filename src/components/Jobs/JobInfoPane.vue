@@ -17,7 +17,7 @@
     >{{ cachedStats[1] }}</pre
   >
   <q-separator />
-  Level unlocks:
+  <br />
   <div class="row">
     <div
       class="col-12 row levelGrid"

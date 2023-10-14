@@ -12,7 +12,6 @@
     <SkillTile
       class="col"
       :skill="skill"
-      :active="skill.eligibilityChecker(chara)"
       @inventoryClicked="skillClicked(skill, index)"
     ></SkillTile>
   </div>

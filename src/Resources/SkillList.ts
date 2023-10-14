@@ -1,4 +1,5 @@
 import { Tag } from 'src/models/Index';
+import Mod from 'src/models/Mod';
 import Skill from 'src/models/Skill';
 
 const SkillList: Skill[] = [
@@ -37,6 +38,35 @@ const SkillList: Skill[] = [
           victims[i].currentHP = 0;
         }
       }
+      return true;
+    },
+  },
+  {
+    name: 'Power Enhance',
+    description: 'Enhance a random held item',
+    target: 'ANY',
+    maxTargets: 1,
+    mpCost: 0,
+    spCost: 0,
+    tags: ['Magic'],
+    eligibilityChecker() {
+      return true;
+    },
+    skillCast(caster, victims): boolean {
+      victims.forEach((victim) => {
+        //TODO make this actually do what it says
+        const newItem = victim.getSpecificEquipment(1);
+        if (!newItem) return;
+        newItem.BaseMods[5] = new Mod({
+          name: 'of Power',
+          description: 'It makes you feel more powerful just by holding it',
+          importantAval: 1,
+          STR: 1,
+          rarity: 1,
+          tags: ['Destruction', 'Battle'],
+        });
+        victim.transformItem(1, newItem);
+      });
       return true;
     },
   },

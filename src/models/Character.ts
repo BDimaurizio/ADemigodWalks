@@ -30,6 +30,7 @@ export default class Character {
   public opinionOfProtagonist: number = 0;
   public controlLevel: number = 0; //0 = npc or hired mercenary | 1 = ally, or someone mind controlled by you | 2 = construct, automoaton, controlled undead, etc | 3 = the player character | -1 enemy, or someone you cannot inspect
 
+  public log: [string, Date][] = [];
   //private memories: memory[] = []
 
   private equippedItems: (Item | undefined)[] = [
@@ -138,7 +139,7 @@ export default class Character {
     console.log('performance');
     let output;
     if (this.cacheDirty) {
-      console.log('performanceFORREAL');
+      console.log('performance performance');
       output = combineMods([
         this.tackedOnMod,
         this.equipmentStats,
@@ -163,10 +164,9 @@ export default class Character {
   }
 
   get statsWithoutTraits(): Mod {
-    console.log('performance');
     let output;
     if (this.cacheDirty) {
-      console.log('performanceTTT');
+      console.log('performancet');
       output = combineMods([
         this.tackedOnMod,
         this.equipmentStats,
@@ -254,10 +254,16 @@ export default class Character {
     return false;
   }
 
-  removeItemFromInventory = (item: Item): boolean => {
+  removeItemFromInventory = (
+    item: Item,
+    bypassLog: boolean = false
+  ): boolean => {
     for (let i = 0; i < this.inventory.length; i++) {
       if (this.inventory[i].fullName == item.fullName) {
         this.inventory.splice(i, 1);
+        if (!bypassLog) {
+          this.updateLog(`${this.name} lost item: ${item.fullName}`);
+        }
         return true;
       }
     }
@@ -266,6 +272,17 @@ export default class Character {
 
   addItemToInventory = (items: Item[]): void => {
     this.inventory.push(...items);
+    if (items.length > 1) {
+      let stringBuilder = items[0].fullName;
+      for (let i = 1; i < items.length; i++) {
+        stringBuilder = stringBuilder + `, ${items[i].fullName}`;
+      }
+      this.updateLog(
+        `${this.name} gained ${items.length} items: ${stringBuilder}`
+      );
+    } else {
+      this.updateLog(`${this.name} gained item: ${items[0].fullName}`);
+    }
   };
 
   getInventory = (): Item[] => {
@@ -287,7 +304,7 @@ export default class Character {
 
   equipItem = (item: Item): boolean => {
     this.cacheDirty = true;
-    if (!this.removeItemFromInventory(item)) {
+    if (!this.removeItemFromInventory(item, true)) {
       console.log('item not in inventory');
       return false;
     }
@@ -335,6 +352,7 @@ export default class Character {
       case 'Trinket':
         if (this.checkAttunement()) {
           this.equippedTrinkets.push(item);
+          this.updateLog(`${this.name} equipped item: ${item.fullName}`);
           return true;
         } else {
           this.inventory.push(item);
@@ -346,7 +364,7 @@ export default class Character {
     console.log(this.equippedItems[index]);
     this.unequipItemByIndex(index);
     this.equippedItems[index] = item; //TODO check if offhand overwriting 2hander
-    console.log('equipped ' + item.fullName);
+    this.updateLog(`${this.name} equipped item: ${item.fullName}`);
     return true;
   };
 
@@ -358,7 +376,9 @@ export default class Character {
         this.equippedItems[index] &&
         this.equippedItems[index]!.fullName != 'NONE'
       ) {
-        console.log('unequipped ' + this.equippedItems[index]!.fullName);
+        this.updateLog(
+          `${this.name} unequipped item: ${this.equippedItems[index]!.fullName}`
+        );
         this.inventory.push(this.equippedItems[index]!);
         this.equippedItems[index] = undefined;
         return true;
@@ -368,6 +388,9 @@ export default class Character {
         this.equippedTrinkets[index] &&
         this.equippedTrinkets[index].fullName != 'NONE'
       ) {
+        this.updateLog(
+          `${this.name} unequipped item: ${this.equippedTrinkets[index].fullName}`
+        );
         this.inventory.push(this.equippedTrinkets[index]);
         this.equippedTrinkets.splice(index, 1);
         return true;
@@ -400,6 +423,7 @@ export default class Character {
       }
     }
     this.jobs.push([job, startingLevel]);
+    this.updateLog(`${this.name} gained class: ${job.name}`);
     return true;
   };
 
@@ -410,6 +434,7 @@ export default class Character {
       if (this.jobs[i][0].name == job.name) {
         this.currentEXP -= expCost;
         this.jobs[i][1]++;
+        this.updateLog(`${this.name} gained 1 level in ${job.name}`);
         return true;
       }
     }
@@ -424,15 +449,40 @@ export default class Character {
     const tack = new Mod({});
     tack[stat] = amount;
     this.editTackedOnMod(tack);
+    this.updateLog(`${this.name} gained ${amount} ${stat}`);
   };
 
   tackOnTrait = (trait: Mod): void => {
     const tack = new Mod({});
     tack.Traits = [trait];
     this.editTackedOnMod(tack);
+    this.updateLog(`${this.name} gained trait: ${trait.name}`);
   };
 
   checkAttunement = (): boolean => {
     return !!(Math.trunc(this.stats.Attunement) > this.equippedTrinkets.length);
+  };
+
+  updateLog = (entry: string): void => {
+    if (this.log.length > 20) {
+      this.log.shift();
+    }
+    this.log.push([entry, new Date()]);
+  };
+
+  clearLog = (): void => {
+    this.log = [];
+  };
+
+  transformItem = (index: number, item: Item): void => {
+    this.cacheDirty = true;
+    if (this.equippedItems[index]) {
+      this.updateLog(
+        `${this.name}'s ${
+          this.equippedItems[index]!.fullName
+        } was transformed into ${item.fullName}`
+      );
+      this.equippedItems[index] = item;
+    }
   };
 }
