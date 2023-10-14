@@ -132,6 +132,7 @@ export default class Character {
       ...this.tackedOnMod.Skills,
       ...this.equipmentStats.Skills,
       ...this.jobStats.Skills,
+      ...combineMods(this.getAllEligibleTraitsFromList(this.traits)).Skills,
     ]);
   }
 
@@ -151,14 +152,10 @@ export default class Character {
       output = this.cachedCombine;
     }
 
-    for (let i = 0; i < output.Traits.length; i++) {
-      if (
-        typeof output.Traits[i].eligibilityChecker !== 'undefined' &&
-        output.Traits[i].eligibilityChecker!(this)
-      ) {
-        output = combineMods([output, output.Traits[i]]);
-      }
-    }
+    output = combineMods([
+      output,
+      ...this.getAllEligibleTraitsFromList(output.Traits),
+    ]);
 
     return this.applyDerivedStats(output);
   }
@@ -252,6 +249,19 @@ export default class Character {
       }
     }
     return false;
+  }
+
+  public getAllEligibleTraitsFromList(traits: Mod[]) {
+    const output = [];
+    for (let i = 0; i < traits.length; i++) {
+      if (
+        typeof traits[i].eligibilityChecker !== 'undefined' &&
+        traits[i].eligibilityChecker!(this)
+      ) {
+        output.push(traits[i]);
+      }
+    }
+    return output;
   }
 
   removeItemFromInventory = (
@@ -446,6 +456,7 @@ export default class Character {
   };
 
   tackOnStat = (stat: ImportantStatPossibility, amount: number): void => {
+    this.cacheDirty = true;
     const tack = new Mod({});
     tack[stat] = amount;
     this.editTackedOnMod(tack);
@@ -453,6 +464,7 @@ export default class Character {
   };
 
   tackOnTrait = (trait: Mod): void => {
+    this.cacheDirty = true;
     const tack = new Mod({});
     tack.Traits = [trait];
     this.editTackedOnMod(tack);
@@ -474,15 +486,13 @@ export default class Character {
     this.log = [];
   };
 
-  transformItem = (index: number, item: Item): void => {
+  transformItem = (index: number, newMod: Mod): void => {
     this.cacheDirty = true;
     if (this.equippedItems[index]) {
+      this.equippedItems[index]!.transform(newMod);
       this.updateLog(
-        `${this.name}'s ${
-          this.equippedItems[index]!.fullName
-        } was transformed into ${item.fullName}`
+        `${this.name}'s ${this.equippedItems[index]!.fullName} was transformed!`
       );
-      this.equippedItems[index] = item;
     }
   };
 }

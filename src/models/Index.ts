@@ -56,7 +56,7 @@ export type ItemSlot =
   | 'Quest Item'
   | 'NONE';
 
-export type Target = 'SELF' | 'ALLY' | 'ENEMY' | 'ANY';
+export type Target = 'SELF' | 'ALLY' | 'ENEMY' | 'ANY' | 'ITEM';
 
 export type Gender = 'Male' | 'Female';
 
@@ -145,6 +145,10 @@ export type Tag =
   | 'WOOD-SPECIFIC'
   | 'NEGATIVE'
   | 'INFLICTED'
+  //consumable types
+  | 'SCROLL'
+  | 'POTION'
+  | 'FOOD'
   //enemy species tags
   | 'Cat'
   | 'NONE'

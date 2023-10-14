@@ -75,6 +75,18 @@ const ModList: Partial<Mod>[] = [
       return true;
     },
   },
+  {
+    name: 'Scroll Reading: ',
+    description:
+      "You can cast the spell written on the scroll. Wait too long and you'll forget, though",
+    rarity: 0,
+    tags: ['Magic'],
+    Skills: [],
+    duration: -1,
+    eligibilityChecker() {
+      return true;
+    },
+  },
 ];
 
 export function getTraitByIndex(index: number): Mod {

@@ -1,3 +1,4 @@
+import { prepareModForExport } from 'src/Services/ModListManipulationService';
 import { Tag } from 'src/models/Index';
 import Mod from 'src/models/Mod';
 import Skill from 'src/models/Skill';
@@ -7,7 +8,8 @@ const SkillList: Skill[] = [
     name: 'Fireball',
     description: 'boom haha',
     target: 'ENEMY',
-    maxTargets: 1,
+    characterTargets: 1,
+    itemTargets: 0,
     mpCost: 5,
     spCost: 0,
     tags: ['Flame', 'Magic'],
@@ -27,7 +29,8 @@ const SkillList: Skill[] = [
     name: 'Cat Ward',
     description: 'Target cats are launched into the sun',
     target: 'ENEMY',
-    maxTargets: 999,
+    characterTargets: 999,
+    itemTargets: 0,
     spCost: 0,
     mpCost: 0,
     tags: ['Beasts', 'Magic', 'Day', 'Cat'],
@@ -43,9 +46,40 @@ const SkillList: Skill[] = [
   },
   {
     name: 'Power Enhance',
-    description: 'Enhance a random held item',
-    target: 'ANY',
-    maxTargets: 1,
+    description: 'Enhance an item',
+    target: 'ITEM',
+    characterTargets: 0,
+    itemTargets: 1,
+    mpCost: 0,
+    spCost: 0,
+    tags: ['Magic'],
+    eligibilityChecker() {
+      return true;
+    },
+    skillCast(caster, victims, items): boolean {
+      items.forEach((item) => {
+        const newMod = prepareModForExport(
+          new Mod({
+            name: 'of Power',
+            description: 'It makes you feel more powerful just by holding it',
+            importantAval: 1,
+            STR: 1,
+            rarity: 1,
+            tags: ['Destruction', 'Battle'],
+          }),
+          'SUFFIX'
+        );
+        item.transform(newMod);
+      });
+      return true;
+    },
+  },
+  {
+    name: 'Vital Blessing',
+    description: 'give someone +1 vit',
+    target: 'ALLY',
+    characterTargets: 1,
+    itemTargets: 0,
     mpCost: 0,
     spCost: 0,
     tags: ['Magic'],
@@ -54,18 +88,7 @@ const SkillList: Skill[] = [
     },
     skillCast(caster, victims): boolean {
       victims.forEach((victim) => {
-        //TODO make this actually do what it says
-        const newItem = victim.getSpecificEquipment(1);
-        if (!newItem) return;
-        newItem.BaseMods[5] = new Mod({
-          name: 'of Power',
-          description: 'It makes you feel more powerful just by holding it',
-          importantAval: 1,
-          STR: 1,
-          rarity: 1,
-          tags: ['Destruction', 'Battle'],
-        });
-        victim.transformItem(1, newItem);
+        victim.tackOnStat('VIT', 1);
       });
       return true;
     },

@@ -22,8 +22,8 @@ const JobList: Job[] = [
     }),
     ['Super Duper Healthy', 'Low Health Crafter'],
     [5, 6],
-    ['Fireball'],
-    [3]
+    ['Power Enhance', 'Fireball'],
+    [3, 1]
   ),
   new Job(
     'Sailor',

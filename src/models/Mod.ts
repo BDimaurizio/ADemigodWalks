@@ -6,6 +6,7 @@ import {
   ModType,
   Tag,
 } from './Index';
+import Item from './Item';
 import Skill from './Skill';
 
 export default class Mod {
@@ -195,6 +196,9 @@ export default class Mod {
   public Skills: Skill[] = [];
   //trait management
   public eligibilityChecker?: (character: Character) => boolean;
+  public duration?: number = 0; // 0 = normal trait, -1 = lasts until the end of the current battle, x = x rounds of battle
+  //consumable effect
+  public consume?: (consumer: Character, item: Item) => void;
 
   constructor(stats?: Partial<Mod>) {
     if (!stats) {

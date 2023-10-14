@@ -47,6 +47,7 @@ export default defineComponent({
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
+      prevIndex = -1;
       if (style == 'Name') {
         inventoryArray.value.sort((a: Item, b: Item) =>
           a.fullName > b.fullName ? 1 : b.fullName > a.fullName ? -1 : 0

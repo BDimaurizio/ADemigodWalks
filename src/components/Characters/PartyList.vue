@@ -9,26 +9,28 @@
     class="q-ma-sm row"
     style="vertical-align: top"
     v-for="(partyMemberObject, index) in partyMemberArray"
-    :key="partyMemberObject"
+    :key="partyMemberObject.name + index"
   >
     <PartyMemberTile
       v-if="partyMemberObject"
       class="col"
-      :partyMember="partyMemberObject"
-      @partyMemberClicked="partyMemberClicked(partyMemberObject, index)"
+      :partyMember="(partyMemberObject as Character)"
+      @partyMemberClicked="
+        partyMemberClicked(partyMemberObject as Character, index)
+      "
     ></PartyMemberTile>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
+import { ref, defineComponent, onMounted, PropType } from 'vue';
 import PartyMemberTile from './PartyMemberTile.vue';
 import Character from 'src/models/Character';
 
 export default defineComponent({
   components: { PartyMemberTile },
   props: {
-    partyMemberList: { type: Object, required: true }, // array of characters
+    partyMemberList: { type: Object as PropType<Character[]>, required: true }, // array of characters
     partyMemberSortingSchema: { type: Object, required: true },
   },
   emits: ['partyMemberClicked', 'updateSortingSchema'],
@@ -36,7 +38,9 @@ export default defineComponent({
   computed: {},
 
   setup(props, context) {
-    const partyMemberArray = ref(props.partyMemberList.filter(Boolean));
+    const partyMemberArray = ref(
+      props.partyMemberList.filter(Boolean) as Character[]
+    );
     const sortingSchema = ref(props.partyMemberSortingSchema);
     let prevIndex = -1;
 
@@ -49,12 +53,13 @@ export default defineComponent({
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
+      prevIndex = -1;
       if (style == 'Name') {
-        partyMemberArray.value.sort((a: Character, b: Character) =>
+        partyMemberArray.value.sort((a, b) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
       } else if (style == 'Level') {
-        partyMemberArray.value.sort((a: Character, b: Character) =>
+        partyMemberArray.value.sort((a, b) =>
           a.totalLevel < b.totalLevel ? 1 : b.totalLevel < a.totalLevel ? -1 : 0
         );
       }

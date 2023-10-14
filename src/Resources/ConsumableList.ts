@@ -4,6 +4,7 @@ import {
   getModByCriteria,
   prepareModForExport,
 } from 'src/Services/ModListManipulationService';
+import { getTraitByName } from './TraitList';
 
 const modType: ModType = 'CONSUMABLE';
 
@@ -29,6 +30,18 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: 'Consumable',
     tags: ['Magic'],
+    consume(consumer, item) {
+      if (!item.computeStats.Skills) {
+        return;
+      }
+      const skills = item.computeStats.Skills;
+      skills.forEach((skill) => {
+        const scrollTrait = getTraitByName('Scroll Reading: ');
+        scrollTrait.Skills.push(skill);
+        scrollTrait.name = scrollTrait.name + skill.name;
+        consumer.tackOnTrait(scrollTrait);
+      });
+    },
   },
 ];
 

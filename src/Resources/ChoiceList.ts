@@ -152,10 +152,6 @@ export const ChoiceBucketMotivationI: Choice[] = [
           getConsumableModByName('Scroll'),
           getSuffixModByName('of Power Enhance'),
         ]),
-        getSpecificItem([
-          getBaseModByName('Dagger'),
-          getSuffixModByName('of Power Enhance'),
-        ]),
       ]);
     },
   },

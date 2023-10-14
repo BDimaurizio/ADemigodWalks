@@ -1,6 +1,9 @@
 import Character from 'src/models/Character';
 import { getJobByName } from 'src/Resources/JobList';
-import { testItemArray } from './ItemService';
+import { getSpecificItem, testItemArray } from './ItemService';
+import { getBaseModByName } from 'src/Resources/BaseList';
+import { getConsumableModByName } from 'src/Resources/ConsumableList';
+import { getSuffixModByName } from 'src/Resources/SuffixList';
 
 export function testProtagonist(name: string): Character {
   const output: Character = new Character(name);
@@ -9,6 +12,17 @@ export function testProtagonist(name: string): Character {
   output.currentEXP = 500;
   output.gainJob(getJobByName('Adventurer'), 0);
   output.clearLog();
+  output.addItemToInventory([
+    getSpecificItem([getBaseModByName('Orb')]),
+    getSpecificItem([
+      getConsumableModByName('Scroll'),
+      getSuffixModByName('of Power Enhance'),
+    ]),
+    getSpecificItem([
+      getConsumableModByName('Scroll'),
+      getSuffixModByName('of Vital Blessing'),
+    ]),
+  ]);
   return output;
 }
 

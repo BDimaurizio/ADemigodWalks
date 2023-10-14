@@ -49,6 +49,7 @@ export default defineComponent({
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
+      prevIndex = -1;
       if (style == 'Name') {
         skillListArray.value.sort((a: Mod, b: Mod) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0

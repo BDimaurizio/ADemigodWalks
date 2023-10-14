@@ -1,5 +1,6 @@
 import { combineMods } from 'src/Services/ModListManipulationService';
 import Mod from './Mod';
+import Character from './Character';
 
 export default class Item {
   //properties
@@ -15,35 +16,9 @@ export default class Item {
   //constructor
   constructor(modArray: Mod[]) {
     for (let i = 0; i < modArray.length; i++) {
-      if (modArray[i].modType == 'BLESSING') {
-        this.BaseMods[0] = modArray[i];
-      } else if (modArray[i].modType == 'CURSE') {
-        this.BaseMods[0] = modArray[i];
-      } else if (modArray[i].modType == 'QUALITY') {
-        this.BaseMods[1] = modArray[i];
-      } else if (modArray[i].modType == 'MATERIAL') {
-        this.BaseMods[2] = modArray[i];
-      } else if (modArray[i].modType == 'PREFIX') {
-        this.BaseMods[3] = modArray[i];
-      } else if (
-        modArray[i].modType == 'BASE' ||
-        modArray[i].modType == 'MISC' ||
-        modArray[i].modType == 'CONSUMABLE' ||
-        modArray[i].modType == 'QUEST'
-      ) {
-        this.BaseMods[4] = modArray[i];
-      } else if (modArray[i].modType == 'SUFFIX') {
-        this.BaseMods[5] = modArray[i];
-      } else if (modArray[i].modType == 'SOCKET') {
-        this.SocketMods.push(modArray[i]);
-      } else if (modArray[i].modType == 'RUNE') {
-        this.RuneMods.push(modArray[i]);
-      } else if (modArray[i].modType == 'ENCHANTMENT') {
-        this.EnchantmentMods.push(modArray[i]);
-      } else if (modArray[i].modType == 'PLUS') {
-        this.PlusMods.push(modArray[i]);
-      }
+      this.addModToItem(modArray[i]);
     }
+    this.cacheDirty = true;
   }
 
   get baseBodyMod(): Mod {
@@ -72,7 +47,6 @@ export default class Item {
 
   get computeStats(): Mod {
     if (!this.cacheDirty) {
-      console.log('cache success');
       return this.cachedCompute;
     }
     console.log('performance compute');
@@ -153,8 +127,78 @@ export default class Item {
     return this.baseBodyMod.inventoryIcon;
   }
 
-  public transform(): void {
-    //transformmmmm
+  get isEquipment(): boolean {
+    if (
+      this.baseBodyMod.modType == 'MISC' ||
+      this.baseBodyMod.modType == 'CONSUMABLE' ||
+      this.baseBodyMod.modType == 'QUEST'
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  private addModToItem(newMod: Mod): void {
+    if (newMod.modType == 'BLESSING') {
+      this.BaseMods[0] = newMod;
+    } else if (newMod.modType == 'CURSE') {
+      this.BaseMods[0] = newMod;
+    } else if (newMod.modType == 'QUALITY') {
+      this.BaseMods[1] = newMod;
+    } else if (newMod.modType == 'MATERIAL') {
+      this.BaseMods[2] = newMod;
+    } else if (newMod.modType == 'PREFIX') {
+      this.BaseMods[3] = newMod;
+    } else if (
+      newMod.modType == 'BASE' ||
+      newMod.modType == 'MISC' ||
+      newMod.modType == 'CONSUMABLE' ||
+      newMod.modType == 'QUEST'
+    ) {
+      this.BaseMods[4] = newMod;
+    } else if (newMod.modType == 'SUFFIX') {
+      this.BaseMods[5] = newMod;
+    } else if (newMod.modType == 'SOCKET') {
+      this.SocketMods.push(newMod);
+    } else if (newMod.modType == 'RUNE') {
+      this.RuneMods.push(newMod);
+    } else if (newMod.modType == 'ENCHANTMENT') {
+      this.EnchantmentMods.push(newMod);
+    } else if (newMod.modType == 'PLUS') {
+      this.PlusMods.push(newMod);
+    }
+  }
+
+  public transform(newMod: Mod): void {
+    this.addModToItem(newMod);
     this.cacheDirty = true;
+  }
+
+  public consume(consumer: Character): void {
+    this.BaseMods.forEach((mod) => {
+      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+        mod.consume(consumer, this);
+      }
+    });
+    this.SocketMods.forEach((mod) => {
+      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+        mod.consume(consumer, this);
+      }
+    });
+    this.RuneMods.forEach((mod) => {
+      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+        mod.consume(consumer, this);
+      }
+    });
+    this.EnchantmentMods.forEach((mod) => {
+      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+        mod.consume(consumer, this);
+      }
+    });
+    this.PlusMods.forEach((mod) => {
+      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+        mod.consume(consumer, this);
+      }
+    });
   }
 }

@@ -23,6 +23,12 @@ const ModList: Partial<Mod>[] = [
     Skills: [getSkillByName('Power Enhance')],
     tags: ['Destruction', 'Battle'],
   },
+  {
+    name: 'of Vital Blessing',
+    description: 'wooble',
+    Skills: [getSkillByName('Vital Blessing')],
+    tags: ['Destruction', 'Battle'],
+  },
 ];
 
 export function getSuffixModByIndex(index: number): Mod {

@@ -61,6 +61,7 @@ export default defineComponent({
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
+      prevIndex = -1;
       if (style == 'Name') {
         jobArray.value.sort((a: [Job, number], b: [Job, number]) =>
           a[0].name > b[0].name ? 1 : b[0].name > a[0].name ? -1 : 0

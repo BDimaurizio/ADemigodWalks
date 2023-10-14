@@ -54,7 +54,7 @@
         ></SkillListPane>
         <PartyList
           v-else-if="visiblePaneStatus == 'party'"
-          :partyMemberList="party"
+          :partyMemberList="(party as Character[])"
           :partyMemberSortingSchema="itemSortingSchema"
           @partyMemberClicked="partyMemberClicked"
         ></PartyList>
@@ -65,6 +65,14 @@
           @choiceClicked="choiceClicked"
           :key="update + currentHappening.title"
         ></HappeningPane>
+        <SkillCastingPane
+          v-else-if="visiblePaneStatus == 'cast'"
+          :skill="selectedSkill"
+          :party-member-list="(party as Character[])"
+          :sorting-schema="itemSortingSchema"
+          :caster="(selectedCharacter as Character)"
+          @updateSortingSchema="updateSortingSchema"
+        ></SkillCastingPane>
       </q-scroll-area>
       <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
         <item-info-pane
@@ -101,6 +109,7 @@
           v-else-if="selectedSkill"
           :skill="(selectedSkill as Skill)"
           :key="selectedSkill"
+          @on-click-cast="onClickCast"
         ></SkillInfoPane>
         <PartyMemberInfoPane
           v-else-if="selectedPartyMember"
@@ -146,6 +155,7 @@ import { GenerateWorld } from 'src/Services/WorldGeneration';
 import HappeningPane from 'src/components/Happening/HappeningPane.vue';
 import { getHappeningByID } from 'src/Resources/HappeningList';
 import LogPane from 'src/components/Happening/LogPane.vue';
+import SkillCastingPane from 'src/components/Skills/SkillCastingPane.vue';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -166,6 +176,7 @@ export default defineComponent({
     PartyMemberInfoPane,
     HappeningPane,
     LogPane,
+    SkillCastingPane,
   },
 
   setup() {
@@ -195,12 +206,12 @@ export default defineComponent({
 
     const party = ref([] as Character[]);
 
-    party.value.push(testProtagonist(''));
+    party.value.push(testProtagonist('(you)'));
     party.value.push(testCharacter('albert'));
-    party.value.push(testCharacter('betty'));
-    party.value.push(testCharacter('xavier'));
-    party.value.push(testCharacter('molly'));
-    party.value.push(testCharacter('grace'));
+    party.value.push(testCharacter('dianne'));
+    party.value.push(testCharacter('luchious'));
+    party.value.push(testCharacter('martholemew'));
+    party.value.push(testCharacter('mathmatical'));
 
     let selectedCharacter = ref(party.value[0]);
 
@@ -340,6 +351,13 @@ export default defineComponent({
       selectedSkill.value = skill;
     }
 
+    function onClickCast(skill: Skill): void {
+      selectedSkill.value = skill;
+      changeVisiblePane('cast');
+      selectedSkill.value = skill;
+      updatePanes();
+    }
+
     //party
 
     function partyMemberClicked(partyMember: Character): void {
@@ -462,6 +480,7 @@ export default defineComponent({
       deityClicked,
       traitClicked,
       skillClicked,
+      onClickCast,
       levelup,
       partyMemberClicked,
       onClickInspect,

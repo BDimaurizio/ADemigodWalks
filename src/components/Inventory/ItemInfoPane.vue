@@ -25,7 +25,16 @@
   <q-separator />
   <div class="row justify-center q-mt-xl">
     <q-btn
-      v-if="propWhere.includes('my_inventory')"
+      v-if="
+        propWhere.includes('my_inventory') &&
+        item.baseBodyMod.modType == 'CONSUMABLE'
+      "
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Use"
+      @click="onClickConsume"
+    ></q-btn>
+    <q-btn
+      v-if="propWhere.includes('my_inventory') && item.isEquipment"
       class="col-5 q-pa-sm q-ma-sm"
       label="Equip"
       :disable="item.baseBodyMod.slot == 'Trinket' && !chara.checkAttunement()"
@@ -44,22 +53,24 @@
       @click="onClickDiscard"
     ></q-btn>
 
-    <div v-if="propWhere.includes('discarded')" class="text-red">Discarded</div>
+    <div v-if="propWhere.includes('discarded')" class="text-red">
+      No Longer In Inventory
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Item from 'src/models/Item';
-import { ref, defineComponent } from 'vue';
+import { ref, defineComponent, PropType } from 'vue';
 import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
 import Character from 'src/models/Character';
 
 export default defineComponent({
   components: {},
   props: {
-    item: { type: Item, required: true },
+    item: { type: Object as PropType<Item>, required: true },
     where: { type: String, required: true },
-    chara: { type: Character, required: true },
+    chara: { type: Object as PropType<Character>, required: true },
   },
   emits: ['equipItem', 'unequipItem', 'discardItem'],
 
@@ -95,6 +106,11 @@ export default defineComponent({
       propWhere.value = 'discarded';
     }
 
+    function onClickConsume() {
+      props.item.consume(props.chara);
+      onClickDiscard();
+    }
+
     return {
       ...props,
       theItem,
@@ -105,6 +121,7 @@ export default defineComponent({
       onClickEquip,
       onClickUnequip,
       onClickDiscard,
+      onClickConsume,
     };
   },
 });
