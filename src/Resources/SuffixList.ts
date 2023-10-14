@@ -17,18 +17,6 @@ const ModList: Partial<Mod>[] = [
     rarity: 1,
     tags: ['Destruction', 'Battle'],
   },
-  {
-    name: 'of Power Enhance',
-    description: 'wooble',
-    Skills: [getSkillByName('Power Enhance')],
-    tags: ['Destruction', 'Battle'],
-  },
-  {
-    name: 'of Vital Blessing',
-    description: 'wooble',
-    Skills: [getSkillByName('Vital Blessing')],
-    tags: ['Destruction', 'Battle'],
-  },
 ];
 
 export function getSuffixModByIndex(index: number): Mod {
@@ -40,6 +28,17 @@ export function getSuffixModByIndex(index: number): Mod {
 export function getSuffixModByName(name: string): Mod {
   const index = ModList.findIndex((element) => element.name === name);
   return getSuffixModByIndex(index);
+}
+
+export function getSuffixOfSpell(name: string): Mod {
+  const skill = getSkillByName(name);
+  const output = new Mod({
+    name: 'of ' + skill.name,
+    description: 'Allows you to cast the spell: ' + skill.name,
+    Skills: [skill],
+    tags: skill.tags,
+  });
+  return prepareModForExport(output, modType);
 }
 
 export function getSuffixModByCriteria(

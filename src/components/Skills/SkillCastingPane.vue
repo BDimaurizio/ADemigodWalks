@@ -55,6 +55,11 @@
         ></InventoryTile>
       </div>
     </div>
+
+    <div v-if="itemSelectionsRemaining < 1 && charSelectionsRemaining < 1">
+      <h5 v-if="castSuccess">Cast Successful!</h5>
+      <h5 v-else>Cast failed.</h5>
+    </div>
   </div>
 </template>
 
@@ -95,6 +100,8 @@ export default defineComponent({
     const charSelectionTargets = ref([] as Character[]);
     const itemSelectionTargets = ref([] as Item[]);
 
+    const castSuccess = ref(false);
+
     function partyMemberClicked(partyMember: Character, index: number): void {
       if (index == prevIndex) {
         return;
@@ -127,13 +134,12 @@ export default defineComponent({
     }
 
     function doCast() {
-      console.log(
-        props.skill.skillCast(
-          props.caster,
-          charSelectionTargets.value as Character[],
-          itemSelectionTargets.value as Item[]
-        )
+      castSuccess.value = props.skill.skillCast(
+        props.caster,
+        charSelectionTargets.value as Character[],
+        itemSelectionTargets.value as Item[]
       );
+      props.caster.removeTackOnTrait('Scroll Reading: ' + props.skill.name); //wrong
     }
 
     function sortChar(style: string, forceDirection: boolean = false): void {
@@ -213,6 +219,7 @@ export default defineComponent({
       itemSelectionsRemaining,
       charSelectionTargets,
       itemSelectionTargets,
+      castSuccess,
 
       //methods
       partyMemberClicked,

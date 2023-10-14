@@ -3,7 +3,7 @@ import { getJobByName } from 'src/Resources/JobList';
 import { getSpecificItem, testItemArray } from './ItemService';
 import { getBaseModByName } from 'src/Resources/BaseList';
 import { getConsumableModByName } from 'src/Resources/ConsumableList';
-import { getSuffixModByName } from 'src/Resources/SuffixList';
+import { getSuffixOfSpell } from 'src/Resources/SuffixList';
 
 export function testProtagonist(name: string): Character {
   const output: Character = new Character(name);
@@ -16,11 +16,11 @@ export function testProtagonist(name: string): Character {
     getSpecificItem([getBaseModByName('Orb')]),
     getSpecificItem([
       getConsumableModByName('Scroll'),
-      getSuffixModByName('of Power Enhance'),
+      getSuffixOfSpell('Power Enhance'),
     ]),
     getSpecificItem([
       getConsumableModByName('Scroll'),
-      getSuffixModByName('of Vital Blessing'),
+      getSuffixOfSpell('Vital Blessing'),
     ]),
   ]);
   return output;

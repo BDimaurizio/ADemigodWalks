@@ -471,6 +471,18 @@ export default class Character {
     this.updateLog(`${this.name} gained trait: ${trait.name}`);
   };
 
+  removeTackOnTrait = (name: string): boolean => {
+    this.cacheDirty = true;
+    let found = false;
+    for (let i = 0; i < this.tackedOnMod.Traits.length; i++) {
+      if (this.tackedOnMod.Traits[i].name == name) {
+        found = true;
+        this.tackedOnMod.Traits.splice(i, 1);
+      }
+    }
+    return found;
+  };
+
   checkAttunement = (): boolean => {
     return !!(Math.trunc(this.stats.Attunement) > this.equippedTrinkets.length);
   };
