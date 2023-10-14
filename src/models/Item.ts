@@ -1,6 +1,7 @@
-import { combineMods } from 'src/Services/ModListManipulationService';
-import Mod from './Mod';
-import Character from './Character';
+import { combineMods } from "src/Services/ModListManipulationService";
+import Mod from "./Mod";
+import Character from "./Character";
+import { getBaseModByIndex } from "src/Resources/BaseList";
 
 export default class Item {
   //properties
@@ -22,21 +23,25 @@ export default class Item {
   }
 
   get baseBodyMod(): Mod {
-    if (this.BaseMods[4]) return this.BaseMods[4];
-    return new Mod();
+    if (this.BaseMods[4]) {
+      return this.BaseMods[4];
+    } else {
+      this.addModToItem(getBaseModByIndex(0));
+      return this.BaseMods[4];
+    }
   }
 
   get fullName(): string {
-    let stringBuilder = '';
+    let stringBuilder = "";
 
-    if (this.BaseMods[0] && this.BaseMods[0].modType == 'BLESSING') {
-      stringBuilder = stringBuilder + 'Blessed ';
-    } else if (this.BaseMods[0] && this.BaseMods[0].modType == 'CURSE') {
-      stringBuilder = stringBuilder + 'Cursed ';
+    if (this.BaseMods[0] && this.BaseMods[0].modType == "BLESSING") {
+      stringBuilder = stringBuilder + "Blessed ";
+    } else if (this.BaseMods[0] && this.BaseMods[0].modType == "CURSE") {
+      stringBuilder = stringBuilder + "Cursed ";
     }
     for (let i = 1; i < this.BaseMods.length; i++) {
       if (this.BaseMods[i]) {
-        stringBuilder = stringBuilder + this.BaseMods[i].name + ' ';
+        stringBuilder = stringBuilder + this.BaseMods[i].name + " ";
       }
     }
     stringBuilder = stringBuilder.trim();
@@ -45,16 +50,16 @@ export default class Item {
   }
 
   get fullNameWithoutMateiral(): string {
-    let stringBuilder = '';
+    let stringBuilder = "";
 
-    if (this.BaseMods[0] && this.BaseMods[0].modType == 'BLESSING') {
-      stringBuilder = stringBuilder + 'Blessed ';
-    } else if (this.BaseMods[0] && this.BaseMods[0].modType == 'CURSE') {
-      stringBuilder = stringBuilder + 'Cursed ';
+    if (this.BaseMods[0] && this.BaseMods[0].modType == "BLESSING") {
+      stringBuilder = stringBuilder + "Blessed ";
+    } else if (this.BaseMods[0] && this.BaseMods[0].modType == "CURSE") {
+      stringBuilder = stringBuilder + "Cursed ";
     }
     for (let i = 1; i < this.BaseMods.length; i++) {
       if (this.BaseMods[i] && i != 2) {
-        stringBuilder = stringBuilder + this.BaseMods[i].name + ' ';
+        stringBuilder = stringBuilder + this.BaseMods[i].name + " ";
       }
     }
     stringBuilder = stringBuilder.trim();
@@ -66,7 +71,7 @@ export default class Item {
     if (!this.cacheDirty) {
       return this.cachedCompute;
     }
-    console.log('performance compute');
+    console.log("performance compute");
     let modList = this.BaseMods.concat(
       this.SocketMods,
       this.RuneMods,
@@ -86,7 +91,7 @@ export default class Item {
     }
 
     stats.slot = this.BaseMods[4].slot;
-    stats.description = 'TODO add description';
+    stats.description = "TODO add description";
 
     this.cachedCompute = stats;
     this.cacheDirty = false;
@@ -101,40 +106,40 @@ export default class Item {
 
   get rarityString(): string {
     const r = this.computeStats.rarity;
-    if (r < 2) return 'Common';
-    else if (r < 4) return 'Uncommon';
-    else if (r < 6) return 'Super Uncommon';
-    else if (r < 8) return 'Ultra Uncommon';
-    else if (r < 10) return 'Rare';
-    else if (r < 15) return 'Super Rare';
-    else if (r < 20) return 'Ultra Rare';
-    else if (r < 30) return 'Epic';
-    else if (r < 45) return 'Super Epic';
-    else if (r < 65) return 'Ultra Epic';
-    else if (r < 85) return 'Legendary';
-    else if (r < 100) return 'Super Legendary';
-    else if (r >= 100) return 'Ultra Legendary';
-    return 'Unknown';
+    if (r < 2) return "Common";
+    else if (r < 4) return "Uncommon";
+    else if (r < 6) return "Super Uncommon";
+    else if (r < 8) return "Ultra Uncommon";
+    else if (r < 10) return "Rare";
+    else if (r < 15) return "Super Rare";
+    else if (r < 20) return "Ultra Rare";
+    else if (r < 30) return "Epic";
+    else if (r < 45) return "Super Epic";
+    else if (r < 65) return "Ultra Epic";
+    else if (r < 85) return "Legendary";
+    else if (r < 100) return "Super Legendary";
+    else if (r >= 100) return "Ultra Legendary";
+    return "Unknown";
   }
 
   get rarityColor(): string {
     const r = this.computeStats.rarity;
-    if (r < 0) return 'text-brown-10';
-    else if (r < 1) return 'text-grey-10';
-    else if (r < 2) return 'text-blue-grey-10';
-    else if (r < 4) return 'text-blue-10';
-    else if (r < 6) return 'text-cyan-8';
-    else if (r < 8) return 'text-green-8';
-    else if (r < 10) return 'text-orange-10';
-    else if (r < 15) return 'text-deep-orange';
-    else if (r < 20) return 'text-red';
-    else if (r < 30) return 'text-purple';
-    else if (r < 45) return 'text-deep-purple';
-    else if (r < 65) return 'text-deep-purple-10';
-    else if (r < 85) return 'text-pink-10';
-    else if (r < 100) return 'text-pink-10';
-    else if (r >= 100) return 'text-pink-10';
-    return 'Unknown';
+    if (r < 0) return "text-brown-10";
+    else if (r < 1) return "text-grey-10";
+    else if (r < 2) return "text-blue-grey-10";
+    else if (r < 4) return "text-blue-10";
+    else if (r < 6) return "text-cyan-8";
+    else if (r < 8) return "text-green-8";
+    else if (r < 10) return "text-orange-10";
+    else if (r < 15) return "text-deep-orange";
+    else if (r < 20) return "text-red";
+    else if (r < 30) return "text-purple";
+    else if (r < 45) return "text-deep-purple";
+    else if (r < 65) return "text-deep-purple-10";
+    else if (r < 85) return "text-pink-10";
+    else if (r < 100) return "text-pink-10";
+    else if (r >= 100) return "text-pink-10";
+    return "Unknown";
   }
 
   get inventoryIcon(): URL {
@@ -146,9 +151,9 @@ export default class Item {
 
   get isEquipment(): boolean {
     if (
-      this.baseBodyMod.modType == 'MISC' ||
-      this.baseBodyMod.modType == 'CONSUMABLE' ||
-      this.baseBodyMod.modType == 'QUEST'
+      this.baseBodyMod.modType == "MISC" ||
+      this.baseBodyMod.modType == "CONSUMABLE" ||
+      this.baseBodyMod.modType == "QUEST"
     ) {
       return false;
     }
@@ -156,32 +161,33 @@ export default class Item {
   }
 
   private addModToItem(newMod: Mod): void {
-    if (newMod.modType == 'BLESSING') {
+    this.cacheDirty = true;
+    if (newMod.modType == "BLESSING") {
       this.BaseMods[0] = newMod;
-    } else if (newMod.modType == 'CURSE') {
+    } else if (newMod.modType == "CURSE") {
       this.BaseMods[0] = newMod;
-    } else if (newMod.modType == 'QUALITY') {
+    } else if (newMod.modType == "QUALITY") {
       this.BaseMods[1] = newMod;
-    } else if (newMod.modType == 'MATERIAL') {
+    } else if (newMod.modType == "MATERIAL") {
       this.BaseMods[2] = newMod;
-    } else if (newMod.modType == 'PREFIX') {
+    } else if (newMod.modType == "PREFIX") {
       this.BaseMods[3] = newMod;
     } else if (
-      newMod.modType == 'BASE' ||
-      newMod.modType == 'MISC' ||
-      newMod.modType == 'CONSUMABLE' ||
-      newMod.modType == 'QUEST'
+      newMod.modType == "BASE" ||
+      newMod.modType == "MISC" ||
+      newMod.modType == "CONSUMABLE" ||
+      newMod.modType == "QUEST"
     ) {
       this.BaseMods[4] = newMod;
-    } else if (newMod.modType == 'SUFFIX') {
+    } else if (newMod.modType == "SUFFIX") {
       this.BaseMods[5] = newMod;
-    } else if (newMod.modType == 'SOCKET') {
+    } else if (newMod.modType == "SOCKET") {
       this.SocketMods.push(newMod);
-    } else if (newMod.modType == 'RUNE') {
+    } else if (newMod.modType == "RUNE") {
       this.RuneMods.push(newMod);
-    } else if (newMod.modType == 'ENCHANTMENT') {
+    } else if (newMod.modType == "ENCHANTMENT") {
       this.EnchantmentMods.push(newMod);
-    } else if (newMod.modType == 'PLUS') {
+    } else if (newMod.modType == "PLUS") {
       this.PlusMods.push(newMod);
     }
   }
@@ -193,27 +199,27 @@ export default class Item {
 
   public consume(consumer: Character): void {
     this.BaseMods.forEach((mod) => {
-      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+      if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
       }
     });
     this.SocketMods.forEach((mod) => {
-      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+      if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
       }
     });
     this.RuneMods.forEach((mod) => {
-      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+      if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
       }
     });
     this.EnchantmentMods.forEach((mod) => {
-      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+      if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
       }
     });
     this.PlusMods.forEach((mod) => {
-      if (mod.modType == 'CONSUMABLE' && mod.consume) {
+      if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
       }
     });

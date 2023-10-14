@@ -1,48 +1,48 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'PREFIX';
+const modType: ModType = "PREFIX";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'Ritual',
-    description: 'rrrrrrr',
+    name: "Ritual",
+    description: "rrrrrrr",
     rarity: 0,
-    tags: ['WOOD'],
+    tags: ["WOOD"],
   },
   {
     name: "Traveler's",
-    description: 'trav',
+    description: "trav",
     rarity: 0,
-    tags: ['CLOTH'],
+    tags: ["CLOTH"],
   },
   {
-    name: 'Friendship',
-    description: 'f',
+    name: "Friendship",
+    description: "f",
     Leadership: 1,
     Diplomacy: 1,
     rarity: 0,
-    tags: ['Humility'],
+    tags: ["Humility"],
   },
   {
-    name: 'Heroic',
-    description: 'f',
+    name: "Heroic",
+    description: "f",
     STR: 1,
     VIT: 1,
     rarity: 1,
-    tags: ['Battle'],
+    tags: ["Battle"],
   },
   {
     name: "Acolyte's",
-    description: 'f',
+    description: "f",
     FAI: 1,
     Attunement: 1,
     rarity: 1,
-    tags: ['Battle'],
+    tags: ["Battle"],
   },
 ];
 
@@ -53,7 +53,9 @@ export function getPrefixModByIndex(index: number): Mod {
 }
 
 export function getPrefixModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getPrefixModByIndex(index);
 }
 

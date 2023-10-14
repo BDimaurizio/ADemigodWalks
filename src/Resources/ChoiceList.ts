@@ -1,12 +1,7 @@
-import { getSpecificItem } from 'src/Services/ItemService';
-import Choice from 'src/models/Choice';
-import { getPrefixModByName } from './PrefixList';
-import { getBaseModByCriteria, getBaseModByName } from './BaseList';
-import { getConsumableModByName } from './ConsumableList';
-import { getMiscModByName } from './MiscList';
-import { getTraitByName } from './TraitList';
-import { getSuffixModByName, getSuffixOfSpell } from './SuffixList';
-import { getMaterialModByName } from './MaterialList';
+import { geti } from "src/Services/ItemService";
+import Choice from "src/models/Choice";
+import { getBaseModByCriteria } from "./BaseList";
+import { getTraitByName } from "./TraitList";
 
 export function getChoiceByIndex(
   index: number,
@@ -43,10 +38,10 @@ export function getRandomChoicesFromBucket(
 
 export const ChoiceBucketTest: Choice[] = [
   {
-    id: 'test choice',
-    text: 'test choice',
-    nextHappeningID: 'test-1',
-    nextHappeningContext: '',
+    id: "test choice",
+    text: "test choice",
+    nextHappeningID: "test-1",
+    nextHappeningContext: "",
     eligibility(party, context): boolean {
       console.log(party, context);
       return true;
@@ -56,10 +51,10 @@ export const ChoiceBucketTest: Choice[] = [
     },
   },
   {
-    id: 'test choice 2',
-    text: 'back',
-    nextHappeningID: 'test-0',
-    nextHappeningContext: '',
+    id: "test choice 2",
+    text: "back",
+    nextHappeningID: "test-0",
+    nextHappeningContext: "",
     eligibility(party, context): boolean {
       console.log(party, context);
       return true;
@@ -72,27 +67,27 @@ export const ChoiceBucketTest: Choice[] = [
 
 export const ChoiceBucketMISC: Choice[] = [
   {
-    id: 'gender-male',
-    text: 'Male',
-    nextHappeningID: 'init-motivation',
-    nextHappeningContext: '',
+    id: "gender-male",
+    text: "Male",
+    nextHappeningID: "init-motivation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].gender = 'Male';
+      party[0].gender = "Male";
     },
   },
   {
-    id: 'gender-female',
-    text: 'Female',
-    nextHappeningID: 'init-motivation',
-    nextHappeningContext: '',
+    id: "gender-female",
+    text: "Female",
+    nextHappeningID: "init-motivation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].gender = 'Female';
+      party[0].gender = "Female";
     },
   },
 ];
@@ -101,182 +96,138 @@ export const ChoiceBucketMISC: Choice[] = [
 
 export const ChoiceBucketMotivationI: Choice[] = [
   {
-    id: 'motivation-seetheworld',
-    text: 'I want to see the world',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-seetheworld",
+    text: "I want to see the world",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Explorer'));
+      party[0].tackOnTrait(getTraitByName("Explorer"));
       party[0].addItemToInventory([
-        getSpecificItem([
-          getMaterialModByName('Patchwork'),
-          getPrefixModByName("Traveler's"),
-          getBaseModByName('Boots'),
-        ]),
-        getSpecificItem([
-          getMaterialModByName('Patchwork'),
-          getPrefixModByName("Traveler's"),
-          getBaseModByName('Cloak'),
-        ]),
-        getSpecificItem([getConsumableModByName('Rations')]),
-        getSpecificItem([getMiscModByName('Rope')]),
+        geti("ma=Patchwork=pre=Traveler's=base=Boots"),
+        geti("ma=Patchwork=pre=Traveler's=base=Cloak"),
+        geti("con=Rations"),
+        geti("misc=Rope"),
       ]);
     },
   },
   {
-    id: 'motivation-obtainwealth',
-    text: 'I want to obtain fabulous wealth',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-obtainwealth",
+    text: "I want to obtain fabulous wealth",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Greedy'));
-      party[0].tackOnTrait(getTraitByName('Treasure Seeker'));
+      party[0].tackOnTrait(getTraitByName("Greedy"));
+      party[0].tackOnTrait(getTraitByName("Treasure Seeker"));
       party[0].addItemToInventory([
-        getSpecificItem([
-          getMaterialModByName('Silver'),
-          getMiscModByName('Lucky Coin'),
-        ]),
-      ]);
-      party[0].addItemToInventory([
-        getSpecificItem([
-          getBaseModByName('Ring'),
-          getMaterialModByName('Gold'),
-        ]),
+        geti("mat=silver=misc=lucky coin"),
+        geti("base=ring=mat=gold"),
       ]);
     },
   },
   {
-    id: 'motivation-obtainpower',
-    text: 'I want to gain immense power',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-obtainpower",
+    text: "I want to gain immense power",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Power-Hungry'));
+      party[0].tackOnTrait(getTraitByName("Power-Hungry"));
       party[0].addItemToInventory([
-        getSpecificItem([getBaseModByName('Orb')]),
-        getSpecificItem([
-          getConsumableModByName('Scroll'),
-          getSuffixOfSpell('Power Enhance'),
-        ]),
-        getSpecificItem([
-          getBaseModByCriteria([], 0, 0),
-          getSuffixModByName('of Vitality'),
-        ]),
+        geti("base=orb"),
+        geti("con=scroll=spell=power enhance"),
+        geti("suf=of viltality", [getBaseModByCriteria([], 0, 0)]),
+        geti("suf=of viltality"),
       ]);
     },
   },
   {
-    id: 'motivation-obtainallies',
-    text: 'I want to meet new people',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-obtainallies",
+    text: "I want to meet new people",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Friendly'));
-      party[0].addItemToInventory([
-        getSpecificItem([
-          getBaseModByName('Bracelet'),
-          getPrefixModByName('Friendship'),
-        ]),
-      ]);
+      party[0].tackOnTrait(getTraitByName("Friendly"));
+      party[0].addItemToInventory([geti("base=bracelet=pre=friendship")]);
     },
   },
   {
-    id: 'motivation-becomehero',
-    text: 'I want to become a hero',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-becomehero",
+    text: "I want to become a hero",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Heroic Aura'));
+      party[0].tackOnTrait(getTraitByName("Heroic Aura"));
       party[0].addItemToInventory([
-        getSpecificItem([
-          getBaseModByName('Cape'),
-          getPrefixModByName('Heroic'),
-        ]),
-        getSpecificItem([
-          getBaseModByCriteria([], 0, 0),
-          getSuffixModByName('of Vitality'),
-        ]),
+        geti("base=cape=pre=heroic"),
+        geti("suf=of viltality", [getBaseModByCriteria([], 0, 0)]),
       ]);
     },
   },
   {
-    id: 'motivation-divinejudgement',
-    text: 'I want to smite the enemies of my god',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: 'divinity',
+    id: "motivation-divinejudgement",
+    text: "I want to smite the enemies of my god",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "divinity",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Righteous Cause'));
+      party[0].tackOnTrait(getTraitByName("Righteous Cause"));
       party[0].addItemToInventory([
-        getSpecificItem([
-          getBaseModByName('Robes'),
-          getPrefixModByName("Acolyte's"),
-        ]),
-        getSpecificItem([
-          getBaseModByCriteria(['Blunt'], 0, 0),
-          getSuffixModByName('of Punishment'),
-        ]),
+        geti("base=robes=pre=acolyte's"),
+        geti("base=club=suf=of punishment"),
       ]);
     },
   },
   {
-    id: 'motivation-becomemartial',
-    text: 'I want to train my body',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-becomemartial",
+    text: "I want to train my body",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Martial Adept'));
-      party[0].tackOnTrait(getTraitByName('Quarterstaff Proficiency'));
-      party[0].addItemToInventory([
-        getSpecificItem([getBaseModByName('Quarterstaff')]),
-        getSpecificItem([getBaseModByCriteria([], 0, 0)]),
-      ]);
+      party[0].tackOnTrait(getTraitByName("Martial Adept"));
+      party[0].tackOnTrait(getTraitByName("Quarterstaff Proficiency"));
+      party[0].addItemToInventory([geti("base=quarterstaff")]);
     },
   },
   {
-    id: 'motivation-becomemagic',
-    text: 'I want to train my mind',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-becomemagic",
+    text: "I want to train my mind",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName('Mental Adept'));
+      party[0].tackOnTrait(getTraitByName("Mental Adept"));
       party[0].addItemToInventory([
-        getSpecificItem([getBaseModByName('Quarterstaff')]),
-        getSpecificItem([
-          getBaseModByName('Wand'),
-          getSuffixOfSpell('Fireball'),
-        ]),
+        geti("base=quarterstaff"),
+        geti("base=wand=spell=fireball"),
       ]);
     },
   },
   {
-    id: 'motivation-communewithnature',
-    text: 'I want to commune with nature',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-communewithnature",
+    text: "I want to commune with nature",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -285,10 +236,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-establishstronghold',
-    text: 'I want to settle some unclaimed land',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-establishstronghold",
+    text: "I want to settle some unclaimed land",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -297,10 +248,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-findlove',
-    text: 'I want to find my one true love',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-findlove",
+    text: "I want to find my one true love",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -309,10 +260,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-huntandgather',
-    text: 'I want to hunt and experience the wilds',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-huntandgather",
+    text: "I want to hunt and experience the wilds",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -321,10 +272,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-becomeoutlaw',
-    text: 'I want to become an outlaw',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-becomeoutlaw",
+    text: "I want to become an outlaw",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -333,10 +284,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-darkarts',
-    text: 'I want to seek out forbidden knowledge',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: '',
+    id: "motivation-darkarts",
+    text: "I want to seek out forbidden knowledge",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
     eligibility() {
       return true;
     },
@@ -345,10 +296,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
   },
   {
-    id: 'motivation-proselytize',
-    text: 'I want to further the influence of my Deity',
-    nextHappeningID: 'init-occupation',
-    nextHappeningContext: 'divinity',
+    id: "motivation-proselytize",
+    text: "I want to further the influence of my Deity",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "divinity",
     eligibility() {
       return true;
     },

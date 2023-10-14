@@ -1,42 +1,42 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
-import { getTraitByName } from './TraitList';
+} from "src/Services/ModListManipulationService";
+import { getTraitByName } from "./TraitList";
 
-const modType: ModType = 'CONSUMABLE';
+const modType: ModType = "CONSUMABLE";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'Rations',
-    description: '',
+    name: "Rations",
+    description: "",
     rarity: 0,
     inventoryIcon: new URL(
-      'src/assets/Icons/Food/I_C_Bread.png',
+      "src/assets/Icons/Food/I_C_Bread.png",
       import.meta.url
     ),
-    slot: 'Consumable',
-    tags: ['Feasts'],
+    slot: "Consumable",
+    tags: ["Feasts"],
   },
   {
-    name: 'Scroll',
-    description: 'A scroll that can be used to cast the contained spell',
+    name: "Scroll",
+    description: "A scroll that can be used to cast the contained spell",
     rarity: 0,
     inventoryIcon: new URL(
-      'src/assets/Icons/Books/scroll_new.png',
+      "src/assets/Icons/Books/scroll_new.png",
       import.meta.url
     ),
-    slot: 'Consumable',
-    tags: ['Magic'],
+    slot: "Consumable",
+    tags: ["Magic"],
     consume(consumer, item) {
       if (!item.computeStats.Skills) {
         return;
       }
       const skills = item.computeStats.Skills;
       skills.forEach((skill) => {
-        const scrollTrait = getTraitByName('Scroll Reading: ');
+        const scrollTrait = getTraitByName("Scroll Reading: ");
         scrollTrait.Skills.push(skill);
         scrollTrait.name = scrollTrait.name + skill.name;
         consumer.tackOnTrait(scrollTrait);
@@ -52,7 +52,9 @@ function getConsumableModByIndex(index: number): Mod {
 }
 
 export function getConsumableModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getConsumableModByIndex(index);
 }
 

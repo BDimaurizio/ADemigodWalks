@@ -1,18 +1,18 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'RUNE';
+const modType: ModType = "RUNE";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'The Agnostic',
-    description: 'projecvfromcurse',
+    name: "The Agnostic",
+    description: "projecvfromcurse",
     rarity: 0,
-    tags: ['WOOD'],
+    tags: ["WOOD"],
   },
 ];
 
@@ -23,7 +23,9 @@ export function getRuneModByIndex(index: number): Mod {
 }
 
 export function getRuneModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getRuneModByIndex(index);
 }
 

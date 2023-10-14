@@ -1,144 +1,144 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'QUALITY';
+const modType: ModType = "QUALITY";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'Crude',
-    description: '',
+    name: "Crude",
+    description: "",
     rarity: -1,
     tags: [],
   },
   {
-    name: 'Warped',
-    description: '',
+    name: "Warped",
+    description: "",
     rarity: -1,
-    tags: ['Alchemy'],
+    tags: ["Alchemy"],
   },
   {
-    name: 'Poor',
-    description: '',
+    name: "Poor",
+    description: "",
     rarity: -1,
     tags: [],
   },
   {
-    name: 'Broken',
-    description: '',
+    name: "Broken",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED'],
+    tags: ["NEGATIVE", "INFLICTED"],
   },
   {
-    name: 'Damaged',
-    description: '',
+    name: "Damaged",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED'],
+    tags: ["NEGATIVE", "INFLICTED"],
   },
   {
-    name: 'Rusty',
-    description: '',
+    name: "Rusty",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED', 'METAL-SPECIFIC'],
+    tags: ["NEGATIVE", "INFLICTED", "METAL-SPECIFIC"],
   },
   {
-    name: 'Corroded',
-    description: '',
+    name: "Corroded",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED', 'METAL-SPECIFIC'],
+    tags: ["NEGATIVE", "INFLICTED", "METAL-SPECIFIC"],
   },
   {
-    name: 'Tattered',
-    description: '',
+    name: "Tattered",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED', 'CLOTHING-SPECIFIC'],
+    tags: ["NEGATIVE", "INFLICTED", "CLOTHING-SPECIFIC"],
   },
   {
-    name: 'Rotted',
-    description: '',
+    name: "Rotted",
+    description: "",
     rarity: -1,
-    tags: ['NEGATIVE', 'INFLICTED', 'WOOD-SPECIFIC'],
+    tags: ["NEGATIVE", "INFLICTED", "WOOD-SPECIFIC"],
   },
   //
   {
-    name: 'Fine',
-    description: '',
+    name: "Fine",
+    description: "",
     rarity: 0,
     tags: [],
   },
   {
-    name: 'Superior',
-    description: '',
+    name: "Superior",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Exceptional',
-    description: '',
+    name: "Exceptional",
+    description: "",
     rarity: 2,
     tags: [],
   },
   {
-    name: 'Supple',
-    description: '',
+    name: "Supple",
+    description: "",
     rarity: 1,
     tags: [],
   },
   //
   {
-    name: 'Stiff',
-    description: '',
+    name: "Stiff",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Balanced',
-    description: '',
+    name: "Balanced",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Polished',
-    description: '',
+    name: "Polished",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Odd',
-    description: '',
+    name: "Odd",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Stained',
-    description: '',
+    name: "Stained",
+    description: "",
     rarity: 1,
     tags: [],
   },
   {
-    name: 'Artisinal',
-    description: '',
+    name: "Artisinal",
+    description: "",
     rarity: 2,
     tags: [],
   },
   {
-    name: 'Antique',
-    description: '',
+    name: "Antique",
+    description: "",
     rarity: 2,
     tags: [],
   },
   {
-    name: 'Magnificent',
-    description: '',
+    name: "Magnificent",
+    description: "",
     rarity: 3,
     tags: [],
   },
   {
-    name: 'Masterwork',
-    description: '',
+    name: "Masterwork",
+    description: "",
     rarity: 4,
     tags: [],
   },
@@ -151,7 +151,9 @@ export function getQualityModByIndex(index: number): Mod {
 }
 
 export function getQualityModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getQualityModByIndex(index);
 }
 

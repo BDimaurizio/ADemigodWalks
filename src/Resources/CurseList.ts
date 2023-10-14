@@ -1,18 +1,18 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'CURSE';
+const modType: ModType = "CURSE";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'cursoig',
-    description: 'curz',
+    name: "cursoig",
+    description: "curz",
     rarity: 0,
-    tags: ['NONE'],
+    tags: ["NONE"],
     MaxRunes: -3,
   },
 ];
@@ -24,7 +24,9 @@ export function getCurseModByIndex(index: number): Mod {
 }
 
 export function getCurseModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getCurseModByIndex(index);
 }
 

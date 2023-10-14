@@ -1,18 +1,18 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'BLESSING';
+const modType: ModType = "BLESSING";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'blessoig',
-    description: 'Blessing',
+    name: "blessoig",
+    description: "Blessing",
     rarity: 0,
-    tags: ['WOOD'],
+    tags: ["WOOD"],
   },
 ];
 
@@ -23,7 +23,9 @@ export function getBlessingModByIndex(index: number): Mod {
 }
 
 export function getBlessingModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getBlessingModByIndex(index);
 }
 

@@ -1,9 +1,9 @@
-import Deity from 'src/models/Deity';
-import { Aspect, Gender, Temperment } from 'src/models/Index';
-import Adjectives from 'src/Resources/Adjectives';
-import { getAllAspects } from 'src/Resources/AspectList';
-import Names from 'src/Resources/Names';
-import { shuffleArray } from './Funcs';
+import Deity from "src/models/Deity";
+import { Aspect, Gender, Temperment } from "src/models/Index";
+import Adjectives from "src/Resources/Adjectives";
+import { getAllAspects } from "src/Resources/AspectList";
+import Names from "src/Resources/Names";
+import { shuffleArray } from "./Funcs";
 
 function getRandomAdjective() {
   return Adjectives[Math.floor(Math.random() * Adjectives.length)];
@@ -28,33 +28,33 @@ function GenerateDeityName(): string {
     stringBuilder = stringBuilder + addition.substring(0, additionLen);
   }
   if (rollForDash == 0) {
-    stringBuilder = stringBuilder + '-';
+    stringBuilder = stringBuilder + "-";
     stringBuilder =
       stringBuilder +
-      getRandomName().split('').reverse().join('').toLowerCase();
+      getRandomName().split("").reverse().join("").toLowerCase();
   }
   if (rollForSpace == 0) {
-    stringBuilder = stringBuilder + ' ' + getRandomName();
+    stringBuilder = stringBuilder + " " + getRandomName();
   }
   if (rollForAdjective == 0) {
-    stringBuilder = stringBuilder + ' The ' + getRandomAdjective();
+    stringBuilder = stringBuilder + " The " + getRandomAdjective();
   }
 
   return stringBuilder;
 }
 
-const genderRoll: Gender[] = ['Male', 'Female'];
+const genderRoll: Gender[] = ["Male", "Female"];
 const tempermentRoll: Temperment[] = [
-  'None',
-  'None',
-  'None',
-  'None',
-  'None',
-  'Fickle',
-  'Impassive',
-  'Benevolent',
-  'Malevolent',
-  'Whimsical',
+  "None",
+  "None",
+  "None",
+  "None",
+  "None",
+  "Fickle",
+  "Impassive",
+  "Benevolent",
+  "Malevolent",
+  "Whimsical",
 ];
 
 export function GenerateDeities(

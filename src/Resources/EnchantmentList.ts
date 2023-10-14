@@ -1,18 +1,18 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'ENCHANTMENT';
+const modType: ModType = "ENCHANTMENT";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'vorpalized',
-    description: 'shor[',
+    name: "vorpalized",
+    description: "shor[",
     rarity: 0,
-    tags: ['Piercing'],
+    tags: ["Piercing"],
   },
 ];
 
@@ -23,7 +23,9 @@ export function getEnchantmentModByIndex(index: number): Mod {
 }
 
 export function getEnchantmentModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getEnchantmentModByIndex(index);
 }
 

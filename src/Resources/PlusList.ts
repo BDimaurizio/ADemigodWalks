@@ -1,18 +1,18 @@
-import { ModType, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 import {
   getModByCriteria,
   prepareModForExport,
-} from 'src/Services/ModListManipulationService';
+} from "src/Services/ModListManipulationService";
 
-const modType: ModType = 'PLUS';
+const modType: ModType = "PLUS";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: 'poisoned',
-    description: 'grrrdgfffg',
+    name: "poisoned",
+    description: "grrrdgfffg",
     rarity: 0,
-    tags: ['Toxic'],
+    tags: ["Toxic"],
   },
 ];
 
@@ -23,7 +23,9 @@ export function getPlusModByIndex(index: number): Mod {
 }
 
 export function getPlusModByName(name: string): Mod {
-  const index = ModList.findIndex((element) => element.name === name);
+  const index = ModList.findIndex(
+    (element) => element.name?.toLowerCase() === name?.toLowerCase()
+  );
   return getPlusModByIndex(index);
 }
 
