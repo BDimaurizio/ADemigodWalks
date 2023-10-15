@@ -372,6 +372,32 @@ export default class Character {
       console.log("item not in inventory", slot);
       return false;
     }
+    let index = slot;
+    let hander2dummyrequired = false;
+    //check if the user requested the item to be equipped in both hands
+    if (index < 0) {
+      index = 0;
+      this.unequipItemByIndex(1);
+      hander2dummyrequired = true;
+    }
+    //normal from here
+    //check if offhand overwriting 2hander
+    if (
+      index == 1 &&
+      this.equippedItems[index] &&
+      this.equippedItems[index]?.baseBodyMod.name == "2HanderDummyItem"
+    ) {
+      this.unequipItemByIndex(0);
+    }
+    //unequip old item
+    this.unequipItemByIndex(index);
+    //if new item is a 2 hander, equip the dummy item in the offhand
+    if (hander2dummyrequired) {
+      this.equippedItems[1] = get2HanderDummyItem();
+    }
+    //equip the new item
+    this.equippedItems[index] = item;
+    this.updateLog(`${this.name} equipped item: ${item.fullName}`);
     return true;
   };
 
