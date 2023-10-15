@@ -1,6 +1,7 @@
 import Character from "./Character";
 import {
   Aspect,
+  AttackType,
   ImportantStatPossibility,
   ItemSlot,
   ModType,
@@ -8,6 +9,7 @@ import {
 } from "./Index";
 import Item from "./Item";
 import Skill from "./Skill";
+import Stance from "./Stance";
 
 export default class Mod {
   //general info
@@ -16,6 +18,7 @@ export default class Mod {
   public rarity = 0;
   public aspects: Aspect[] = [];
   public tags: Tag[] = [];
+  public attackType?: AttackType;
   public requiredTags: Tag[] = [];
   public description = "NONE";
   public price = 0;
@@ -42,13 +45,13 @@ export default class Mod {
   public MP = 0;
   public SP = 0;
   //primary stats
-  public VIT = 0; //maxhp, maxsp, physicalstatusresist,
+  public VIT = 0; //maxhp, maxsp, fortitude,
   public STR = 0; //attack, criticaldamage, mining
   public DEX = 0; //accuracy, DEFLECT, PARRY
   public AGI = 0; //evasion, stealth, survival
   public INT = 0; //arcana, criticalchance, maxmp, crafting
   public FAI = 0; //clarity, (FAI added to all positive affinity + opinion)
-  public WIL = 0; //ward, mentalstatusresist, (WIL added to all positive resists)
+  public WIL = 0; //ward, Resolve, (WIL added to all positive resists)
   public CHA = 0; //leadership, diplomacy, bargaining
   public LUK = 0;
   //offensive stats
@@ -66,8 +69,8 @@ export default class Mod {
   public Parry = 0;
   public Supression = 0;
   public Ward = 0;
-  public PhysicalStatusResist = 0;
-  public MentalStatusResist = 0;
+  public Fortitude = 0;
+  public Resolve = 0;
   //initiative
   public Initiative = 0;
   //aspect stats | offensive = affinity/deficiency (increases damage/activates other effects) | get via Character.ComputeStats[`${aspect.tagName}affinity`]
@@ -196,9 +199,10 @@ export default class Mod {
   //special effects
   public Traits: Mod[] = [];
   public Skills: Skill[] = [];
+  public Stances: Stance[] = [];
   //trait management
   public eligibilityChecker?: (character: Character) => boolean;
-  public duration?: number = 0; // 0 = normal trait, -1 = lasts until the end of the current battle, x = x rounds of battle
+  public duration: number = 0; // 0 = normal trait, -1 = lasts until the end of the current battle, x = x rounds of battle
   //consumable effect
   public consume?: (consumer: Character, item: Item) => void;
 

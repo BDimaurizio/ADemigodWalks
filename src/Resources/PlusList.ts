@@ -12,7 +12,7 @@ const ModList: Partial<Mod>[] = [
     name: "poisoned",
     description: "grrrdgfffg",
     rarity: 0,
-    tags: ["Toxic"],
+    tags: ["Plague"],
   },
 ];
 

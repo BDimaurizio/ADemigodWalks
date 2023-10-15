@@ -2,6 +2,7 @@ import { combineMods } from "src/Services/ModListManipulationService";
 import Mod from "./Mod";
 import Character from "./Character";
 import { getBaseModByIndex } from "src/Resources/BaseList";
+import { AttackType } from "./Index";
 
 export default class Item {
   //properties
@@ -91,8 +92,6 @@ export default class Item {
     const stats = combineMods(modList);
 
     if (this.BaseMods[4]) {
-      console.log(this.BaseMods[4]);
-      console.log(this.BaseMods[4].importantAval);
       stats[this.BaseMods[4].importantA] += stats.importantAval;
       stats[this.BaseMods[4].importantB] += stats.importantBval;
       stats[this.BaseMods[4].importantC] += stats.importantCval;
@@ -155,6 +154,23 @@ export default class Item {
 
     //otherwise, just serve up the base icon
     return this.baseBodyMod.inventoryIcon;
+  }
+
+  get attackType(): AttackType[] {
+    let modList = this.BaseMods.concat(
+      this.SocketMods,
+      this.RuneMods,
+      this.EnchantmentMods,
+      this.PlusMods
+    );
+    modList = modList.filter(Boolean);
+    const typeList: AttackType[] = [];
+    modList.forEach((element) => {
+      if (element.attackType) {
+        typeList.push(element.attackType);
+      }
+    });
+    return typeList;
   }
 
   get isEquipment(): boolean {

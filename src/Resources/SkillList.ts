@@ -13,6 +13,7 @@ const SkillList: Skill[] = [
     mpCost: 5,
     spCost: 0,
     tags: ["Flame", "Magic"],
+    attackType: "Elemental",
     eligibilityChecker(character): boolean {
       return !!character;
     },
@@ -34,6 +35,7 @@ const SkillList: Skill[] = [
     spCost: 0,
     mpCost: 0,
     tags: ["Beasts", "Magic", "Day", "Cat"],
+    attackType: "Judgement",
     //no eligibilitychecker what do it do
     skillCast(caster, victims): boolean {
       for (let i = 0; i < victims.length; i++) {
@@ -53,6 +55,7 @@ const SkillList: Skill[] = [
     mpCost: 0,
     spCost: 0,
     tags: ["Magic"],
+    attackType: "Auto",
     eligibilityChecker() {
       return true;
     },
@@ -83,6 +86,7 @@ const SkillList: Skill[] = [
     mpCost: 0,
     spCost: 0,
     tags: ["Magic"],
+    attackType: "Auto",
     eligibilityChecker() {
       return true;
     },
@@ -101,7 +105,8 @@ const SkillList: Skill[] = [
     itemTargets: 0,
     mpCost: 3,
     spCost: 0,
-    tags: ["Magic"],
+    tags: ["Magic", "Nature"],
+    attackType: "Auto",
     eligibilityChecker() {
       return true;
     },

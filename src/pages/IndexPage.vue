@@ -73,6 +73,13 @@
           :caster="(selectedCharacter as Character)"
           @updateSortingSchema="updateSortingSchema"
         ></SkillCastingPane>
+        <StanceListPane
+          v-else-if="visiblePaneStatus == 'stance'"
+          :stance-list="selectedCharacter.stances"
+          :active-stance="selectedCharacter.currentStance"
+          @stance-list-clicked="stanceClicked"
+          :key="update + 3"
+        ></StanceListPane>
       </q-scroll-area>
       <q-scroll-area class="col scroll pane q-pa-md q-ma-sm">
         <item-info-pane
@@ -122,6 +129,13 @@
           :log="logCollection"
           :key="update"
         ></LogPane>
+        <StanceInfoPane
+          v-else-if="selectedStance"
+          :stance="(selectedStance as Stance)"
+          :chara="(selectedCharacter as Character)"
+          :key="selectedStance"
+          @update="updatePanes"
+        ></StanceInfoPane>
       </q-scroll-area>
     </q-page>
   </q-page-container>
@@ -156,6 +170,9 @@ import HappeningPane from "src/components/Happening/HappeningPane.vue";
 import { getHappeningByID } from "src/Resources/HappeningList";
 import LogPane from "src/components/Happening/LogPane.vue";
 import SkillCastingPane from "src/components/Skills/SkillCastingPane.vue";
+import StanceListPane from "src/components/Stance/StanceListPane.vue";
+import Stance from "src/models/Stance";
+import StanceInfoPane from "src/components/Stance/StanceInfoPane.vue";
 
 export default defineComponent({
   name: "IndexPage",
@@ -177,6 +194,8 @@ export default defineComponent({
     HappeningPane,
     LogPane,
     SkillCastingPane,
+    StanceListPane,
+    StanceInfoPane,
   },
 
   setup() {
@@ -188,6 +207,7 @@ export default defineComponent({
     const selectedJob = ref();
     const selectedDeity = ref();
     const selectedTrait = ref();
+    const selectedStance = ref();
     const selectedSkill = ref();
     const selectedPartyMember = ref();
 
@@ -225,13 +245,11 @@ export default defineComponent({
     }
 
     function updateSortingSchema(schema: Record<string, boolean>) {
-      console.log("schema");
       itemSortingSchema.value = schema;
     }
 
     function updatePanes(where?: string): void {
-      console.log(where);
-      console.log(directedWhere.value);
+      console.log("updateo");
       if (visiblePaneStatus.value == "happening") {
         updateLogCollection();
       }
@@ -296,6 +314,7 @@ export default defineComponent({
       selectedJob.value = undefined;
       selectedDeity.value = undefined;
       selectedTrait.value = undefined;
+      selectedStance.value = undefined;
       selectedSkill.value = undefined;
       selectedPartyMember.value = undefined;
       updatePanes("my_" + pane);
@@ -335,7 +354,6 @@ export default defineComponent({
     //divinity
 
     function deityClicked(deity: Deity): void {
-      console.log(deity);
       selectedDeity.value = deity;
     }
 
@@ -343,6 +361,11 @@ export default defineComponent({
 
     function traitClicked(trait: Mod): void {
       selectedTrait.value = trait;
+    }
+
+    //stances
+    function stanceClicked(stance: Stance): void {
+      selectedStance.value = stance;
     }
 
     //skills
@@ -459,6 +482,7 @@ export default defineComponent({
       pantheon,
       selectedDeity,
       selectedTrait,
+      selectedStance,
       selectedSkill,
       party,
       selectedPartyMember,
@@ -479,6 +503,7 @@ export default defineComponent({
       changeVisiblePane,
       deityClicked,
       traitClicked,
+      stanceClicked,
       skillClicked,
       onClickCast,
       levelup,
@@ -486,6 +511,7 @@ export default defineComponent({
       onClickInspect,
       returnToProtag,
       choiceClicked,
+      updatePanes,
     };
   }, //need to generate in order: base, material, quality, prefix?, the rest
 });

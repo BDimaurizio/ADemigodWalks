@@ -9,9 +9,8 @@ const modType: ModType = "MISC";
 
 const ModList: Partial<Mod>[] = [
   {
-    name: "Lucky Coin",
-    description:
-      "A shiny coin you found on the ground many years ago. It's tarnish implies it contains some silver.",
+    name: "Coin",
+    description: "A shiny coin",
     rarity: 0,
     price: 20,
     inventoryIcon: new URL(

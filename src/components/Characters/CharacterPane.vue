@@ -143,6 +143,11 @@
     ></q-btn>
     <q-btn
       class="col-5 q-pa-sm q-ma-sm"
+      label="Stance"
+      @click="changePane('stance')"
+    ></q-btn>
+    <q-btn
+      class="col-5 q-pa-sm q-ma-sm"
       label="Skills / Spells"
       @click="changePane('skills')"
     ></q-btn>
@@ -170,15 +175,15 @@
 </template>
 
 <script lang="ts">
-import Character from 'src/models/Character';
-import { reactive, defineComponent } from 'vue';
+import Character from "src/models/Character";
+import { reactive, defineComponent } from "vue";
 
 export default defineComponent({
   components: {},
   props: {
     chara: { type: Character, required: true },
   },
-  emits: ['charaClicked', 'changePane', 'returnToProtag'],
+  emits: ["charaClicked", "changePane", "returnToProtag"],
   computed: {},
 
   setup(props, context) {
@@ -188,12 +193,12 @@ export default defineComponent({
       if (index == -1) {
         return (
           selectedChara.getTrinkets()[0]?.inventoryIcon ??
-          new URL('src/assets/Icons/empty.png', import.meta.url)
+          new URL("src/assets/Icons/empty.png", import.meta.url)
         );
       } else {
         return (
           selectedChara.getEquipment()[index]?.inventoryIcon ??
-          new URL('src/assets/Icons/empty.png', import.meta.url)
+          new URL("src/assets/Icons/empty.png", import.meta.url)
         );
       }
     }
@@ -201,11 +206,11 @@ export default defineComponent({
     function computeItemRarityColor(index: number): string {
       if (index == -1) {
         return (
-          selectedChara.getTrinkets()[0]?.rarityColor ?? 'text-transparent'
+          selectedChara.getTrinkets()[0]?.rarityColor ?? "text-transparent"
         );
       } else {
         return (
-          selectedChara.getEquipment()[index]?.rarityColor ?? 'text-transparent'
+          selectedChara.getEquipment()[index]?.rarityColor ?? "text-transparent"
         );
       }
     }
@@ -214,18 +219,18 @@ export default defineComponent({
 
     function charaClicked(index: number) {
       if (index == -1) {
-        context.emit('charaClicked', selectedChara.getTrinkets()[0]);
+        context.emit("charaClicked", selectedChara.getTrinkets()[0]);
         return;
       }
-      context.emit('charaClicked', selectedChara.getEquipment()[index]);
+      context.emit("charaClicked", selectedChara.getEquipment()[index]);
     }
 
     function changePane(pane: string) {
-      context.emit('changePane', pane);
+      context.emit("changePane", pane);
     }
 
     function returnToProtag() {
-      context.emit('returnToProtag');
+      context.emit("returnToProtag");
     }
 
     return {
@@ -244,7 +249,7 @@ export default defineComponent({
 
 <style scoped>
 .charaBody {
-  background-image: URL('src/assets/equipmentScreen.png');
+  background-image: URL("src/assets/equipmentScreen.png");
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 1px;

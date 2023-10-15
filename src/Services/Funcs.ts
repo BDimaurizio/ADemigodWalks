@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import Deity from 'src/models/Deity';
-import { Aspect, Tag } from 'src/models/Index';
-import Item from 'src/models/Item';
-import Job from 'src/models/Job';
-import Mod from 'src/models/Mod';
-import Skill from 'src/models/Skill';
+import Deity from "src/models/Deity";
+import { Aspect, Tag } from "src/models/Index";
+import Item from "src/models/Item";
+import Job from "src/models/Job";
+import Mod from "src/models/Mod";
+import Skill from "src/models/Skill";
+import Stance from "src/models/Stance";
 
 export function shuffleArray<
   T extends Mod | Skill | Job | Aspect | Tag | Deity | Item
@@ -19,7 +20,7 @@ export function shuffleArray<
   return array;
 }
 
-export function removeDuplicates<T extends Mod | Skill | Job | Aspect>(
+export function removeDuplicates<T extends Mod | Skill | Job | Aspect | Stance>(
   array: T[]
 ): T[] {
   const seen = new Set();
@@ -46,10 +47,6 @@ export function mergeTuples( //depricated
   if (arr1.length < 1 && arr2.length < 1) return [] as [string, Date][];
   if (arr1.length < 1) return arr2;
   if (arr2.length < 1) return arr1;
-
-  console.log('merging');
-  console.log(arr1);
-  console.log(arr2);
 
   const merged = [];
   let index1 = 0;

@@ -1,10 +1,10 @@
-import { getSkillByName } from 'src/Resources/SkillList';
-import { getTraitByName } from 'src/Resources/TraitList';
-import Mod from './Mod';
-import Skill from './Skill';
+import { getSkillByName } from "src/Resources/SkillList";
+import { getTraitByName } from "src/Resources/TraitList";
+import Mod from "./Mod";
+import Skill from "./Skill";
 
 export default class Job {
-  public name: string = '_JOBNAME_';
+  public name: string = "_JOBNAME_";
   public statsPerLevel: Mod = new Mod();
   public traits: Mod[] = [];
   public skills: Skill[] = [];
@@ -37,7 +37,7 @@ export default class Job {
     const result = new Mod();
     let property: keyof Mod;
     for (property in this.statsPerLevel) {
-      if (typeof this.statsPerLevel[property] == 'number') {
+      if (typeof this.statsPerLevel[property] == "number") {
         (result[property] as number) =
           (this.statsPerLevel[property] as number) * level;
       }
@@ -51,7 +51,7 @@ export default class Job {
       if (
         i < this.traits.length &&
         this.traits[i] &&
-        this.traits[i].name != 'NONE'
+        this.traits[i].name != "NONE"
       )
         result.push(this.traits[i]);
     }
@@ -64,7 +64,7 @@ export default class Job {
       if (
         i < this.skills.length &&
         this.skills[i] &&
-        this.skills[i].name != 'NONE'
+        this.skills[i].name != "NONE"
       )
         result.push(this.skills[i]);
     }

@@ -4,6 +4,7 @@ import {
   getModByCriteria,
   prepareModForExport,
 } from "src/Services/ModListManipulationService";
+import { getStanceByName } from "./StanceList";
 
 const modType: ModType = "TRAIT";
 
@@ -56,9 +57,11 @@ const ModList: Partial<Mod>[] = [
   },
   {
     name: "Greedy",
-    description: "You have a keen eye for money and always haggle for a deal",
+    description:
+      "You have a keen eye for money a lust for treasure. Well, fortune does favor the bold...",
     rarity: 0,
-    Bargaining: 3,
+    Bargaining: 1,
+    LUK: 1,
     tags: ["Commerce"],
     eligibilityChecker() {
       return true;
@@ -105,7 +108,7 @@ const ModList: Partial<Mod>[] = [
     description: "blah",
     rarity: 0,
     Survival: 1,
-    PhysicalStatusResist: 1,
+    Fortitude: 1,
     NatureAffinity: 1,
     NatureOpinion: 1,
     tags: ["Nature"],
@@ -192,6 +195,7 @@ const ModList: Partial<Mod>[] = [
     description: "",
     rarity: 0,
     tags: [],
+    Stances: [getStanceByName("Martial Defense")],
     eligibilityChecker() {
       return true;
     },
@@ -202,6 +206,7 @@ const ModList: Partial<Mod>[] = [
     MP: 3,
     rarity: 0,
     tags: [],
+    Stances: [getStanceByName("Mental Defense")],
     eligibilityChecker() {
       return true;
     },

@@ -108,18 +108,6 @@ export type Tag =
   | "Time"
   | "Trickery"
   | "Wind"
-  //damage types //Associated aspect(s) (//chaos, destruction, time, and star are untyped)
-  //magic
-  //flame
-  //frost
-  //light
-  //shadow
-  //storm
-  | "Judgement" // Honor // boons/punishments
-  | "Physical" // Battle // Beast // Stone // Might // The Sea
-  | "Piercing" // Trickery // Nature // Pain // Blood
-  | "Toxic" // Alchemy // Food & Drink // Plague // (sometimes water (acid))
-  | "Psychic" // Art & Music // Knowledge // Humility // Madness // The Moon // Commerce?
   //item management
   | "NAME_OVERRIDE"
   | "HIDDEN"
@@ -167,6 +155,21 @@ export type Tag =
   | "NONE"
   | "NONE";
 
+export type AttackType =
+  | "Physical" // Battle // Beast // Stone // Might // The Sea //destruction
+  | "Piercing" // Trickery // Nature // Pain // Blood
+  | "Arcane" //magic //time //star //shadow sometimes?
+  | "Elemental" //flame, frost, storm, wind
+  | "Psychic" // Art & Music // Knowledge // Humility // Madness // The Moon // Commerce //shadow //chaos //knowledge
+  | "Toxic" // Alchemy // Food & Drink // Plague // (sometimes water (acid))
+  | "Judgement" // Honor // boons/punishments //light
+  | "Auto"; //beneficial effects
+
+export type DefenseType =
+  | "Avoidance"
+  | "Percentage Reduction"
+  | "Flat Reduction";
+
 export type ImportantStatPossibility =
   | "price"
   | "priceMultiplier"
@@ -199,8 +202,8 @@ export type ImportantStatPossibility =
   | "Parry"
   | "Supression"
   | "Ward"
-  | "PhysicalStatusResist"
-  | "MentalStatusResist"
+  | "Fortitude"
+  | "Resolve"
   | "Initiative"
   | "AlchemyAffinity"
   | "ArtAffinity"
@@ -349,8 +352,8 @@ export const statArray: ImportantStatPossibility[] = [
   "Parry",
   "Supression",
   "Ward",
-  "PhysicalStatusResist",
-  "MentalStatusResist",
+  "Fortitude",
+  "Resolve",
   "Attunement",
   "AlchemyAffinity",
   "ArtAffinity",

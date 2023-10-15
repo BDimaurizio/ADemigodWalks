@@ -123,9 +123,8 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Greedy"));
-      //party[0].tackOnTrait(getTraitByName("Treasure Seeker"));
       party[0].addItemToInventory([
-        geti("mat=silver=misc=lucky coin"),
+        geti("mat=silver=misc=coin"),
         geti("base=pickaxe=mat=iron"),
         geti("base=shovel=mat=iron"),
       ]);

@@ -13,6 +13,8 @@ import {
 } from "./Index";
 import Skill from "./Skill";
 import { removeDuplicateTags, removeDuplicates } from "src/Services/Funcs";
+import Stance from "./Stance";
+import { getStanceByIndex } from "src/Resources/StanceList";
 
 export default class Character {
   public name: string;
@@ -25,6 +27,8 @@ export default class Character {
   public currentMP: number = 0;
   public currentSP: number = 0;
   public currentEXP: number = 0;
+
+  public currentStance: Stance;
 
   public morale: number = 0;
   public opinionOfProtagonist: number = 0;
@@ -50,6 +54,8 @@ export default class Character {
 
   constructor(name: string) {
     this.name = name;
+    this.editTackedOnMod(new Mod({ Stances: [getStanceByIndex(1)] }));
+    this.currentStance = getStanceByIndex(1);
   }
 
   get isProtagonist() {
@@ -136,6 +142,15 @@ export default class Character {
     ]);
   }
 
+  get stances(): Stance[] {
+    return removeDuplicates([
+      ...this.tackedOnMod.Stances,
+      ...this.equipmentStats.Stances,
+      ...this.jobStats.Stances,
+      ...combineMods(this.getAllEligibleTraitsFromList(this.traits)).Stances,
+    ]);
+  }
+
   get tags(): Tag[] {
     return removeDuplicateTags([
       ...this.tackedOnMod.tags,
@@ -202,7 +217,7 @@ export default class Character {
     //VIT
     output.HP += mod.VIT;
     output.SP += mod.VIT;
-    if (output.PhysicalStatusResist > 0) output.PhysicalStatusResist += mod.VIT;
+    if (output.Fortitude > 0) output.Fortitude += mod.VIT;
     //STR
     output.Attack += mod.STR;
     output.CriticalDamage += mod.STR;
@@ -234,7 +249,7 @@ export default class Character {
     //WIL
     output.Attunement += mod.WIL / 10;
     if (output.Ward > 0) output.Ward += mod.WIL;
-    if (output.MentalStatusResist > 0) output.MentalStatusResist += mod.WIL;
+    if (output.Resolve > 0) output.Resolve += mod.WIL;
     for (let i = 0; i < ResistTags.length; i++) {
       if (output[ResistTags[i]] > 0) {
         output[ResistTags[i]] += mod.FAI;
@@ -260,7 +275,7 @@ export default class Character {
 
     //FAI
     if (this.isTraitExistAndEligible("Righteous Cause")) {
-      output.MentalStatusResist += mod.FAI;
+      output.Resolve += mod.FAI;
     }
     //WIL
 
@@ -407,7 +422,6 @@ export default class Character {
       default:
         return false;
     }
-    console.log(this.equippedItems[index]);
     this.unequipItemByIndex(index);
     this.equippedItems[index] = item; //TODO check if offhand overwriting 2hander
     this.updateLog(`${this.name} equipped item: ${item.fullName}`);
@@ -416,7 +430,6 @@ export default class Character {
 
   unequipItemByIndex = (index: number, trinket: boolean = false): boolean => {
     this.cacheDirty = true;
-    console.log(index);
     if (!trinket) {
       if (
         this.equippedItems[index] &&
@@ -556,5 +569,9 @@ export default class Character {
 
   heal = (amount: number): void => {
     this.currentHP -= amount;
+  };
+
+  changeStance = (stance: Stance): void => {
+    this.currentStance = stance;
   };
 }

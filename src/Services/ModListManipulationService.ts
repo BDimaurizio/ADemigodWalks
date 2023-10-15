@@ -1,6 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
-import { ModType, statArray, Tag } from 'src/models/Index';
-import Mod from 'src/models/Mod';
+import { ModType, statArray, Tag } from "src/models/Index";
+import Mod from "src/models/Mod";
 
 function criterionizeArray( //valid if at least ONE OF the tags is matching
   array: Partial<Mod>[],
@@ -72,12 +72,12 @@ export function getModByCriteria(
 }
 
 export function combineMods(modList: Mod[]): Mod {
-  const output = new Mod({ modType: '_CALC_' });
+  const output = new Mod({ modType: "_CALC_" });
   modList = modList.filter(Boolean);
 
   let property: keyof Mod;
   for (property in output) {
-    if (typeof output[property] == 'number') {
+    if (typeof output[property] == "number") {
       for (let i = 0; i < modList.length; i++) {
         (output[property] as number) += modList[i][property] as number;
       }
@@ -88,11 +88,13 @@ export function combineMods(modList: Mod[]): Mod {
     output.aspects.push(...modList[i].aspects);
     output.Skills.push(...modList[i].Skills);
     output.Traits.push(...modList[i].Traits);
+    output.Stances.push(...modList[i].Stances);
     output.tags.push(...modList[i].tags);
   }
   output.aspects = [...new Set(output.aspects)];
   output.Skills = [...new Set(output.Skills)];
   output.Traits = [...new Set(output.Traits)];
+  output.Stances = [...new Set(output.Stances)];
   output.tags = [...new Set(output.tags)];
 
   return output;
@@ -104,9 +106,9 @@ export function getModStatsFormatted(
   enableTrunc: boolean = false
 ): [string, string] {
   //positive values in the first tuple element, negative values in the second tuple element
-  const output: [string, string] = ['', ''];
+  const output: [string, string] = ["", ""];
   for (let i = 0; i < statArray.length; i++) {
-    let stringBuilder = '';
+    let stringBuilder = "";
     let value: number = theMod[statArray[i]];
     if (value == 0) continue;
 
@@ -114,31 +116,31 @@ export function getModStatsFormatted(
       value = Math.trunc(value);
     }
 
-    let colon = ': ';
+    let colon = ": ";
     if (value > 0 && enablePlus) {
-      colon = colon + '+';
+      colon = colon + "+";
     }
 
     if (statArray[i].toUpperCase() == statArray[i]) {
       if (
-        statArray[i] == 'HP' ||
-        statArray[i] == 'MP' ||
-        statArray[i] == 'SP'
+        statArray[i] == "HP" ||
+        statArray[i] == "MP" ||
+        statArray[i] == "SP"
       ) {
-        stringBuilder = stringBuilder + 'Maximum ';
+        stringBuilder = stringBuilder + "Maximum ";
       }
       stringBuilder = stringBuilder + statArray[i] + colon + value;
     } else {
       stringBuilder = stringBuilder + statArray[i].toString();
-      stringBuilder = stringBuilder.replace(/([A-Z])/g, ' $1').trim();
-      stringBuilder = stringBuilder.replace('Resist', 'Resistance');
+      stringBuilder = stringBuilder.replace(/([A-Z])/g, " $1").trim();
+      stringBuilder = stringBuilder.replace("Resist", "Resistance");
       stringBuilder = stringBuilder + colon + value;
     }
 
     if (value > 0) {
-      output[0] = output[0] + stringBuilder + '\n';
+      output[0] = output[0] + stringBuilder + "\n";
     } else if (value < 0) {
-      output[1] = output[1] + stringBuilder + '\n';
+      output[1] = output[1] + stringBuilder + "\n";
     }
   }
   return output;

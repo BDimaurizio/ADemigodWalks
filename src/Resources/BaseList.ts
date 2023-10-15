@@ -26,7 +26,8 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: "Light Weapon",
-    tags: ["Piercing", "Blade", "Weapon"],
+    tags: ["Blade", "Weapon"],
+    attackType: "Piercing",
   },
   {
     name: "Knife",
@@ -38,6 +39,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Light Weapon",
     tags: ["Blade", "Weapon"],
+    attackType: "Physical",
   },
   {
     name: "Sword",
@@ -49,6 +51,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Medium Weapon",
     tags: ["Blade", "Weapon"],
+    attackType: "Physical",
   },
   {
     name: "Machete",
@@ -60,6 +63,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Medium Weapon",
     tags: ["Blade", "Weapon"],
+    attackType: "Physical",
   },
   {
     name: "Club",
@@ -71,6 +75,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Medium Weapon",
     tags: ["Weapon", "Blunt"],
+    attackType: "Physical",
   },
   {
     name: "Axe",
@@ -79,6 +84,7 @@ const ModList: Partial<Mod>[] = [
     inventoryIcon: new URL("src/assets/Icons/Weapons/Axe.png", import.meta.url),
     slot: "Heavy Weapon",
     tags: ["Weapon", "Blade"],
+    attackType: "Physical",
   },
   {
     name: "Greatsword",
@@ -90,6 +96,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Very Heavy Weapon",
     tags: ["Weapon", "Blade"],
+    attackType: "Physical",
   },
   {
     name: "Cap",
@@ -297,6 +304,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Heavy Weapon",
     tags: ["Weapon", "Blunt"],
+    attackType: "Physical",
   },
   {
     name: "Wand",
@@ -332,6 +340,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Heavy Weapon",
     tags: ["Weapon", "Tool"],
+    attackType: "Physical",
   },
   {
     name: "Shovel",
@@ -343,6 +352,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Heavy Weapon",
     tags: ["Weapon", "Polearm", "Tool"],
+    attackType: "Physical",
   },
   {
     name: "Hammer",
@@ -354,6 +364,7 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Medium Weapon",
     tags: ["Weapon", "Blunt", "Tool"],
+    attackType: "Physical",
   },
   {
     name: "Herbalist's Pouch",
@@ -364,7 +375,7 @@ const ModList: Partial<Mod>[] = [
     importantC: "price",
     inventoryIcon: new URL("src/assets/Icons/Items/bag.png", import.meta.url),
     slot: "Implement",
-    tags: ["Weapon", "Blunt", "Tool"],
+    tags: ["Tool"],
   },
   {
     name: "Flute",

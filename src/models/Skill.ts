@@ -1,6 +1,6 @@
-import Character from './Character';
-import { Tag, Target } from './Index';
-import Item from './Item';
+import Character from "./Character";
+import { AttackType, Tag, Target } from "./Index";
+import Item from "./Item";
 
 export default class Skill {
   public name: string;
@@ -9,6 +9,7 @@ export default class Skill {
   public characterTargets: number = 1;
   public itemTargets: number = 0;
   public tags: Tag[];
+  public attackType: AttackType;
 
   public spCost: number = 0;
   public mpCost: number = 0;
@@ -25,6 +26,7 @@ export default class Skill {
     description?: string,
     target?: Target,
     tags?: Tag[],
+    attackType?: AttackType,
     characterTargets?: number,
     itemTargets?: number,
     spCost?: number,
@@ -36,10 +38,11 @@ export default class Skill {
       itemTargets: Item[]
     ) => boolean
   ) {
-    this.name = name ?? 'NONE';
-    this.description = description ?? 'NONE';
-    this.target = target ?? 'ANY';
+    this.name = name ?? "NONE";
+    this.description = description ?? "NONE";
+    this.target = target ?? "ANY";
     this.tags = tags ?? [];
+    this.attackType = attackType ?? "Arcane";
     this.characterTargets = characterTargets ?? 1;
     this.itemTargets = itemTargets ?? 1;
     this.spCost = spCost ?? 0;

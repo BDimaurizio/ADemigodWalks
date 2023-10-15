@@ -133,13 +133,6 @@ export function GenerateDeities(
         tempAspects
       )
     );
-    /*
-    console.log(
-      thisDomainSize,
-      tempAspects.length,
-      unusedAspects.length,
-      deities[deities.length - 1]
-    );*/
   }
   return deities;
 }

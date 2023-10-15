@@ -12,7 +12,7 @@ const ModList: Partial<Mod>[] = [
     name: "vorpalized",
     description: "shor[",
     rarity: 0,
-    tags: ["Piercing"],
+    tags: [],
   },
 ];
 

@@ -37,7 +37,7 @@ export function testItemArray(howMany: number): Item[] {
 export function getSpecificItem(MODS: Mod[]): Item {
   const output = new Item(MODS);
   if (!output.baseBodyMod) {
-    console.log("wowzers");
+    console.log("missing base");
   }
   //TODO validate
   return output;

@@ -37,7 +37,7 @@ const ModList: Partial<Mod>[] = [
     description: "",
     CriticalChance: 1,
     rarity: 0,
-    tags: ["Judgement"],
+    tags: [],
   },
 ];
 
