@@ -123,10 +123,11 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Greedy"));
-      party[0].tackOnTrait(getTraitByName("Treasure Seeker"));
+      //party[0].tackOnTrait(getTraitByName("Treasure Seeker"));
       party[0].addItemToInventory([
         geti("mat=silver=misc=lucky coin"),
-        geti("base=ring=mat=gold"),
+        geti("base=pickaxe=mat=iron"),
+        geti("base=shovel=mat=iron"),
       ]);
     },
   },
@@ -141,10 +142,9 @@ export const ChoiceBucketMotivationI: Choice[] = [
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Power-Hungry"));
       party[0].addItemToInventory([
-        geti("base=orb"),
-        geti("con=scroll=spell=power enhance"),
-        geti("suf=of viltality", [getBaseModByCriteria([], 0, 0)]),
-        geti("suf=of viltality"),
+        geti("base=orb=mat=glass"),
+        geti("con=scroll=spell=power enhance=mat=parchment"),
+        geti("mat=wood", [getBaseModByCriteria(["Weapon"], 0, 0)]),
       ]);
     },
   },
@@ -158,7 +158,10 @@ export const ChoiceBucketMotivationI: Choice[] = [
     },
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Friendly"));
-      party[0].addItemToInventory([geti("base=bracelet=pre=friendship")]);
+      party[0].addItemToInventory([
+        geti("base=bracelet=pre=friendship=mat=copper"),
+        geti("mat=brass", [getBaseModByCriteria(["Instrument"], 0, 0)]),
+      ]);
     },
   },
   {
@@ -218,8 +221,8 @@ export const ChoiceBucketMotivationI: Choice[] = [
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Mental Adept"));
       party[0].addItemToInventory([
-        geti("base=quarterstaff"),
         geti("base=wand=spell=fireball"),
+        geti("con=scroll=spell=fireball"),
       ]);
     },
   },
@@ -232,7 +235,12 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName("Naturalist"));
+      party[0].addItemToInventory([
+        geti("base=shovel=mat=wood"),
+        geti("base=herbalist's pouch=mat=leather"),
+        geti("base=wand=spell=lesser restoration=mat=wood"),
+      ]);
     },
   },
   {
@@ -244,7 +252,12 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName("Hard Worker"));
+      party[0].addItemToInventory([
+        geti("base=hammer=mat=stone"),
+        geti("base=gloves=mat=patchwork"),
+        geti("base=hat=mat=patchwork"),
+      ]);
     },
   },
   {
@@ -256,7 +269,7 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].addItemToInventory([geti("base=necklace=pre=heart")]);
     },
   },
   {
@@ -268,7 +281,12 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      console.log(party[0]);
+      party[0].tackOnTrait(getTraitByName("Trapper"));
+      party[0].addItemToInventory([
+        geti("base=knife=mat=iron=pre=hunting"),
+        geti("con=raw meat"),
+        geti("ma=bone=base=necklace"),
+      ]);
     },
   },
   {

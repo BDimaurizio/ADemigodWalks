@@ -18,7 +18,26 @@ const ModList: Partial<Mod>[] = [
       import.meta.url
     ),
     slot: "Consumable",
-    tags: ["Feasts"],
+    tags: ["Feasts", "FOOD"],
+  },
+  {
+    name: "Raw Meat",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL("src/assets/Icons/Food/meat.png", import.meta.url),
+    slot: "Consumable",
+    tags: ["Feasts", "FOOD"],
+  },
+  {
+    name: "Cooked Meat",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Food/I_C_Meat.png",
+      import.meta.url
+    ),
+    slot: "Consumable",
+    tags: ["Feasts", "FOOD"],
   },
   {
     name: "Scroll",

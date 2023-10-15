@@ -1,22 +1,22 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
 
-import Item from './Item';
-import Mod from './Mod';
-import Job from './Job';
-import { combineMods } from 'src/Services/ModListManipulationService';
+import Item from "./Item";
+import Mod from "./Mod";
+import Job from "./Job";
+import { combineMods } from "src/Services/ModListManipulationService";
 import {
   Gender,
   ImportantStatPossibility,
   OpinionArray,
   ResistArray,
   Tag,
-} from './Index';
-import Skill from './Skill';
-import { removeDuplicateTags, removeDuplicates } from 'src/Services/Funcs';
+} from "./Index";
+import Skill from "./Skill";
+import { removeDuplicateTags, removeDuplicates } from "src/Services/Funcs";
 
 export default class Character {
   public name: string;
-  public gender: Gender = 'Male';
+  public gender: Gender = "Male";
   public age: number = 25;
   public jobs: [Job, number][] = [];
   private tackedOnMod: Mod = new Mod(); //naturaltraits and naturalskills included, as well as temporary debuffs in the form of traits
@@ -63,9 +63,9 @@ export default class Character {
 
   get jobTitle(): string {
     let stringbuilder =
-      'Level ' +
+      "Level " +
       this.jobs.reduce((partialSum, element) => partialSum + element[1], 0) +
-      ' ';
+      " ";
     let index = 0;
     let max = 0;
     for (let i = 0; i < this.jobs.length; i++) {
@@ -154,10 +154,10 @@ export default class Character {
   }
 
   get stats(): Mod {
-    console.log('performance');
+    console.log("performance");
     let output;
     if (this.cacheDirty) {
-      console.log('performance performance');
+      console.log("performance performance");
       output = combineMods([
         this.tackedOnMod,
         this.equipmentStats,
@@ -180,7 +180,7 @@ export default class Character {
   get statsWithoutTraits(): Mod {
     let output;
     if (this.cacheDirty) {
-      console.log('performancet');
+      console.log("performancet");
       output = combineMods([
         this.tackedOnMod,
         this.equipmentStats,
@@ -213,13 +213,14 @@ export default class Character {
     if (output.Parry > 0) output.Parry += mod.DEX;
     //AGI
     output.Evasion += mod.AGI;
+    output.Initiative += mod.AGI;
     if (output.Stealth > 0) output.Stealth += mod.AGI;
     if (output.Survival > 0) output.Survival += mod.AGI;
     //INT
     output.Arcana += mod.INT;
-    output.CriticalChance += mod.INT;
     output.MP += mod.INT;
-    output.Crafting += mod.INT;
+    if (output.CriticalChance > 0) output.CriticalChance += mod.INT / 2;
+    if (output.Crafting > 0) output.Crafting += mod.INT;
     //FAI
     output.Clarity += mod.FAI;
     if (output.Medicine > 0) output.Medicine += mod.FAI;
@@ -244,11 +245,11 @@ export default class Character {
     output.Diplomacy += mod.CHA;
     output.Bargaining += mod.CHA;
     //LUK
-    output.CriticalChance += mod.LUK;
+    if (output.CriticalChance > 0) output.CriticalChance += mod.LUK / 2;
 
     //trait-based bonuses
     //VIT
-    if (this.isTraitExistAndEligible('Heroic Aura')) {
+    if (this.isTraitExistAndEligible("Heroic Aura")) {
       output.Leadership += mod.VIT;
     }
     //STR
@@ -258,7 +259,7 @@ export default class Character {
     //INT
 
     //FAI
-    if (this.isTraitExistAndEligible('Righteous Cause')) {
+    if (this.isTraitExistAndEligible("Righteous Cause")) {
       output.MentalStatusResist += mod.FAI;
     }
     //WIL
@@ -275,7 +276,7 @@ export default class Character {
     for (let i = 0; i < traitFullList.length; i++) {
       if (traitFullList[i].name == name) {
         if (
-          typeof traitFullList[i].eligibilityChecker !== 'undefined' &&
+          typeof traitFullList[i].eligibilityChecker !== "undefined" &&
           traitFullList[i].eligibilityChecker!(this)
         ) {
           return true;
@@ -290,7 +291,7 @@ export default class Character {
     const output = [];
     for (let i = 0; i < traits.length; i++) {
       if (
-        typeof traits[i].eligibilityChecker !== 'undefined' &&
+        typeof traits[i].eligibilityChecker !== "undefined" &&
         traits[i].eligibilityChecker!(this)
       ) {
         output.push(traits[i]);
@@ -350,51 +351,51 @@ export default class Character {
   equipItem = (item: Item): boolean => {
     this.cacheDirty = true;
     if (!this.removeItemFromInventory(item, true)) {
-      console.log('item not in inventory');
+      console.log("item not in inventory");
       return false;
     }
     let index = 0;
     switch (item.baseBodyMod.slot) {
-      case 'Light Weapon':
-      case 'Medium Weapon':
-      case 'Exotic Weapon':
-      case 'Throwing Weapon':
-      case 'Light Ranged Weapon':
-      case 'Firearm':
+      case "Light Weapon":
+      case "Medium Weapon":
+      case "Exotic Weapon":
+      case "Throwing Weapon":
+      case "Light Ranged Weapon":
+      case "Firearm":
         break;
-      case 'Heavy Weapon':
-      case 'Very Heavy Weapon':
-      case 'Ranged Weapon':
-      case 'Heavy Firearm':
+      case "Heavy Weapon":
+      case "Very Heavy Weapon":
+      case "Ranged Weapon":
+      case "Heavy Firearm":
         this.unequipItemByIndex(1);
         break;
-      case 'Light Shield':
-      case 'Medium Shield':
-      case 'Heavy Shield':
-      case 'Implement':
+      case "Light Shield":
+      case "Medium Shield":
+      case "Heavy Shield":
+      case "Implement":
         index = 1;
         break;
-      case 'Light Helmet':
-      case 'Medium Helmet':
-      case 'Heavy Helmet':
+      case "Light Helmet":
+      case "Medium Helmet":
+      case "Heavy Helmet":
         index = 2;
         break;
-      case 'Light Armor':
-      case 'Medium Armor':
-      case 'Heavy Armor':
-      case 'Very Heavy Armor':
+      case "Light Armor":
+      case "Medium Armor":
+      case "Heavy Armor":
+      case "Very Heavy Armor":
         index = 3;
         break;
-      case 'Gloves':
+      case "Gloves":
         index = 4;
         break;
-      case 'Boots':
+      case "Boots":
         index = 5;
         break;
-      case 'Belt':
+      case "Belt":
         index = 6;
         break;
-      case 'Trinket':
+      case "Trinket":
         if (this.checkAttunement()) {
           this.equippedTrinkets.push(item);
           this.updateLog(`${this.name} equipped item: ${item.fullName}`);
@@ -419,7 +420,7 @@ export default class Character {
     if (!trinket) {
       if (
         this.equippedItems[index] &&
-        this.equippedItems[index]!.fullName != 'NONE'
+        this.equippedItems[index]!.fullName != "NONE"
       ) {
         this.updateLog(
           `${this.name} unequipped item: ${this.equippedItems[index]!.fullName}`
@@ -431,7 +432,7 @@ export default class Character {
     } else {
       if (
         this.equippedTrinkets[index] &&
-        this.equippedTrinkets[index].fullName != 'NONE'
+        this.equippedTrinkets[index].fullName != "NONE"
       ) {
         this.updateLog(
           `${this.name} unequipped item: ${this.equippedTrinkets[index].fullName}`
@@ -446,7 +447,7 @@ export default class Character {
 
   unequipItemByItem = (item: Item): boolean => {
     this.cacheDirty = true;
-    if (item.baseBodyMod.slot != 'Trinket') {
+    if (item.baseBodyMod.slot != "Trinket") {
       const index = this.equippedItems.indexOf(item);
       if (index >= 0) {
         return this.unequipItemByIndex(index);
@@ -547,5 +548,13 @@ export default class Character {
   gainEXP = (amount: number): void => {
     this.currentEXP += amount;
     this.updateLog(`${this.name} gained ${amount} EXP`);
+  };
+
+  damage = (amount: number): void => {
+    this.currentHP += amount;
+  };
+
+  heal = (amount: number): void => {
+    this.currentHP -= amount;
   };
 }

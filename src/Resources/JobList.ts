@@ -20,20 +20,20 @@ const JobList: Job[] = [
       DEX: 1,
       INT: 1,
     }),
-    ["Super Duper Healthy", "Low Health Crafter"],
-    [5, 6],
-    ["Power Enhance", "Fireball"],
-    [3, 1]
+    [],
+    [],
+    [],
+    []
   ),
   new Job(
     "Sailor",
     new Mod({
       LUK: 1,
     }),
-    ["Super Duper Healthy", "Low Health Crafter"],
-    [2, 4],
-    ["Fireball"],
-    [9]
+    [],
+    [],
+    [],
+    []
   ),
 ];
 

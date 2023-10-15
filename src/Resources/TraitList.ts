@@ -92,7 +92,35 @@ const ModList: Partial<Mod>[] = [
     description: "blah",
     rarity: 0,
     Survival: 1,
+    Initiative: 1,
+    Diplomacy: 1,
+    NatureOpinion: 1,
     tags: ["Nature"],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: "Naturalist",
+    description: "blah",
+    rarity: 0,
+    Survival: 1,
+    PhysicalStatusResist: 1,
+    NatureAffinity: 1,
+    NatureOpinion: 1,
+    tags: ["Nature"],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: "Trapper",
+    description: "blah",
+    rarity: 0,
+    Survival: 2,
+    Accuracy: 1,
+    NatureOpinion: -1,
+    tags: ["Nature", "Beasts"],
     eligibilityChecker() {
       return true;
     },
@@ -140,6 +168,8 @@ const ModList: Partial<Mod>[] = [
     description:
       "You've got a keen eye for treasure. You're sure to find some soon...",
     rarity: 1,
+    CommerceAffinity: 1,
+    CommerceOpinion: 1,
     tags: [],
     eligibilityChecker() {
       return true;
@@ -174,6 +204,18 @@ const ModList: Partial<Mod>[] = [
     tags: [],
     eligibilityChecker() {
       return true;
+    },
+  },
+  {
+    name: "Hard Worker",
+    description: "+1 Strength while holding a tool",
+    STR: 1,
+    rarity: 0,
+    tags: [],
+    eligibilityChecker(character) {
+      return !!character
+        .getSpecificEquipment(0)
+        ?.baseBodyMod.tags.includes("Tool");
     },
   },
 ];

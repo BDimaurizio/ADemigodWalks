@@ -3,42 +3,41 @@
   <q-separator />
   <h5>{{ trait.description }}</h5>
   <q-separator />
-  <!--
-  <pre
-    v-if="cachedStats"
-    class="text-bold text-indigo-10"
-    style="font-family: Arial"
-    >{{ cachedStats[0] }}</pre
-  >
-  <q-separator />
-  <pre
-    v-if="cachedStats"
-    class="text-bold text-red"
-    style="font-family: Arial"
-    >{{ cachedStats[1] }}</pre
-  >
-  -->
+  <div v-if="active && cachedStats">
+    <pre class="text-bold text-indigo-10" style="font-family: Arial"
+      >{{ cachedStats[0] }}
+    </pre>
+    <q-separator />
+    <pre class="text-bold text-red" style="font-family: Arial"
+      >{{ cachedStats[1] }}
+    </pre>
+  </div>
+  <div v-if="!active" class="text-bold text-red-10">
+    <br />
+    Requirements not met
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-//import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
+import { defineComponent, computed, ref, PropType } from "vue";
+import { getModStatsFormatted } from "src/Services/ModListManipulationService";
+import Mod from "src/models/Mod";
 
 export default defineComponent({
   components: {},
   props: {
-    trait: { type: Object, required: true },
+    trait: { type: Object as PropType<Mod>, required: true },
     active: { type: Boolean, required: true },
   },
 
   setup(props) {
-    //const cachedStats = ref(getModStatsFormatted(props.trait));
+    const cachedStats = ref(getModStatsFormatted(props.trait));
 
     return {
       ...props,
-      //cachedStats,
+      cachedStats,
       activatedColour: computed(() =>
-        props.active ? 'activated' : 'unactivated'
+        props.active ? "activated" : "unactivated"
       ),
     };
   },
@@ -57,6 +56,6 @@ export default defineComponent({
 }
 
 .unactivated {
-  background: rgba(233, 7, 7, 0.178);
+  background: rgba(50, 0, 0, 00.05);
 }
 </style>

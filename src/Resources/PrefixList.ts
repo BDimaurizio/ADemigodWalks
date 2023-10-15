@@ -44,6 +44,19 @@ const ModList: Partial<Mod>[] = [
     rarity: 1,
     tags: ["Battle"],
   },
+  {
+    name: "Heart",
+    description: "f",
+    rarity: 99,
+    tags: ["Love"],
+  },
+  {
+    name: "Hunting",
+    description: "f",
+    Survival: 2,
+    rarity: 1,
+    tags: ["Nature", "Beasts"],
+  },
 ];
 
 export function getPrefixModByIndex(index: number): Mod {

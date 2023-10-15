@@ -26,6 +26,7 @@
 import Item from "src/models/Item";
 import { ref, defineComponent } from "vue";
 /*
+https://opengameart.org/content/tool-icons
 https://opengameart.org/content/ring-set-precious-metals
 https://opengameart.org/content/orbs-collection
 https://opengameart.org/content/gems-classic

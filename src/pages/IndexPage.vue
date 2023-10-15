@@ -102,7 +102,7 @@
         <TraitInfoPane
           v-else-if="selectedTrait"
           :trait="(selectedTrait as Mod)"
-          :active="true"
+          :active="(selectedTrait.eligibilityChecker(selectedCharacter) as boolean)"
           :key="selectedTrait"
         ></TraitInfoPane>
         <SkillInfoPane
@@ -128,37 +128,37 @@
 </template>
 
 <script lang="ts">
-import Character from 'src/models/Character';
-import Item from 'src/models/Item';
-import { GenerateDeities } from 'src/Services/DeityGeneration';
-import { defineComponent, ref } from 'vue';
-import ItemInfoPane from 'src/components/Inventory/ItemInfoPane.vue';
-import InventoryPane from 'src/components/Inventory/InventoryPane.vue';
-import CharacterPane from 'src/components/Characters/CharacterPane.vue';
-import StatsPane from 'src/components/Characters/StatsPane.vue';
-import JobPane from 'src/components/Jobs/JobPane.vue';
-import Job from 'src/models/Job';
-import JobInfoPane from 'src/components/Jobs/JobInfoPane.vue';
-import FavorabilityDisplay from 'src/components/Divinity/FavorabilityDisplay.vue';
-import Deity from 'src/models/Deity';
-import DeityDetailsPane from 'src/components/Divinity/DeityDetailsPane.vue';
-import TraitListPane from 'src/components/Traits/TraitListPane.vue';
-import TraitInfoPane from 'src/components/Traits/TraitInfoPane.vue';
-import Mod from 'src/models/Mod';
-import SkillListPane from 'src/components/Skills/SkillListPane.vue';
-import Skill from 'src/models/Skill';
-import SkillInfoPane from 'src/components/Skills/SkillInfoPane.vue';
-import PartyList from 'src/components/Characters/PartyList.vue';
-import { testCharacter, testProtagonist } from 'src/Services/CharacterService';
-import PartyMemberInfoPane from 'src/components/Characters/PartyMemberInfoPane.vue';
-import { GenerateWorld } from 'src/Services/WorldGeneration';
-import HappeningPane from 'src/components/Happening/HappeningPane.vue';
-import { getHappeningByID } from 'src/Resources/HappeningList';
-import LogPane from 'src/components/Happening/LogPane.vue';
-import SkillCastingPane from 'src/components/Skills/SkillCastingPane.vue';
+import Character from "src/models/Character";
+import Item from "src/models/Item";
+import { GenerateDeities } from "src/Services/DeityGeneration";
+import { defineComponent, ref } from "vue";
+import ItemInfoPane from "src/components/Inventory/ItemInfoPane.vue";
+import InventoryPane from "src/components/Inventory/InventoryPane.vue";
+import CharacterPane from "src/components/Characters/CharacterPane.vue";
+import StatsPane from "src/components/Characters/StatsPane.vue";
+import JobPane from "src/components/Jobs/JobPane.vue";
+import Job from "src/models/Job";
+import JobInfoPane from "src/components/Jobs/JobInfoPane.vue";
+import FavorabilityDisplay from "src/components/Divinity/FavorabilityDisplay.vue";
+import Deity from "src/models/Deity";
+import DeityDetailsPane from "src/components/Divinity/DeityDetailsPane.vue";
+import TraitListPane from "src/components/Traits/TraitListPane.vue";
+import TraitInfoPane from "src/components/Traits/TraitInfoPane.vue";
+import Mod from "src/models/Mod";
+import SkillListPane from "src/components/Skills/SkillListPane.vue";
+import Skill from "src/models/Skill";
+import SkillInfoPane from "src/components/Skills/SkillInfoPane.vue";
+import PartyList from "src/components/Characters/PartyList.vue";
+import { testCharacter, testProtagonist } from "src/Services/CharacterService";
+import PartyMemberInfoPane from "src/components/Characters/PartyMemberInfoPane.vue";
+import { GenerateWorld } from "src/Services/WorldGeneration";
+import HappeningPane from "src/components/Happening/HappeningPane.vue";
+import { getHappeningByID } from "src/Resources/HappeningList";
+import LogPane from "src/components/Happening/LogPane.vue";
+import SkillCastingPane from "src/components/Skills/SkillCastingPane.vue";
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
     ItemInfoPane,
     InventoryPane,
@@ -191,27 +191,27 @@ export default defineComponent({
     const selectedSkill = ref();
     const selectedPartyMember = ref();
 
-    const currentHappening = ref(getHappeningByID('setout'));
+    const currentHappening = ref(getHappeningByID("setout"));
     const activeLocation = ref();
     const logCollection = ref([] as [string, Date][]);
 
-    const directedWhere = ref('my_inventory');
+    const directedWhere = ref("my_inventory");
     const directedInventory = ref();
     const itemSortingSchema = ref({
-      style: 'Name',
+      style: "Name",
       reverse: false,
     } as unknown as Record<string, boolean>);
-    const visiblePaneStatus = ref('blank');
+    const visiblePaneStatus = ref("blank");
     const pantheon = ref(GenerateDeities(7));
 
     const party = ref([] as Character[]);
 
-    party.value.push(testProtagonist('(you)'));
-    party.value.push(testCharacter('albert'));
-    party.value.push(testCharacter('dianne'));
-    party.value.push(testCharacter('luchious'));
-    party.value.push(testCharacter('martholemew'));
-    party.value.push(testCharacter('mathmatical'));
+    party.value.push(testProtagonist("(you)"));
+    party.value.push(testCharacter("albert"));
+    party.value.push(testCharacter("dianne"));
+    party.value.push(testCharacter("luchious"));
+    party.value.push(testCharacter("martholemew"));
+    party.value.push(testCharacter("mathmatical"));
 
     let selectedCharacter = ref(party.value[0]);
 
@@ -225,14 +225,14 @@ export default defineComponent({
     }
 
     function updateSortingSchema(schema: Record<string, boolean>) {
-      console.log('schema');
+      console.log("schema");
       itemSortingSchema.value = schema;
     }
 
     function updatePanes(where?: string): void {
       console.log(where);
       console.log(directedWhere.value);
-      if (visiblePaneStatus.value == 'happening') {
+      if (visiblePaneStatus.value == "happening") {
         updateLogCollection();
       }
       if (!where) {
@@ -240,9 +240,9 @@ export default defineComponent({
       } else {
         directedWhere.value = where;
       }
-      if (where.includes('inventory')) {
+      if (where.includes("inventory")) {
         directedInventory.value = selectedCharacter.value.getInventory();
-      } else if (where.includes('chara')) {
+      } else if (where.includes("chara")) {
         directedInventory.value = selectedCharacter.value.getEquipment();
       }
       update.value++;
@@ -255,17 +255,17 @@ export default defineComponent({
 
     function charaClicked(item: Item): void {
       selectedItem.value = item;
-      if (directedWhere.value == 'my_chara') {
+      if (directedWhere.value == "my_chara") {
         return;
       }
-      visiblePaneStatus.value = 'inventory';
-      changeVisiblePane('chara');
+      visiblePaneStatus.value = "inventory";
+      changeVisiblePane("chara");
     }
 
     //called when a pane change button is pressed
     function changeVisiblePane(pane: string): void {
       //test functionality
-      if (pane == 'map') {
+      if (pane == "map") {
         const size = 10;
         const map = GenerateWorld(size);
         let mapform: number[][] = [];
@@ -285,11 +285,11 @@ export default defineComponent({
 
       if (
         visiblePaneStatus.value == pane &&
-        visiblePaneStatus.value != 'inventory'
+        visiblePaneStatus.value != "inventory"
       ) {
         return;
       }
-      if (pane != 'chara') {
+      if (pane != "chara") {
         selectedItem.value = undefined;
         visiblePaneStatus.value = pane;
       }
@@ -298,7 +298,7 @@ export default defineComponent({
       selectedTrait.value = undefined;
       selectedSkill.value = undefined;
       selectedPartyMember.value = undefined;
-      updatePanes('my_' + pane);
+      updatePanes("my_" + pane);
       console.log(selectedCharacter.value);
     }
 
@@ -353,7 +353,7 @@ export default defineComponent({
 
     function onClickCast(skill: Skill): void {
       selectedSkill.value = skill;
-      changeVisiblePane('cast');
+      changeVisiblePane("cast");
       selectedSkill.value = skill;
       updatePanes();
     }
@@ -371,7 +371,7 @@ export default defineComponent({
           break;
         }
       }
-      changeVisiblePane('stats');
+      changeVisiblePane("stats");
       updatePanes();
     }
 
@@ -382,7 +382,7 @@ export default defineComponent({
           break;
         }
       }
-      changeVisiblePane('stats');
+      changeVisiblePane("stats");
       updatePanes();
     }
 
@@ -411,10 +411,10 @@ export default defineComponent({
 
     function specialInput(context: string, input: string): void {
       switch (context) {
-        case 'nameInput':
+        case "nameInput":
           selectedCharacter.value.name = input;
           break;
-        case 'something':
+        case "something":
           //something
           break;
       }
@@ -432,7 +432,7 @@ export default defineComponent({
 
       //check if the logs even changed
       if (logBuilder.length == logCollection.value.length) {
-        console.log('no change');
+        console.log("no change");
         return;
       }
 

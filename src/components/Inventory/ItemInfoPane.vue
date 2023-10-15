@@ -68,6 +68,7 @@ import Item from "src/models/Item";
 import { ref, defineComponent, PropType } from "vue";
 import { getModStatsFormatted } from "src/Services/ModListManipulationService";
 import Character from "src/models/Character";
+import { Tag } from "src/models/Index";
 
 export default defineComponent({
   components: {},
@@ -83,6 +84,13 @@ export default defineComponent({
       return this.item.fullNameWithoutMateiral;
     },
     itemTagline(): string {
+      const customTaglineTags: Tag[] = ["Tool", "Instrument"];
+      for (let i = 0; i < customTaglineTags.length; i++) {
+        if (this.theItem.tags.includes(customTaglineTags[i])) {
+          return this.item.rarityString + " " + customTaglineTags[i];
+        }
+      }
+
       return this.item.rarityString + " " + this.item.baseBodyMod.slot;
     },
     itemMaterial(): string {

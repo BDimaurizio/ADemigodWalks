@@ -139,8 +139,12 @@ export type Tag =
   | "Blade"
   | "Blunt"
   | "Stabbing"
+  | "Polearm"
   //clothing types
   | "Cape"
+  //tool types
+  | "Tool"
+  | "Instrument"
   //crafting types
   | "CARPENTRY" // WOOD, BONE
   | "SMITHING" // METAL
@@ -197,6 +201,7 @@ export type ImportantStatPossibility =
   | "Ward"
   | "PhysicalStatusResist"
   | "MentalStatusResist"
+  | "Initiative"
   | "AlchemyAffinity"
   | "ArtAffinity"
   | "BattleAffinity"

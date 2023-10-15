@@ -1,37 +1,37 @@
-import Character from './Character';
+import Character from "./Character";
 import {
   Aspect,
   ImportantStatPossibility,
   ItemSlot,
   ModType,
   Tag,
-} from './Index';
-import Item from './Item';
-import Skill from './Skill';
+} from "./Index";
+import Item from "./Item";
+import Skill from "./Skill";
 
 export default class Mod {
   //general info
-  public modType: ModType = 'NONE';
-  public name = 'NONE';
+  public modType: ModType = "NONE";
+  public name = "NONE";
   public rarity = 0;
   public aspects: Aspect[] = [];
   public tags: Tag[] = [];
   public requiredTags: Tag[] = [];
-  public description = 'NONE';
+  public description = "NONE";
   public price = 0;
   public priceMultiplier = 0; // 1 point = 10% additional cost
   public inventoryIcon: URL = new URL(
-    'src/assets/Icons/placeholder.png',
+    "src/assets/Icons/placeholder.png",
     import.meta.url
   );
   //important stats
-  public importantA: ImportantStatPossibility = 'price';
-  public importantB: ImportantStatPossibility = 'price';
-  public importantC: ImportantStatPossibility = 'price';
+  public importantA: ImportantStatPossibility = "price";
+  public importantB: ImportantStatPossibility = "price";
+  public importantC: ImportantStatPossibility = "price";
   public importantAval = 0;
   public importantBval = 0;
   public importantCval = 0;
-  public slot: ItemSlot = 'NONE';
+  public slot: ItemSlot = "NONE";
   //slot stats
   public MaxSockets = 0;
   public MaxRunes = 0;
@@ -68,6 +68,8 @@ export default class Mod {
   public Ward = 0;
   public PhysicalStatusResist = 0;
   public MentalStatusResist = 0;
+  //initiative
+  public Initiative = 0;
   //aspect stats | offensive = affinity/deficiency (increases damage/activates other effects) | get via Character.ComputeStats[`${aspect.tagName}affinity`]
   public AlchemyAffinity = 0;
   public ArtAffinity = 0;

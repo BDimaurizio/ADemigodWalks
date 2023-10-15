@@ -93,6 +93,25 @@ const SkillList: Skill[] = [
       return true;
     },
   },
+  {
+    name: "Lesser Restoration",
+    description: "heel",
+    target: "ALLY",
+    characterTargets: 1,
+    itemTargets: 0,
+    mpCost: 3,
+    spCost: 0,
+    tags: ["Magic"],
+    eligibilityChecker() {
+      return true;
+    },
+    skillCast(caster, victims): boolean {
+      victims.forEach((victim) => {
+        victim.heal(1);
+      });
+      return true;
+    },
+  },
 ];
 
 export function getSkillByIndex(index: number): Skill {

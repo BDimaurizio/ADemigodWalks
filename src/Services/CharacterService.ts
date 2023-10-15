@@ -1,7 +1,6 @@
 import Character from "src/models/Character";
 import { getJobByName } from "src/Resources/JobList";
 import { geti, testItemArray } from "./ItemService";
-import { getTraitByName } from "src/Resources/TraitList";
 
 export function testProtagonist(name: string): Character {
   const output: Character = new Character(name);
@@ -9,13 +8,7 @@ export function testProtagonist(name: string): Character {
   output.tackOnStat("HP", 5);
   output.currentEXP = 500;
   output.gainJob(getJobByName("Adventurer"), 0);
-  output.addItemToInventory([
-    geti("ba=Orb=mat=glass"),
-    geti("co=Scroll=sp=Power Enhance=mat=Parchment"),
-    geti("co=Scroll=sp=Vital Blessing=mat=Parchment"),
-    geti("ba=Quarterstaff=ma=Wood"),
-  ]);
-  output.tackOnTrait(getTraitByName("Heroic Aura"));
+  output.addItemToInventory([geti("base=dagger=mat=stone")]);
 
   output.clearLog();
   return output;

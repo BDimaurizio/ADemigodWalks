@@ -116,17 +116,17 @@ export default class Item {
     const r = this.computeStats.rarity;
     if (r < 2) return "Common";
     else if (r < 4) return "Uncommon";
-    else if (r < 6) return "Super Uncommon";
-    else if (r < 8) return "Ultra Uncommon";
+    else if (r < 6) return "Uncommon";
+    else if (r < 8) return "Uncommon";
     else if (r < 10) return "Rare";
-    else if (r < 15) return "Super Rare";
-    else if (r < 20) return "Ultra Rare";
+    else if (r < 15) return "Rare";
+    else if (r < 20) return "Rare";
     else if (r < 30) return "Epic";
-    else if (r < 45) return "Super Epic";
-    else if (r < 65) return "Ultra Epic";
+    else if (r < 45) return "Epic";
+    else if (r < 65) return "Epic";
     else if (r < 85) return "Legendary";
-    else if (r < 100) return "Super Legendary";
-    else if (r >= 100) return "Ultra Legendary";
+    else if (r < 100) return "Legendary";
+    else if (r >= 100) return "Legendary";
     return "";
   }
 

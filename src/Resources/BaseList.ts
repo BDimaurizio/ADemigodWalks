@@ -29,6 +29,39 @@ const ModList: Partial<Mod>[] = [
     tags: ["Piercing", "Blade", "Weapon"],
   },
   {
+    name: "Knife",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Weapons/Dagger.png",
+      import.meta.url
+    ),
+    slot: "Light Weapon",
+    tags: ["Blade", "Weapon"],
+  },
+  {
+    name: "Sword",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Weapons/W_Sword001.png",
+      import.meta.url
+    ),
+    slot: "Medium Weapon",
+    tags: ["Blade", "Weapon"],
+  },
+  {
+    name: "Machete",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Weapons/W_Sword001.png",
+      import.meta.url
+    ),
+    slot: "Medium Weapon",
+    tags: ["Blade", "Weapon"],
+  },
+  {
     name: "Club",
     description: "",
     rarity: 0,
@@ -63,6 +96,17 @@ const ModList: Partial<Mod>[] = [
     description: "",
     rarity: 0,
     inventoryIcon: new URL("src/assets/Icons/Helmets/Cap.png", import.meta.url),
+    slot: "Light Helmet",
+    tags: [],
+  },
+  {
+    name: "Hat",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Helmets/elven_leather_helm.png",
+      import.meta.url
+    ),
     slot: "Light Helmet",
     tags: [],
   },
@@ -195,6 +239,17 @@ const ModList: Partial<Mod>[] = [
     tags: [],
   },
   {
+    name: "Necklace",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Trinkets/Ac_Necklace02.png",
+      import.meta.url
+    ),
+    slot: "Trinket",
+    tags: [],
+  },
+  {
     name: "Bracelet",
     description: "",
     rarity: 0,
@@ -266,6 +321,82 @@ const ModList: Partial<Mod>[] = [
     ),
     slot: "Light Armor",
     tags: [],
+  },
+  {
+    name: "Pickaxe",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Tools/Pickaxe2.png",
+      import.meta.url
+    ),
+    slot: "Heavy Weapon",
+    tags: ["Weapon", "Tool"],
+  },
+  {
+    name: "Shovel",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Tools/Shovel2.png",
+      import.meta.url
+    ),
+    slot: "Heavy Weapon",
+    tags: ["Weapon", "Polearm", "Tool"],
+  },
+  {
+    name: "Hammer",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Tools/Hammer2.png",
+      import.meta.url
+    ),
+    slot: "Medium Weapon",
+    tags: ["Weapon", "Blunt", "Tool"],
+  },
+  {
+    name: "Herbalist's Pouch",
+    description: "",
+    rarity: 0,
+    importantA: "Medicine",
+    importantB: "Survival",
+    importantC: "price",
+    inventoryIcon: new URL("src/assets/Icons/Items/bag.png", import.meta.url),
+    slot: "Implement",
+    tags: ["Weapon", "Blunt", "Tool"],
+  },
+  {
+    name: "Flute",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
+    slot: "Implement",
+    tags: ["Instrument"],
+  },
+  {
+    name: "Lute",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
+    slot: "Implement",
+    tags: ["Instrument"],
+  },
+  {
+    name: "Drum",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
+    slot: "Implement",
+    tags: ["Instrument"],
+  },
+  {
+    name: "Horn",
+    description: "",
+    rarity: 0,
+    inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
+    slot: "Implement",
+    tags: ["Instrument"],
   },
 ];
 
