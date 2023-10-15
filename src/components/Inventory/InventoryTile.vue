@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Item from "src/models/Item";
-import { ref, defineComponent } from "vue";
+import { ref, defineComponent, PropType } from "vue";
 /*
 https://github.com/game-icons/icons
 https://opengameart.org/content/tool-icons
@@ -48,7 +48,7 @@ https://opengameart.org/content/studded-belt
 export default defineComponent({
   components: {},
   props: {
-    item: { type: Item, required: true },
+    item: { type: Object as PropType<Item>, required: true },
     showMaterial: { type: Boolean, required: true },
   },
   emits: ["inventoryClicked"],

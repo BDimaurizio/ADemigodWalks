@@ -70,12 +70,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted, PropType } from 'vue';
-import PartyMemberTile from '../Characters/PartyMemberTile.vue';
-import Character from 'src/models/Character';
-import Skill from 'src/models/Skill';
-import InventoryTile from 'src/components/Inventory/InventoryTile.vue';
-import Item from 'src/models/Item';
+import { ref, defineComponent, onMounted, PropType } from "vue";
+import PartyMemberTile from "../Characters/PartyMemberTile.vue";
+import Character from "src/models/Character";
+import Skill from "src/models/Skill";
+import InventoryTile from "src/components/Inventory/InventoryTile.vue";
+import Item from "src/models/Item";
 
 export default defineComponent({
   components: { PartyMemberTile, InventoryTile },
@@ -85,7 +85,7 @@ export default defineComponent({
     caster: { type: Object as PropType<Character>, required: true },
     sortingSchema: { type: Object, required: true },
   },
-  emits: ['updateSortingSchema'],
+  emits: ["updateSortingSchema"],
 
   computed: {},
 
@@ -99,7 +99,7 @@ export default defineComponent({
     const inventoryArray = ref(
       props.partyMemberList[0].getInventory().filter(Boolean)
     );
-    const showMaterial = ref(false);
+    const showMaterial = ref(true);
 
     const charSelectionsRemaining = ref(props.skill.characterTargets);
     const itemSelectionsRemaining = ref(props.skill.itemTargets);
@@ -146,16 +146,16 @@ export default defineComponent({
         charSelectionTargets.value as Character[],
         itemSelectionTargets.value as Item[]
       );
-      props.caster.removeTackOnTrait('Scroll Reading: ' + props.skill.name); //wrong
+      props.caster.removeTackOnTrait("Scroll Reading: " + props.skill.name); //wrong
     }
 
     function sortChar(style: string, forceDirection: boolean = false): void {
       prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         partyMemberArray.value.sort((a, b) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
-      } else if (style == 'Level') {
+      } else if (style == "Level") {
         partyMemberArray.value.sort((a, b) =>
           a.totalLevel < b.totalLevel ? 1 : b.totalLevel < a.totalLevel ? -1 : 0
         );
@@ -172,16 +172,16 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     function sortItem(style: string, forceDirection: boolean = false): void {
       prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         inventoryArray.value.sort((a, b) =>
           a.fullName > b.fullName ? 1 : b.fullName > a.fullName ? -1 : 0
         );
-      } else if (style == 'Type') {
+      } else if (style == "Type") {
         inventoryArray.value.sort((a, b) =>
           a.baseBodyMod.slot > b.baseBodyMod.slot
             ? 1
@@ -189,7 +189,7 @@ export default defineComponent({
             ? -1
             : 0
         );
-      } else if (style == 'Rarity') {
+      } else if (style == "Rarity") {
         inventoryArray.value.sort((a, b) =>
           a.computeStats.rarity > b.computeStats.rarity
             ? -1
@@ -210,12 +210,12 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sortChar(sortingSchema.value.style ?? 'name', true);
-      sortItem(sortingSchema.value.style ?? 'name', true);
+      sortChar(sortingSchema.value.style ?? "name", true);
+      sortItem(sortingSchema.value.style ?? "name", true);
     });
 
     return {

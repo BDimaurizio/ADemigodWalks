@@ -7,11 +7,17 @@ import {
 
 const modType: ModType = "BASE";
 
+/*
+importantA: ,
+    importantB: ,
+    importantC: ,
+*/
+
 const ModList: Partial<Mod>[] = [
   {
     name: "Invalid Item",
     description:
-      "whoopsie this item is bugged please submit a bug report also what were you doing when this item appeared",
+      "whoops this item is bugged please submit a bug report also what were you doing when this item appeared",
     rarity: 9999,
     inventoryIcon: new URL("src/assets/Icons/error.png", import.meta.url),
     slot: "Quest Item",
@@ -29,6 +35,9 @@ const ModList: Partial<Mod>[] = [
     name: "Dagger",
     description: "",
     rarity: 0,
+    importantA: "CriticalDamage",
+    importantB: "Attack",
+    importantC: "Accuracy",
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/Dagger.png",
       import.meta.url
@@ -41,6 +50,9 @@ const ModList: Partial<Mod>[] = [
     name: "Knife",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "Accuracy",
+    importantC: "Survival",
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/Dagger.png",
       import.meta.url
@@ -53,6 +65,11 @@ const ModList: Partial<Mod>[] = [
     name: "Sword",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "Accuracy",
+    importantC: "Deflect",
+    Attack: 1,
+    Accuracy: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/W_Sword001.png",
       import.meta.url
@@ -65,6 +82,9 @@ const ModList: Partial<Mod>[] = [
     name: "Machete",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "Accuracy",
+    importantC: "Survival",
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/W_Sword001.png",
       import.meta.url
@@ -77,6 +97,9 @@ const ModList: Partial<Mod>[] = [
     name: "Club",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "CriticalDamage",
+    importantC: "Fortitude",
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/Club.png",
       import.meta.url
@@ -89,6 +112,25 @@ const ModList: Partial<Mod>[] = [
     name: "Axe",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "CriticalDamage",
+    importantC: "Attack",
+    Attack: 3,
+    inventoryIcon: new URL("src/assets/Icons/Weapons/Axe.png", import.meta.url),
+    slot: "Heavy Weapon",
+    tags: ["Weapon", "Blade"],
+    attackType: "Physical",
+  },
+  {
+    name: "Longsword",
+    description: "",
+    rarity: 0,
+    importantA: "Attack",
+    importantB: "Accuracy",
+    importantC: "Deflect",
+    Attack: 1,
+    Accuracy: 1,
+    Deflect: 1,
     inventoryIcon: new URL("src/assets/Icons/Weapons/Axe.png", import.meta.url),
     slot: "Heavy Weapon",
     tags: ["Weapon", "Blade"],
@@ -98,6 +140,11 @@ const ModList: Partial<Mod>[] = [
     name: "Greatsword",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "STR",
+    importantC: "Deflect",
+    Attack: 2,
+    Deflect: 2,
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/VHWeapon.png",
       import.meta.url
@@ -110,6 +157,9 @@ const ModList: Partial<Mod>[] = [
     name: "Cap",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "Resolve",
+    importantC: "Fortitude",
     inventoryIcon: new URL("src/assets/Icons/Helmets/Cap.png", import.meta.url),
     slot: "Light Helmet",
     tags: [],
@@ -118,6 +168,9 @@ const ModList: Partial<Mod>[] = [
     name: "Hat",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "Clarity",
+    importantC: "Resolve",
     inventoryIcon: new URL(
       "src/assets/Icons/Helmets/elven_leather_helm.png",
       import.meta.url
@@ -129,6 +182,10 @@ const ModList: Partial<Mod>[] = [
     name: "Helm",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "Fortitude",
+    importantC: "Armor",
+    Armor: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Helmets/Helm.png",
       import.meta.url
@@ -140,6 +197,9 @@ const ModList: Partial<Mod>[] = [
     name: "Cloak",
     description: "",
     rarity: 0,
+    importantA: "Evasion",
+    importantB: "Armor",
+    importantC: "Ward",
     inventoryIcon: new URL("src/assets/Icons/Armor/Cloak.png", import.meta.url),
     slot: "Light Armor",
     tags: [],
@@ -148,14 +208,50 @@ const ModList: Partial<Mod>[] = [
     name: "Cape",
     description: "",
     rarity: 0,
+    importantA: "Resolve",
+    importantB: "Fortitude",
+    importantC: "Leadership",
     inventoryIcon: new URL("src/assets/Icons/Armor/Cloak.png", import.meta.url),
     slot: "Light Armor",
     tags: ["Cape"],
   },
   {
+    name: "Robes",
+    description: "",
+    rarity: 0,
+    importantA: "Ward",
+    importantB: "Clarity",
+    importantC: "FAI",
+    Clarity: 1,
+    inventoryIcon: new URL(
+      "src/assets/Icons/Armor/cloak_2.png",
+      import.meta.url
+    ),
+    slot: "Light Armor",
+    tags: [],
+  },
+  {
+    name: "Tunic",
+    description: "",
+    rarity: 0,
+    importantA: "STR",
+    importantB: "Accuracy",
+    importantC: "Armor",
+    inventoryIcon: new URL(
+      "src/assets/Icons/Armor/A_Clothing02.png",
+      import.meta.url
+    ),
+    slot: "Light Armor",
+    tags: [],
+  },
+  {
     name: "Jerkin",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "Evasion",
+    importantC: "Armor",
+    Armor: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Armor/Jerkin.png",
       import.meta.url
@@ -167,6 +263,11 @@ const ModList: Partial<Mod>[] = [
     name: "Chainmail",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "Deflect",
+    importantC: "Armor",
+    Armor: 2,
+    AGI: -1,
     inventoryIcon: new URL("src/assets/Icons/Armor/Armor.png", import.meta.url),
     slot: "Heavy Armor",
     tags: ["METAL-SPECIFIC"],
@@ -175,6 +276,9 @@ const ModList: Partial<Mod>[] = [
     name: "Buckler",
     description: "",
     rarity: 0,
+    importantA: "Block",
+    importantB: "Evasion",
+    importantC: "Resolve",
     inventoryIcon: new URL(
       "src/assets/Icons/Shields/Buckler.png",
       import.meta.url
@@ -186,6 +290,10 @@ const ModList: Partial<Mod>[] = [
     name: "Kite Shield",
     description: "",
     rarity: 0,
+    importantA: "Block",
+    importantB: "Deflect",
+    importantC: "Resolve",
+    Block: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Shields/Kite.png",
       import.meta.url
@@ -197,6 +305,10 @@ const ModList: Partial<Mod>[] = [
     name: "Tower Shield",
     description: "",
     rarity: 0,
+    importantA: "Block",
+    importantB: "Deflect",
+    importantC: "Fortitude",
+    Block: 2,
     inventoryIcon: new URL(
       "src/assets/Icons/Shields/Tower.png",
       import.meta.url
@@ -208,6 +320,9 @@ const ModList: Partial<Mod>[] = [
     name: "Gloves",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "DEX",
+    importantC: "Accuracy",
     inventoryIcon: new URL(
       "src/assets/Icons/Gloves/Gloves.png",
       import.meta.url
@@ -219,6 +334,9 @@ const ModList: Partial<Mod>[] = [
     name: "Boots",
     description: "",
     rarity: 0,
+    importantA: "Armor",
+    importantB: "AGI",
+    importantC: "Evasion",
     inventoryIcon: new URL("src/assets/Icons/Boots/Boots.png", import.meta.url),
     slot: "Boots",
     tags: [],
@@ -227,6 +345,9 @@ const ModList: Partial<Mod>[] = [
     name: "Belt",
     description: "",
     rarity: 0,
+    importantA: "Fortitude",
+    importantB: "Resolve",
+    importantC: "price",
     inventoryIcon: new URL("src/assets/Icons/Items/Belt.png", import.meta.url),
     slot: "Belt",
     tags: [],
@@ -235,6 +356,9 @@ const ModList: Partial<Mod>[] = [
     name: "Ring",
     description: "",
     rarity: 0,
+    importantA: "price",
+    importantB: "priceMultiplier",
+    importantC: "Arcana",
     inventoryIcon: new URL(
       "src/assets/Icons/Trinkets/Ring1.png",
       import.meta.url
@@ -246,6 +370,9 @@ const ModList: Partial<Mod>[] = [
     name: "Amulet",
     description: "",
     rarity: 0,
+    importantA: "price",
+    importantB: "Ward",
+    importantC: "Supression",
     inventoryIcon: new URL(
       "src/assets/Icons/Trinkets/Ac_Necklace02.png",
       import.meta.url
@@ -257,6 +384,9 @@ const ModList: Partial<Mod>[] = [
     name: "Necklace",
     description: "",
     rarity: 0,
+    importantA: "price",
+    importantB: "priceMultiplier",
+    importantC: "Clarity",
     inventoryIcon: new URL(
       "src/assets/Icons/Trinkets/Ac_Necklace02.png",
       import.meta.url
@@ -268,6 +398,9 @@ const ModList: Partial<Mod>[] = [
     name: "Bracelet",
     description: "",
     rarity: 0,
+    importantA: "price",
+    importantB: "priceMultiplier",
+    importantC: "Resolve",
     inventoryIcon: new URL(
       "src/assets/Icons/Trinkets/Ac_Ring02.png",
       import.meta.url
@@ -279,7 +412,9 @@ const ModList: Partial<Mod>[] = [
     name: "Orb",
     description: "",
     rarity: 0,
-    importantA: "WIL",
+    importantA: "Arcana",
+    importantB: "WIL",
+    importantC: "Clarity",
     WIL: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Implements/Orb_01.png",
@@ -289,23 +424,12 @@ const ModList: Partial<Mod>[] = [
     tags: [],
   },
   {
-    name: "Robes",
-    description: "",
-    rarity: 0,
-    importantA: "FAI",
-    importantB: "Clarity",
-    Clarity: 1,
-    inventoryIcon: new URL(
-      "src/assets/Icons/Armor/cloak_2.png",
-      import.meta.url
-    ),
-    slot: "Light Armor",
-    tags: [],
-  },
-  {
     name: "Quarterstaff",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "VIT",
+    importantC: "Clarity",
     inventoryIcon: new URL(
       "src/assets/Icons/Weapons/W_Staff01.png",
       import.meta.url
@@ -318,6 +442,9 @@ const ModList: Partial<Mod>[] = [
     name: "Wand",
     description: "",
     rarity: 0,
+    importantA: "Arcana",
+    importantB: "INT",
+    importantC: "Supression",
     inventoryIcon: new URL(
       "src/assets/Icons/Implements/wand_2.png",
       import.meta.url
@@ -326,22 +453,13 @@ const ModList: Partial<Mod>[] = [
     tags: ["Magic"],
   },
   {
-    name: "Tunic",
-    description: "",
-    rarity: 0,
-    importantA: "STR",
-    importantB: "Accuracy",
-    inventoryIcon: new URL(
-      "src/assets/Icons/Armor/A_Clothing02.png",
-      import.meta.url
-    ),
-    slot: "Light Armor",
-    tags: [],
-  },
-  {
     name: "Pickaxe",
     description: "",
     rarity: 0,
+    importantA: "Mining",
+    importantB: "STR",
+    importantC: "Attack",
+    Mining: 1,
     inventoryIcon: new URL(
       "src/assets/Icons/Tools/Pickaxe2.png",
       import.meta.url
@@ -354,6 +472,9 @@ const ModList: Partial<Mod>[] = [
     name: "Shovel",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "STR",
+    importantC: "Survival",
     inventoryIcon: new URL(
       "src/assets/Icons/Tools/Shovel2.png",
       import.meta.url
@@ -366,6 +487,9 @@ const ModList: Partial<Mod>[] = [
     name: "Hammer",
     description: "",
     rarity: 0,
+    importantA: "Attack",
+    importantB: "STR",
+    importantC: "Crafting",
     inventoryIcon: new URL(
       "src/assets/Icons/Tools/Hammer2.png",
       import.meta.url
@@ -389,6 +513,9 @@ const ModList: Partial<Mod>[] = [
     name: "Flute",
     description: "",
     rarity: 0,
+    importantA: "Diplomacy",
+    importantB: "CHA",
+    importantC: "priceMultiplier",
     inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
     slot: "Implement",
     tags: ["Instrument"],
@@ -397,6 +524,9 @@ const ModList: Partial<Mod>[] = [
     name: "Lute",
     description: "",
     rarity: 0,
+    importantA: "Bargaining",
+    importantB: "CHA",
+    importantC: "price",
     inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
     slot: "Implement",
     tags: ["Instrument"],
@@ -405,6 +535,9 @@ const ModList: Partial<Mod>[] = [
     name: "Drum",
     description: "",
     rarity: 0,
+    importantA: "Leadership",
+    importantB: "CHA",
+    importantC: "Diplomacy",
     inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
     slot: "Implement",
     tags: ["Instrument"],
@@ -413,6 +546,9 @@ const ModList: Partial<Mod>[] = [
     name: "Horn",
     description: "",
     rarity: 0,
+    importantA: "Leadership",
+    importantB: "CHA",
+    importantC: "priceMultiplier",
     inventoryIcon: new URL("src/assets/Icons/placeholder.png", import.meta.url),
     slot: "Implement",
     tags: ["Instrument"],

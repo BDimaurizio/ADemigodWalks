@@ -13,26 +13,26 @@
   <div
     class="q-ma-sm row"
     v-for="(inventoryObject, index) in inventoryArray"
-    :key="inventoryObject"
+    :key="inventoryObject.baseBodyMod.name + index"
   >
     <InventoryTile
       class="col"
-      :item="inventoryObject"
+      :item="(inventoryObject as Item)"
       :showMaterial="showMaterial"
-      @inventoryClicked="inventoryClicked(inventoryObject, index)"
+      @inventoryClicked="inventoryClicked(inventoryObject as Item, index)"
     ></InventoryTile>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from "vue";
+import { ref, defineComponent, onMounted, PropType } from "vue";
 import InventoryTile from "src/components/Inventory/InventoryTile.vue";
 import Item from "src/models/Item";
 
 export default defineComponent({
   components: { InventoryTile },
   props: {
-    inventory: { type: Object, required: true },
+    inventory: { type: Object as PropType<Item[]>, required: true },
     itemSortingSchema: { type: Object, required: true },
   },
   emits: ["inventoryClicked", "updateSortingSchema"],
@@ -48,7 +48,7 @@ export default defineComponent({
     const sortingSchema = ref(props.itemSortingSchema);
     let prevIndex = -1;
 
-    const showMaterial = ref(false);
+    const showMaterial = ref(true);
 
     function inventoryClicked(item: Item, index: number): void {
       if (index == prevIndex) {
@@ -61,7 +61,7 @@ export default defineComponent({
     function sort(style: string, forceDirection: boolean = false): void {
       prevIndex = -1;
       if (style == "Name") {
-        inventoryArray.value.sort((a: Item, b: Item) =>
+        inventoryArray.value.sort((a, b) =>
           a.fullNameWithoutMateiral > b.fullNameWithoutMateiral
             ? 1
             : b.fullNameWithoutMateiral > a.fullNameWithoutMateiral
@@ -69,7 +69,7 @@ export default defineComponent({
             : 0
         );
       } else if (style == "Type") {
-        inventoryArray.value.sort((a: Item, b: Item) =>
+        inventoryArray.value.sort((a, b) =>
           a.baseBodyMod.slot > b.baseBodyMod.slot
             ? 1
             : b.baseBodyMod.slot > a.baseBodyMod.slot
@@ -77,7 +77,7 @@ export default defineComponent({
             : 0
         );
       } else if (style == "Rarity") {
-        inventoryArray.value.sort((a: Item, b: Item) =>
+        inventoryArray.value.sort((a, b) =>
           a.computeStats.rarity > b.computeStats.rarity
             ? -1
             : b.computeStats.rarity > a.computeStats.rarity
