@@ -31,6 +31,14 @@ export default class Item {
     }
   }
 
+  get materialName(): string {
+    if (this.BaseMods[2]) {
+      return this.BaseMods[2].name;
+    } else {
+      return "";
+    }
+  }
+
   get fullName(): string {
     let stringBuilder = "";
 
@@ -119,7 +127,7 @@ export default class Item {
     else if (r < 85) return "Legendary";
     else if (r < 100) return "Super Legendary";
     else if (r >= 100) return "Ultra Legendary";
-    return "Unknown";
+    return "";
   }
 
   get rarityColor(): string {
@@ -139,7 +147,7 @@ export default class Item {
     else if (r < 85) return "text-pink-10";
     else if (r < 100) return "text-pink-10";
     else if (r >= 100) return "text-pink-10";
-    return "Unknown";
+    return "";
   }
 
   get inventoryIcon(): URL {

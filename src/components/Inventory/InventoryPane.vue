@@ -25,9 +25,9 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
-import InventoryTile from 'src/components/Inventory/InventoryTile.vue';
-import Item from 'src/models/Item';
+import { ref, defineComponent, onMounted } from "vue";
+import InventoryTile from "src/components/Inventory/InventoryTile.vue";
+import Item from "src/models/Item";
 
 export default defineComponent({
   components: { InventoryTile },
@@ -35,7 +35,7 @@ export default defineComponent({
     inventory: { type: Object, required: true },
     itemSortingSchema: { type: Object, required: true },
   },
-  emits: ['inventoryClicked', 'updateSortingSchema'],
+  emits: ["inventoryClicked", "updateSortingSchema"],
 
   computed: {},
 
@@ -51,16 +51,20 @@ export default defineComponent({
         return;
       }
       prevIndex = index;
-      context.emit('inventoryClicked', item);
+      context.emit("inventoryClicked", item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
       prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         inventoryArray.value.sort((a: Item, b: Item) =>
-          a.fullName > b.fullName ? 1 : b.fullName > a.fullName ? -1 : 0
+          a.fullNameWithoutMateiral > b.fullNameWithoutMateiral
+            ? 1
+            : b.fullNameWithoutMateiral > a.fullNameWithoutMateiral
+            ? -1
+            : 0
         );
-      } else if (style == 'Type') {
+      } else if (style == "Type") {
         inventoryArray.value.sort((a: Item, b: Item) =>
           a.baseBodyMod.slot > b.baseBodyMod.slot
             ? 1
@@ -68,7 +72,7 @@ export default defineComponent({
             ? -1
             : 0
         );
-      } else if (style == 'Rarity') {
+      } else if (style == "Rarity") {
         inventoryArray.value.sort((a: Item, b: Item) =>
           a.computeStats.rarity > b.computeStats.rarity
             ? -1
@@ -89,11 +93,11 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sort(sortingSchema.value.style ?? 'name', true);
+      sort(sortingSchema.value.style ?? "name", true);
     });
 
     return {

@@ -10,9 +10,9 @@ export function testProtagonist(name: string): Character {
   output.currentEXP = 500;
   output.gainJob(getJobByName("Adventurer"), 0);
   output.addItemToInventory([
-    geti("ba=Orb"),
-    geti("co=Scroll=sp=Power Enhance"),
-    geti("co=Scroll=sp=Vital Blessing"),
+    geti("ba=Orb=mat=glass"),
+    geti("co=Scroll=sp=Power Enhance=mat=Parchment"),
+    geti("co=Scroll=sp=Vital Blessing=mat=Parchment"),
     geti("ba=Quarterstaff=ma=Wood"),
   ]);
   output.tackOnTrait(getTraitByName("Heroic Aura"));

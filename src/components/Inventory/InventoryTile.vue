@@ -23,16 +23,25 @@
 </template>
 
 <script lang="ts">
-import Item from 'src/models/Item';
-import { ref, defineComponent } from 'vue';
-
-//https://opengameart.org/content/496-pixel-art-icons-for-medievalfantasy-rpg
-//https://opengameart.org/content/16x16-weapon-rpg-icons
-//https://opengameart.org/content/basic-gems-icon-set
-//https://opengameart.org/node/12210
-//https://opengameart.org/node/109980
-//https://opengameart.org/content/bag-icon
-//https://opengameart.org/content/studded-belt
+import Item from "src/models/Item";
+import { ref, defineComponent } from "vue";
+/*
+https://opengameart.org/content/ring-set-precious-metals
+https://opengameart.org/content/orbs-collection
+https://opengameart.org/content/gems-classic
+https://opengameart.org/content/gems-jewels
+https://opengameart.org/content/attack-icons-wesnoth
+https://opengameart.org/content/dungeon-crawl-32x32-tiles
+https://opengameart.org/content/dungeon-crawl-32x32-tiles-supplemental
+https://opengameart.org/content/700-rpg-icons
+https://opengameart.org/content/16x16-weapon-rpg-icons
+https://opengameart.org/content/496-pixel-art-icons-for-medievalfantasy-rpg
+https://opengameart.org/content/basic-gems-icon-set
+https://opengameart.org/node/12210
+https://opengameart.org/node/109980
+https://opengameart.org/content/bag-icon
+https://opengameart.org/content/studded-belt
+*/
 
 export default defineComponent({
   components: {},
@@ -40,7 +49,7 @@ export default defineComponent({
     item: { type: Item, required: true },
     showMaterial: { type: Boolean, required: true },
   },
-  emits: ['inventoryClicked'],
+  emits: ["inventoryClicked"],
 
   computed: {
     itemName(): string {
@@ -61,7 +70,7 @@ export default defineComponent({
     const iconPath = ref(props.item.inventoryIcon);
 
     function inventoryClicked() {
-      context.emit('inventoryClicked');
+      context.emit("inventoryClicked");
     }
 
     return {

@@ -129,28 +129,28 @@ const ModList: Partial<Mod>[] = [
     description: "",
     rarity: 1,
     ChaosResist: 22,
-    tags: ["LEATHER"],
+    tags: ["LEATHER", "PARCHMENT"],
   },
   {
     name: "Hide",
     description: "",
     rarity: 1,
     ChaosResist: 22,
-    tags: ["LEATHER"],
+    tags: ["LEATHER", "HIDE"],
   },
   {
     name: "Wolfskin",
     description: "",
     rarity: 1,
     ChaosResist: 22,
-    tags: ["LEATHER"],
+    tags: ["LEATHER", "HIDE"],
   },
   {
     name: "Deerskin",
     description: "",
     rarity: 1,
     ChaosResist: 22,
-    tags: ["LEATHER"],
+    tags: ["LEATHER", "HIDE"],
   },
   {
     name: "Suede",
@@ -356,6 +356,20 @@ const ModList: Partial<Mod>[] = [
     description: "asuminum crystal",
     rarity: 0,
     tags: ["STONE"],
+  },
+
+  //misc
+  {
+    name: "Parchment",
+    description: "",
+    rarity: 0,
+    tags: ["PARCHMENT"],
+  },
+  {
+    name: "Paper",
+    description: "",
+    rarity: 0,
+    tags: ["PARCHMENT"],
   },
 ];
 

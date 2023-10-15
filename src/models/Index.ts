@@ -1,113 +1,113 @@
 export type ModType =
-  | 'NONE'
+  | "NONE"
   //equippable item mods
-  | 'BLESSING'
-  | 'CURSE'
-  | 'QUALITY'
-  | 'MATERIAL'
-  | 'PREFIX'
-  | 'BASE'
-  | 'SUFFIX'
-  | 'SOCKET'
-  | 'RUNE'
-  | 'ENCHANTMENT'
-  | 'PLUS'
+  | "BLESSING"
+  | "CURSE"
+  | "QUALITY"
+  | "MATERIAL"
+  | "PREFIX"
+  | "BASE"
+  | "SUFFIX"
+  | "SOCKET"
+  | "RUNE"
+  | "ENCHANTMENT"
+  | "PLUS"
   //mods applied to CHARACTERS by traits or skills
-  | 'TRAIT'
-  | 'SKILL'
+  | "TRAIT"
+  | "SKILL"
   //utility mod for calculations
-  | '_CALC_'
+  | "_CALC_"
   //mods for non-equippable items
-  | 'MISC'
-  | 'CONSUMABLE'
-  | 'QUEST';
+  | "MISC"
+  | "CONSUMABLE"
+  | "QUEST";
 
 export type ItemSlot =
-  | 'NONE' //normal slot            //alternate slot
-  | 'Light Weapon' //mainhand       //offhand
-  | 'Medium Weapon' //mainhand      //offhand(rare)
-  | 'Heavy Weapon' //bothhand       //mainhand
-  | 'Very Heavy Weapon' //bothhand
-  | 'Exotic Weapon' //mainhand
-  | 'Throwing Weapon' //mainhand    //offhand
-  | 'Light Ranged Weapon' //mainhand //offhand
-  | 'Ranged Weapon' //bothhand
-  | 'Firearm' //mainhand            //offhand
-  | 'Heavy Firearm' //bothhand
-  | 'Light Shield' //offhand
-  | 'Medium Shield' //offhand
-  | 'Heavy Shield' //bothhand       //offhand
-  | 'Implement' //offhand/mainhand
-  | 'Light Helmet'
-  | 'Medium Helmet'
-  | 'Heavy Helmet'
-  | 'Light Armor'
-  | 'Medium Armor'
-  | 'Heavy Armor'
-  | 'Very Heavy Armor'
-  | 'Gloves' //hands
-  | 'Boots' //feet
-  | 'Belt' //waist
-  | 'Trinket' //trinket
+  | "NONE" //normal slot            //alternate slot
+  | "Light Weapon" //mainhand       //offhand
+  | "Medium Weapon" //mainhand      //offhand(rare)
+  | "Heavy Weapon" //bothhand       //mainhand
+  | "Very Heavy Weapon" //bothhand
+  | "Exotic Weapon" //mainhand
+  | "Throwing Weapon" //mainhand    //offhand
+  | "Light Ranged Weapon" //mainhand //offhand
+  | "Ranged Weapon" //bothhand
+  | "Firearm" //mainhand            //offhand
+  | "Heavy Firearm" //bothhand
+  | "Light Shield" //offhand
+  | "Medium Shield" //offhand
+  | "Heavy Shield" //bothhand       //offhand
+  | "Implement" //offhand/mainhand
+  | "Light Helmet"
+  | "Medium Helmet"
+  | "Heavy Helmet"
+  | "Light Armor"
+  | "Medium Armor"
+  | "Heavy Armor"
+  | "Very Heavy Armor"
+  | "Gloves" //hands
+  | "Boots" //feet
+  | "Belt" //waist
+  | "Trinket" //trinket
   //NON EQUIPPABLE:
-  | 'Material'
-  | 'Consumable'
-  | 'Item'
-  | 'Quest Item'
-  | 'NONE';
+  | "Material"
+  | "Consumable"
+  | "Item"
+  | "Quest Item"
+  | "NONE";
 
-export type Target = 'SELF' | 'ALLY' | 'ENEMY' | 'ANY' | 'ITEM';
+export type Target = "SELF" | "ALLY" | "ENEMY" | "ANY" | "ITEM";
 
-export type Gender = 'Male' | 'Female';
+export type Gender = "Male" | "Female";
 
 export type Temperment =
-  | 'None' //normal
-  | 'Fickle' //all changes are amplified
-  | 'Impassive' //all changes are reduced
-  | 'Malevolent' //negative changes are amplified
-  | 'Benevolent' //positive changes are amplified
-  | 'Whimsical'; //+random
+  | "None" //normal
+  | "Fickle" //all changes are amplified
+  | "Impassive" //all changes are reduced
+  | "Malevolent" //negative changes are amplified
+  | "Benevolent" //positive changes are amplified
+  | "Whimsical"; //+random
 
 export type Tag =
-  | 'NONE'
+  | "NONE"
   //aspects
-  | 'Alchemy'
-  | 'Art'
-  | 'Battle'
-  | 'Beasts'
-  | 'Blood'
-  | 'Chaos'
-  | 'Commerce'
-  | 'Creation'
-  | 'Shadow'
-  | 'Death'
-  | 'Destruction'
-  | 'Flame'
-  | 'Feasts'
-  | 'Frost'
-  | 'Honor'
-  | 'Humility'
-  | 'Knowledge'
-  | 'Life'
-  | 'Light'
-  | 'Love'
-  | 'Madness'
-  | 'Magic'
-  | 'Might'
-  | 'Nature'
-  | 'Pain'
-  | 'Plague'
-  | 'Revelry'
-  | 'Stone'
-  | 'Forge'
-  | 'Moon'
-  | 'Water'
-  | 'Storm'
-  | 'Stars'
-  | 'Day'
-  | 'Time'
-  | 'Trickery'
-  | 'Wind'
+  | "Alchemy"
+  | "Art"
+  | "Battle"
+  | "Beasts"
+  | "Blood"
+  | "Chaos"
+  | "Commerce"
+  | "Creation"
+  | "Shadow"
+  | "Death"
+  | "Destruction"
+  | "Flame"
+  | "Feasts"
+  | "Frost"
+  | "Honor"
+  | "Humility"
+  | "Knowledge"
+  | "Life"
+  | "Light"
+  | "Love"
+  | "Madness"
+  | "Magic"
+  | "Might"
+  | "Nature"
+  | "Pain"
+  | "Plague"
+  | "Revelry"
+  | "Stone"
+  | "Forge"
+  | "Moon"
+  | "Water"
+  | "Storm"
+  | "Stars"
+  | "Day"
+  | "Time"
+  | "Trickery"
+  | "Wind"
   //damage types //Associated aspect(s) (//chaos, destruction, time, and star are untyped)
   //magic
   //flame
@@ -115,440 +115,440 @@ export type Tag =
   //light
   //shadow
   //storm
-  | 'Judgement' // Honor // boons/punishments
-  | 'Physical' // Battle // Beast // Stone // Might // The Sea
-  | 'Piercing' // Trickery // Nature // Pain // Blood
-  | 'Toxic' // Alchemy // Food & Drink // Plague // (sometimes water (acid))
-  | 'Psychic' // Art & Music // Knowledge // Humility // Madness // The Moon // Commerce?
+  | "Judgement" // Honor // boons/punishments
+  | "Physical" // Battle // Beast // Stone // Might // The Sea
+  | "Piercing" // Trickery // Nature // Pain // Blood
+  | "Toxic" // Alchemy // Food & Drink // Plague // (sometimes water (acid))
+  | "Psychic" // Art & Music // Knowledge // Humility // Madness // The Moon // Commerce?
   //item management
-  | 'NAME_OVERRIDE'
-  | 'HIDE_MATERIAL'
-  | 'HIDDEN'
+  | "NAME_OVERRIDE"
+  | "HIDDEN"
   //material types
-  | 'WOOD'
-  | 'METAL'
-  | 'STONE'
-  | 'GEM'
-  | 'BONE'
-  | 'LEATHER'
-  | 'HIDE'
-  | 'CLOTH'
+  | "WOOD"
+  | "METAL"
+  | "STONE"
+  | "GEM"
+  | "BONE"
+  | "LEATHER"
+  | "HIDE"
+  | "CLOTH"
+  | "PARCHMENT"
   //weapon types
-  | 'Weapon'
-  | 'Tool'
-  | 'Blade'
-  | 'Blunt'
-  | 'Stabbing'
+  | "Weapon"
+  | "Tool"
+  | "Blade"
+  | "Blunt"
+  | "Stabbing"
   //clothing types
-  | 'Cape'
+  | "Cape"
   //crafting types
-  | 'CARPENTRY' // WOOD, BONE
-  | 'SMITHING' // METAL
-  | 'TAILORING' // LEATHER, CLOTH
+  | "CARPENTRY" // WOOD, BONE
+  | "SMITHING" // METAL
+  | "TAILORING" // LEATHER, CLOTH
   //qualities
-  | 'ARMOR-SPECIFIC'
-  | 'WEAPON-SPECIFIC'
-  | 'METAL-SPECIFIC'
-  | 'CLOTHING-SPECIFIC'
-  | 'WOOD-SPECIFIC'
-  | 'NEGATIVE'
-  | 'INFLICTED'
+  | "ARMOR-SPECIFIC"
+  | "WEAPON-SPECIFIC"
+  | "METAL-SPECIFIC"
+  | "CLOTHING-SPECIFIC"
+  | "WOOD-SPECIFIC"
+  | "NEGATIVE"
+  | "INFLICTED"
   //consumable types
-  | 'SCROLL'
-  | 'POTION'
-  | 'FOOD'
+  | "SCROLL"
+  | "POTION"
+  | "FOOD"
   //enemy species tags
-  | 'Cat'
-  | 'NONE'
-  | 'NONE'
-  | 'NONE';
+  | "Cat"
+  | "NONE"
+  | "NONE"
+  | "NONE";
 
 export type ImportantStatPossibility =
-  | 'price'
-  | 'priceMultiplier'
-  | 'MaxSockets'
-  | 'MaxRunes'
-  | 'MaxEnchantments'
-  | 'Attunement'
-  | 'HP'
-  | 'MP'
-  | 'SP'
-  | 'VIT'
-  | 'STR'
-  | 'DEX'
-  | 'AGI'
-  | 'INT'
-  | 'FAI'
-  | 'WIL'
-  | 'CHA'
-  | 'LUK'
-  | 'Accuracy'
-  | 'Clarity'
-  | 'Attack'
-  | 'Arcana'
-  | 'CriticalChance'
-  | 'CriticalDamage'
-  | 'Armor'
-  | 'Evasion'
-  | 'Deflect'
-  | 'Block'
-  | 'Parry'
-  | 'Supression'
-  | 'Ward'
-  | 'PhysicalStatusResist'
-  | 'MentalStatusResist'
-  | 'AlchemyAffinity'
-  | 'ArtAffinity'
-  | 'BattleAffinity'
-  | 'BeastsAffinity'
-  | 'BloodAffinity'
-  | 'ChaosAffinity'
-  | 'CommerceAffinity'
-  | 'CreationAffinity'
-  | 'ShadowAffinity'
-  | 'DeathAffinity'
-  | 'DestructionAffinity'
-  | 'FlameAffinity'
-  | 'FeastsAffinity'
-  | 'FrostAffinity'
-  | 'HonorAffinity'
-  | 'HumilityAffinity'
-  | 'KnowledgeAffinity'
-  | 'LifeAffinity'
-  | 'LightAffinity'
-  | 'LoveAffinity'
-  | 'MadnessAffinity'
-  | 'MagicAffinity'
-  | 'MightAffinity'
-  | 'NatureAffinity'
-  | 'PainAffinity'
-  | 'PlagueAffinity'
-  | 'RevelryAffinity'
-  | 'StoneAffinity'
-  | 'ForgeAffinity'
-  | 'MoonAffinity'
-  | 'WaterAffinity'
-  | 'StormAffinity'
-  | 'StarsAffinity'
-  | 'DayAffinity'
-  | 'TimeAffinity'
-  | 'TrickeryAffinity'
-  | 'WindAffinity'
-  | 'AlchemyResist'
-  | 'ArtResist'
-  | 'BattleResist'
-  | 'BeastsResist'
-  | 'BloodResist'
-  | 'ChaosResist'
-  | 'CommerceResist'
-  | 'CreationResist'
-  | 'ShadowResist'
-  | 'DeathResist'
-  | 'DestructionResist'
-  | 'FlameResist'
-  | 'FeastsResist'
-  | 'FrostResist'
-  | 'HonorResist'
-  | 'HumilityResist'
-  | 'KnowledgeResist'
-  | 'LifeResist'
-  | 'LightResist'
-  | 'LoveResist'
-  | 'MadnessResist'
-  | 'MagicResist'
-  | 'MightResist'
-  | 'NatureResist'
-  | 'PainResist'
-  | 'PlagueResist'
-  | 'RevelryResist'
-  | 'StoneResist'
-  | 'ForgeResist'
-  | 'MoonResist'
-  | 'WaterResist'
-  | 'StormResist'
-  | 'StarsResist'
-  | 'DayResist'
-  | 'TimeResist'
-  | 'TrickeryResist'
-  | 'WindResist'
-  | 'AlchemyOpinion'
-  | 'ArtOpinion'
-  | 'BattleOpinion'
-  | 'BeastsOpinion'
-  | 'BloodOpinion'
-  | 'ChaosOpinion'
-  | 'CommerceOpinion'
-  | 'CreationOpinion'
-  | 'ShadowOpinion'
-  | 'DeathOpinion'
-  | 'DestructionOpinion'
-  | 'FlameOpinion'
-  | 'FeastsOpinion'
-  | 'FrostOpinion'
-  | 'HonorOpinion'
-  | 'HumilityOpinion'
-  | 'KnowledgeOpinion'
-  | 'LifeOpinion'
-  | 'LightOpinion'
-  | 'LoveOpinion'
-  | 'MadnessOpinion'
-  | 'MagicOpinion'
-  | 'MightOpinion'
-  | 'NatureOpinion'
-  | 'PainOpinion'
-  | 'PlagueOpinion'
-  | 'RevelryOpinion'
-  | 'StoneOpinion'
-  | 'ForgeOpinion'
-  | 'MoonOpinion'
-  | 'WaterOpinion'
-  | 'StormOpinion'
-  | 'StarsOpinion'
-  | 'DayOpinion'
-  | 'TimeOpinion'
-  | 'TrickeryOpinion'
-  | 'WindOpinion'
-  | 'Leadership'
-  | 'Diplomacy'
-  | 'Bargaining'
-  | 'Crafting'
-  | 'Survival'
-  | 'Mining'
-  | 'Stealth'
-  | 'Medicine';
+  | "price"
+  | "priceMultiplier"
+  | "MaxSockets"
+  | "MaxRunes"
+  | "MaxEnchantments"
+  | "Attunement"
+  | "HP"
+  | "MP"
+  | "SP"
+  | "VIT"
+  | "STR"
+  | "DEX"
+  | "AGI"
+  | "INT"
+  | "FAI"
+  | "WIL"
+  | "CHA"
+  | "LUK"
+  | "Accuracy"
+  | "Clarity"
+  | "Attack"
+  | "Arcana"
+  | "CriticalChance"
+  | "CriticalDamage"
+  | "Armor"
+  | "Evasion"
+  | "Deflect"
+  | "Block"
+  | "Parry"
+  | "Supression"
+  | "Ward"
+  | "PhysicalStatusResist"
+  | "MentalStatusResist"
+  | "AlchemyAffinity"
+  | "ArtAffinity"
+  | "BattleAffinity"
+  | "BeastsAffinity"
+  | "BloodAffinity"
+  | "ChaosAffinity"
+  | "CommerceAffinity"
+  | "CreationAffinity"
+  | "ShadowAffinity"
+  | "DeathAffinity"
+  | "DestructionAffinity"
+  | "FlameAffinity"
+  | "FeastsAffinity"
+  | "FrostAffinity"
+  | "HonorAffinity"
+  | "HumilityAffinity"
+  | "KnowledgeAffinity"
+  | "LifeAffinity"
+  | "LightAffinity"
+  | "LoveAffinity"
+  | "MadnessAffinity"
+  | "MagicAffinity"
+  | "MightAffinity"
+  | "NatureAffinity"
+  | "PainAffinity"
+  | "PlagueAffinity"
+  | "RevelryAffinity"
+  | "StoneAffinity"
+  | "ForgeAffinity"
+  | "MoonAffinity"
+  | "WaterAffinity"
+  | "StormAffinity"
+  | "StarsAffinity"
+  | "DayAffinity"
+  | "TimeAffinity"
+  | "TrickeryAffinity"
+  | "WindAffinity"
+  | "AlchemyResist"
+  | "ArtResist"
+  | "BattleResist"
+  | "BeastsResist"
+  | "BloodResist"
+  | "ChaosResist"
+  | "CommerceResist"
+  | "CreationResist"
+  | "ShadowResist"
+  | "DeathResist"
+  | "DestructionResist"
+  | "FlameResist"
+  | "FeastsResist"
+  | "FrostResist"
+  | "HonorResist"
+  | "HumilityResist"
+  | "KnowledgeResist"
+  | "LifeResist"
+  | "LightResist"
+  | "LoveResist"
+  | "MadnessResist"
+  | "MagicResist"
+  | "MightResist"
+  | "NatureResist"
+  | "PainResist"
+  | "PlagueResist"
+  | "RevelryResist"
+  | "StoneResist"
+  | "ForgeResist"
+  | "MoonResist"
+  | "WaterResist"
+  | "StormResist"
+  | "StarsResist"
+  | "DayResist"
+  | "TimeResist"
+  | "TrickeryResist"
+  | "WindResist"
+  | "AlchemyOpinion"
+  | "ArtOpinion"
+  | "BattleOpinion"
+  | "BeastsOpinion"
+  | "BloodOpinion"
+  | "ChaosOpinion"
+  | "CommerceOpinion"
+  | "CreationOpinion"
+  | "ShadowOpinion"
+  | "DeathOpinion"
+  | "DestructionOpinion"
+  | "FlameOpinion"
+  | "FeastsOpinion"
+  | "FrostOpinion"
+  | "HonorOpinion"
+  | "HumilityOpinion"
+  | "KnowledgeOpinion"
+  | "LifeOpinion"
+  | "LightOpinion"
+  | "LoveOpinion"
+  | "MadnessOpinion"
+  | "MagicOpinion"
+  | "MightOpinion"
+  | "NatureOpinion"
+  | "PainOpinion"
+  | "PlagueOpinion"
+  | "RevelryOpinion"
+  | "StoneOpinion"
+  | "ForgeOpinion"
+  | "MoonOpinion"
+  | "WaterOpinion"
+  | "StormOpinion"
+  | "StarsOpinion"
+  | "DayOpinion"
+  | "TimeOpinion"
+  | "TrickeryOpinion"
+  | "WindOpinion"
+  | "Leadership"
+  | "Diplomacy"
+  | "Bargaining"
+  | "Crafting"
+  | "Survival"
+  | "Mining"
+  | "Stealth"
+  | "Medicine";
 
 export const statArray: ImportantStatPossibility[] = [
-  'HP',
-  'MP',
-  'SP',
-  'VIT',
-  'STR',
-  'DEX',
-  'AGI',
-  'INT',
-  'FAI',
-  'WIL',
-  'CHA',
-  'LUK',
-  'Accuracy',
-  'Clarity',
-  'Attack',
-  'Arcana',
-  'CriticalChance',
-  'CriticalDamage',
-  'Supression',
-  'Armor',
-  'Evasion',
-  'Deflect',
-  'Block',
-  'Parry',
-  'Supression',
-  'Ward',
-  'PhysicalStatusResist',
-  'MentalStatusResist',
-  'Attunement',
-  'AlchemyAffinity',
-  'ArtAffinity',
-  'BattleAffinity',
-  'BeastsAffinity',
-  'BloodAffinity',
-  'ChaosAffinity',
-  'CommerceAffinity',
-  'CreationAffinity',
-  'ShadowAffinity',
-  'DeathAffinity',
-  'DestructionAffinity',
-  'FlameAffinity',
-  'FeastsAffinity',
-  'FrostAffinity',
-  'HonorAffinity',
-  'HumilityAffinity',
-  'KnowledgeAffinity',
-  'LifeAffinity',
-  'LightAffinity',
-  'LoveAffinity',
-  'MadnessAffinity',
-  'MagicAffinity',
-  'MightAffinity',
-  'NatureAffinity',
-  'PainAffinity',
-  'PlagueAffinity',
-  'RevelryAffinity',
-  'StoneAffinity',
-  'ForgeAffinity',
-  'MoonAffinity',
-  'WaterAffinity',
-  'StormAffinity',
-  'StarsAffinity',
-  'DayAffinity',
-  'TimeAffinity',
-  'TrickeryAffinity',
-  'WindAffinity',
-  'AlchemyResist',
-  'ArtResist',
-  'BattleResist',
-  'BeastsResist',
-  'BloodResist',
-  'ChaosResist',
-  'CommerceResist',
-  'CreationResist',
-  'ShadowResist',
-  'DeathResist',
-  'DestructionResist',
-  'FlameResist',
-  'FeastsResist',
-  'FrostResist',
-  'HonorResist',
-  'HumilityResist',
-  'KnowledgeResist',
-  'LifeResist',
-  'LightResist',
-  'LoveResist',
-  'MadnessResist',
-  'MagicResist',
-  'MightResist',
-  'NatureResist',
-  'PainResist',
-  'PlagueResist',
-  'RevelryResist',
-  'StoneResist',
-  'ForgeResist',
-  'MoonResist',
-  'WaterResist',
-  'StormResist',
-  'StarsResist',
-  'DayResist',
-  'TimeResist',
-  'TrickeryResist',
-  'WindResist',
-  'Leadership',
-  'Diplomacy',
-  'Bargaining',
-  'Crafting',
-  'Survival',
-  'Mining',
-  'Stealth',
-  'Medicine',
+  "HP",
+  "MP",
+  "SP",
+  "VIT",
+  "STR",
+  "DEX",
+  "AGI",
+  "INT",
+  "FAI",
+  "WIL",
+  "CHA",
+  "LUK",
+  "Accuracy",
+  "Clarity",
+  "Attack",
+  "Arcana",
+  "CriticalChance",
+  "CriticalDamage",
+  "Supression",
+  "Armor",
+  "Evasion",
+  "Deflect",
+  "Block",
+  "Parry",
+  "Supression",
+  "Ward",
+  "PhysicalStatusResist",
+  "MentalStatusResist",
+  "Attunement",
+  "AlchemyAffinity",
+  "ArtAffinity",
+  "BattleAffinity",
+  "BeastsAffinity",
+  "BloodAffinity",
+  "ChaosAffinity",
+  "CommerceAffinity",
+  "CreationAffinity",
+  "ShadowAffinity",
+  "DeathAffinity",
+  "DestructionAffinity",
+  "FlameAffinity",
+  "FeastsAffinity",
+  "FrostAffinity",
+  "HonorAffinity",
+  "HumilityAffinity",
+  "KnowledgeAffinity",
+  "LifeAffinity",
+  "LightAffinity",
+  "LoveAffinity",
+  "MadnessAffinity",
+  "MagicAffinity",
+  "MightAffinity",
+  "NatureAffinity",
+  "PainAffinity",
+  "PlagueAffinity",
+  "RevelryAffinity",
+  "StoneAffinity",
+  "ForgeAffinity",
+  "MoonAffinity",
+  "WaterAffinity",
+  "StormAffinity",
+  "StarsAffinity",
+  "DayAffinity",
+  "TimeAffinity",
+  "TrickeryAffinity",
+  "WindAffinity",
+  "AlchemyResist",
+  "ArtResist",
+  "BattleResist",
+  "BeastsResist",
+  "BloodResist",
+  "ChaosResist",
+  "CommerceResist",
+  "CreationResist",
+  "ShadowResist",
+  "DeathResist",
+  "DestructionResist",
+  "FlameResist",
+  "FeastsResist",
+  "FrostResist",
+  "HonorResist",
+  "HumilityResist",
+  "KnowledgeResist",
+  "LifeResist",
+  "LightResist",
+  "LoveResist",
+  "MadnessResist",
+  "MagicResist",
+  "MightResist",
+  "NatureResist",
+  "PainResist",
+  "PlagueResist",
+  "RevelryResist",
+  "StoneResist",
+  "ForgeResist",
+  "MoonResist",
+  "WaterResist",
+  "StormResist",
+  "StarsResist",
+  "DayResist",
+  "TimeResist",
+  "TrickeryResist",
+  "WindResist",
+  "Leadership",
+  "Diplomacy",
+  "Bargaining",
+  "Crafting",
+  "Survival",
+  "Mining",
+  "Stealth",
+  "Medicine",
 ];
 
 export const AffinityArray: ImportantStatPossibility[] = [
-  'AlchemyAffinity',
-  'ArtAffinity',
-  'BattleAffinity',
-  'BeastsAffinity',
-  'BloodAffinity',
-  'ChaosAffinity',
-  'CommerceAffinity',
-  'CreationAffinity',
-  'ShadowAffinity',
-  'DeathAffinity',
-  'DestructionAffinity',
-  'FlameAffinity',
-  'FeastsAffinity',
-  'FrostAffinity',
-  'HonorAffinity',
-  'HumilityAffinity',
-  'KnowledgeAffinity',
-  'LifeAffinity',
-  'LightAffinity',
-  'LoveAffinity',
-  'MadnessAffinity',
-  'MagicAffinity',
-  'MightAffinity',
-  'NatureAffinity',
-  'PainAffinity',
-  'PlagueAffinity',
-  'RevelryAffinity',
-  'StoneAffinity',
-  'ForgeAffinity',
-  'MoonAffinity',
-  'WaterAffinity',
-  'StormAffinity',
-  'StarsAffinity',
-  'DayAffinity',
-  'TimeAffinity',
-  'TrickeryAffinity',
-  'WindAffinity',
+  "AlchemyAffinity",
+  "ArtAffinity",
+  "BattleAffinity",
+  "BeastsAffinity",
+  "BloodAffinity",
+  "ChaosAffinity",
+  "CommerceAffinity",
+  "CreationAffinity",
+  "ShadowAffinity",
+  "DeathAffinity",
+  "DestructionAffinity",
+  "FlameAffinity",
+  "FeastsAffinity",
+  "FrostAffinity",
+  "HonorAffinity",
+  "HumilityAffinity",
+  "KnowledgeAffinity",
+  "LifeAffinity",
+  "LightAffinity",
+  "LoveAffinity",
+  "MadnessAffinity",
+  "MagicAffinity",
+  "MightAffinity",
+  "NatureAffinity",
+  "PainAffinity",
+  "PlagueAffinity",
+  "RevelryAffinity",
+  "StoneAffinity",
+  "ForgeAffinity",
+  "MoonAffinity",
+  "WaterAffinity",
+  "StormAffinity",
+  "StarsAffinity",
+  "DayAffinity",
+  "TimeAffinity",
+  "TrickeryAffinity",
+  "WindAffinity",
 ];
 
 export const ResistArray: ImportantStatPossibility[] = [
-  'AlchemyResist',
-  'ArtResist',
-  'BattleResist',
-  'BeastsResist',
-  'BloodResist',
-  'ChaosResist',
-  'CommerceResist',
-  'CreationResist',
-  'ShadowResist',
-  'DeathResist',
-  'DestructionResist',
-  'FlameResist',
-  'FeastsResist',
-  'FrostResist',
-  'HonorResist',
-  'HumilityResist',
-  'KnowledgeResist',
-  'LifeResist',
-  'LightResist',
-  'LoveResist',
-  'MadnessResist',
-  'MagicResist',
-  'MightResist',
-  'NatureResist',
-  'PainResist',
-  'PlagueResist',
-  'RevelryResist',
-  'StoneResist',
-  'ForgeResist',
-  'MoonResist',
-  'WaterResist',
-  'StormResist',
-  'StarsResist',
-  'DayResist',
-  'TimeResist',
-  'TrickeryResist',
-  'WindResist',
+  "AlchemyResist",
+  "ArtResist",
+  "BattleResist",
+  "BeastsResist",
+  "BloodResist",
+  "ChaosResist",
+  "CommerceResist",
+  "CreationResist",
+  "ShadowResist",
+  "DeathResist",
+  "DestructionResist",
+  "FlameResist",
+  "FeastsResist",
+  "FrostResist",
+  "HonorResist",
+  "HumilityResist",
+  "KnowledgeResist",
+  "LifeResist",
+  "LightResist",
+  "LoveResist",
+  "MadnessResist",
+  "MagicResist",
+  "MightResist",
+  "NatureResist",
+  "PainResist",
+  "PlagueResist",
+  "RevelryResist",
+  "StoneResist",
+  "ForgeResist",
+  "MoonResist",
+  "WaterResist",
+  "StormResist",
+  "StarsResist",
+  "DayResist",
+  "TimeResist",
+  "TrickeryResist",
+  "WindResist",
 ];
 
 export const OpinionArray: ImportantStatPossibility[] = [
-  'AlchemyOpinion',
-  'ArtOpinion',
-  'BattleOpinion',
-  'BeastsOpinion',
-  'BloodOpinion',
-  'ChaosOpinion',
-  'CommerceOpinion',
-  'CreationOpinion',
-  'ShadowOpinion',
-  'DeathOpinion',
-  'DestructionOpinion',
-  'FlameOpinion',
-  'FeastsOpinion',
-  'FrostOpinion',
-  'HonorOpinion',
-  'HumilityOpinion',
-  'KnowledgeOpinion',
-  'LifeOpinion',
-  'LightOpinion',
-  'LoveOpinion',
-  'MadnessOpinion',
-  'MagicOpinion',
-  'MightOpinion',
-  'NatureOpinion',
-  'PainOpinion',
-  'PlagueOpinion',
-  'RevelryOpinion',
-  'StoneOpinion',
-  'ForgeOpinion',
-  'MoonOpinion',
-  'WaterOpinion',
-  'StormOpinion',
-  'StarsOpinion',
-  'DayOpinion',
-  'TimeOpinion',
-  'TrickeryOpinion',
-  'WindOpinion',
+  "AlchemyOpinion",
+  "ArtOpinion",
+  "BattleOpinion",
+  "BeastsOpinion",
+  "BloodOpinion",
+  "ChaosOpinion",
+  "CommerceOpinion",
+  "CreationOpinion",
+  "ShadowOpinion",
+  "DeathOpinion",
+  "DestructionOpinion",
+  "FlameOpinion",
+  "FeastsOpinion",
+  "FrostOpinion",
+  "HonorOpinion",
+  "HumilityOpinion",
+  "KnowledgeOpinion",
+  "LifeOpinion",
+  "LightOpinion",
+  "LoveOpinion",
+  "MadnessOpinion",
+  "MagicOpinion",
+  "MightOpinion",
+  "NatureOpinion",
+  "PainOpinion",
+  "PlagueOpinion",
+  "RevelryOpinion",
+  "StoneOpinion",
+  "ForgeOpinion",
+  "MoonOpinion",
+  "WaterOpinion",
+  "StormOpinion",
+  "StarsOpinion",
+  "DayOpinion",
+  "TimeOpinion",
+  "TrickeryOpinion",
+  "WindOpinion",
 ];
 
 export class Aspect {
@@ -561,61 +561,61 @@ export class Aspect {
 }
 
 export type AspectName =
-  | 'Alchemy'
-  | 'Art'
-  | 'Battle'
-  | 'Beasts'
-  | 'Blood'
-  | 'Chaos'
-  | 'Commerce'
-  | 'Creation'
-  | 'Shadow'
-  | 'Death'
-  | 'Destruction'
-  | 'Flame'
-  | 'Feasts'
-  | 'Frost'
-  | 'Honor'
-  | 'Humility'
-  | 'Knowledge'
-  | 'Life'
-  | 'Light'
-  | 'Love'
-  | 'Madness'
-  | 'Magic'
-  | 'Might'
-  | 'Nature'
-  | 'Pain'
-  | 'Plague'
-  | 'Stone'
-  | 'Revelry'
-  | 'Forge'
-  | 'Moon'
-  | 'Water'
-  | 'Storm'
-  | 'Stars'
-  | 'Day'
-  | 'Time'
-  | 'Trickery'
-  | 'Wind';
+  | "Alchemy"
+  | "Art"
+  | "Battle"
+  | "Beasts"
+  | "Blood"
+  | "Chaos"
+  | "Commerce"
+  | "Creation"
+  | "Shadow"
+  | "Death"
+  | "Destruction"
+  | "Flame"
+  | "Feasts"
+  | "Frost"
+  | "Honor"
+  | "Humility"
+  | "Knowledge"
+  | "Life"
+  | "Light"
+  | "Love"
+  | "Madness"
+  | "Magic"
+  | "Might"
+  | "Nature"
+  | "Pain"
+  | "Plague"
+  | "Stone"
+  | "Revelry"
+  | "Forge"
+  | "Moon"
+  | "Water"
+  | "Storm"
+  | "Stars"
+  | "Day"
+  | "Time"
+  | "Trickery"
+  | "Wind";
 
 export type Terrain =
-  | 'Water'
-  | 'Plains'
-  | 'Forest'
-  | 'Mountain'
-  | 'Desert'
-  | 'Swamp'
-  | 'Jungle'
-  | 'Tundra';
+  | "Water"
+  | "Plains"
+  | "Forest"
+  | "Mountain"
+  | "Desert"
+  | "Swamp"
+  | "Jungle"
+  | "Tundra";
 
 export const TerrainArray: Terrain[] = [
-  'Water',
-  'Plains',
-  'Forest',
-  'Mountain',
-  'Desert',
-  'Swamp',
-  'Jungle',
-  'Tundra',
+  "Water",
+  "Plains",
+  "Forest",
+  "Mountain",
+  "Desert",
+  "Swamp",
+  "Jungle",
+  "Tundra",
 ];

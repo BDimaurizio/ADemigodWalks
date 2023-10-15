@@ -211,7 +211,10 @@ const ModList: Partial<Mod>[] = [
     rarity: 0,
     importantA: "WIL",
     WIL: 1,
-    inventoryIcon: new URL("src/assets/Icons/Gems/redOrb.png", import.meta.url),
+    inventoryIcon: new URL(
+      "src/assets/Icons/Implements/Orb_01.png",
+      import.meta.url
+    ),
     slot: "Implement",
     tags: [],
   },
@@ -245,7 +248,7 @@ const ModList: Partial<Mod>[] = [
     description: "",
     rarity: 0,
     inventoryIcon: new URL(
-      "src/assets/Icons/Weapons/wand_2.png",
+      "src/assets/Icons/Implements/wand_2.png",
       import.meta.url
     ),
     slot: "Implement",

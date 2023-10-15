@@ -1,7 +1,11 @@
 <template>
   <h4 :class="itemRarityColor">{{ itemName }}</h4>
   <q-separator />
-  <h5 :class="itemRarityColor">{{ itemTagline }}</h5>
+  <div :class="itemRarityColor + ' text-h6'">{{ itemTagline }}</div>
+  <q-separator v-if="itemMaterial != ''" />
+  <div v-if="itemMaterial != ''" :class="itemRarityColor + ' text-h6'">
+    Material: {{ itemMaterial }}
+  </div>
   <q-separator />
   <pre
     v-if="cachedStats"
@@ -60,10 +64,10 @@
 </template>
 
 <script lang="ts">
-import Item from 'src/models/Item';
-import { ref, defineComponent, PropType } from 'vue';
-import { getModStatsFormatted } from 'src/Services/ModListManipulationService';
-import Character from 'src/models/Character';
+import Item from "src/models/Item";
+import { ref, defineComponent, PropType } from "vue";
+import { getModStatsFormatted } from "src/Services/ModListManipulationService";
+import Character from "src/models/Character";
 
 export default defineComponent({
   components: {},
@@ -72,14 +76,17 @@ export default defineComponent({
     where: { type: String, required: true },
     chara: { type: Object as PropType<Character>, required: true },
   },
-  emits: ['equipItem', 'unequipItem', 'discardItem'],
+  emits: ["equipItem", "unequipItem", "discardItem"],
 
   computed: {
     itemName(): string {
-      return this.item.fullName;
+      return this.item.fullNameWithoutMateiral;
     },
     itemTagline(): string {
-      return this.item.rarityString + ' ' + this.item.baseBodyMod.slot;
+      return this.item.rarityString + " " + this.item.baseBodyMod.slot;
+    },
+    itemMaterial(): string {
+      return this.item.materialName;
     },
     itemRarityColor(): string {
       return this.item.rarityColor;
@@ -92,18 +99,18 @@ export default defineComponent({
     const cachedStats = ref(getModStatsFormatted(theItem.value, true, false));
 
     function onClickEquip() {
-      context.emit('equipItem', props.item);
-      propWhere.value = 'my_chara'; //todo fix this switching the button to unequip even if the equip is unsucessful
+      context.emit("equipItem", props.item);
+      propWhere.value = "my_chara"; //todo fix this switching the button to unequip even if the equip is unsucessful
     }
 
     function onClickUnequip() {
-      context.emit('unequipItem', props.item);
-      propWhere.value = 'my_inventory';
+      context.emit("unequipItem", props.item);
+      propWhere.value = "my_inventory";
     }
 
     function onClickDiscard() {
-      context.emit('discardItem', props.item);
-      propWhere.value = 'discarded';
+      context.emit("discardItem", props.item);
+      propWhere.value = "discarded";
     }
 
     function onClickConsume() {
@@ -116,7 +123,7 @@ export default defineComponent({
           return; // small chance (10-20% depending on your int) to preserve the scroll
         }
       }
-      if (props.chara.isTraitExistAndEligible('Power-Hungry')) {
+      if (props.chara.isTraitExistAndEligible("Power-Hungry")) {
         props.chara.gainEXP(10);
       }
       onClickDiscard();
