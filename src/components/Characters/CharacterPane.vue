@@ -222,6 +222,13 @@ export default defineComponent({
         context.emit("charaClicked", selectedChara.getTrinkets()[0]);
         return;
       }
+      if (
+        index == 1 &&
+        selectedChara.getEquipment()[index]?.baseBodyMod.name ==
+          "2HanderDummyItem"
+      ) {
+        index = 0;
+      }
       context.emit("charaClicked", selectedChara.getEquipment()[index]);
     }
 

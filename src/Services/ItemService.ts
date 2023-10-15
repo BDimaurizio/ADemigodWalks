@@ -1,6 +1,10 @@
 import Item from "src/models/Item";
 import Mod from "src/models/Mod";
-import { getBaseModByCriteria, getBaseModByName } from "src/Resources/BaseList";
+import {
+  getBaseModByCriteria,
+  getBaseModByIndex,
+  getBaseModByName,
+} from "src/Resources/BaseList";
 import { getBlessingModByName } from "src/Resources/BlessingList";
 import { getConsumableModByName } from "src/Resources/ConsumableList";
 import { getCurseModByName } from "src/Resources/CurseList";
@@ -41,6 +45,10 @@ export function getSpecificItem(MODS: Mod[]): Item {
   }
   //TODO validate
   return output;
+}
+
+export function get2HanderDummyItem(): Item {
+  return new Item([getBaseModByIndex(1)]);
 }
 
 //base            ba=

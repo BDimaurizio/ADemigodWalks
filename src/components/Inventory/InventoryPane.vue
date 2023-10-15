@@ -40,7 +40,11 @@ export default defineComponent({
   computed: {},
 
   setup(props, context) {
-    const inventoryArray = ref(props.inventory.filter(Boolean));
+    const inventoryArray = ref(
+      props.inventory
+        .filter(Boolean)
+        .filter((item: Item) => item.baseBodyMod.name != "2HanderDummyItem")
+    );
     const sortingSchema = ref(props.itemSortingSchema);
     let prevIndex = -1;
 

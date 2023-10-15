@@ -206,7 +206,7 @@ export const ChoiceBucketMotivationI: Choice[] = [
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Martial Adept"));
       party[0].tackOnTrait(getTraitByName("Quarterstaff Proficiency"));
-      party[0].addItemToInventory([geti("base=quarterstaff")]);
+      party[0].addItemToInventory([geti("base=quarterstaff=mat=wood")]);
     },
   },
   {

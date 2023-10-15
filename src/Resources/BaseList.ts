@@ -12,8 +12,16 @@ const ModList: Partial<Mod>[] = [
     name: "Invalid Item",
     description:
       "whoopsie this item is bugged please submit a bug report also what were you doing when this item appeared",
-    rarity: 0,
+    rarity: 9999,
     inventoryIcon: new URL("src/assets/Icons/error.png", import.meta.url),
+    slot: "Quest Item",
+    tags: [],
+  },
+  {
+    name: "2HanderDummyItem",
+    description: "",
+    rarity: 9999,
+    inventoryIcon: new URL("src/assets/Icons/2hander.png", import.meta.url),
     slot: "Quest Item",
     tags: [],
   },

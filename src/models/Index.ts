@@ -22,39 +22,40 @@ export type ModType =
   | "CONSUMABLE"
   | "QUEST";
 
-export type ItemSlot =
-  | "NONE" //normal slot            //alternate slot
-  | "Light Weapon" //mainhand       //offhand
-  | "Medium Weapon" //mainhand      //offhand(rare)
-  | "Heavy Weapon" //bothhand       //mainhand
-  | "Very Heavy Weapon" //bothhand
-  | "Exotic Weapon" //mainhand
-  | "Throwing Weapon" //mainhand    //offhand
-  | "Light Ranged Weapon" //mainhand //offhand
-  | "Ranged Weapon" //bothhand
-  | "Firearm" //mainhand            //offhand
-  | "Heavy Firearm" //bothhand
-  | "Light Shield" //offhand
-  | "Medium Shield" //offhand
-  | "Heavy Shield" //bothhand       //offhand
-  | "Implement" //offhand/mainhand
-  | "Light Helmet"
-  | "Medium Helmet"
-  | "Heavy Helmet"
-  | "Light Armor"
-  | "Medium Armor"
-  | "Heavy Armor"
-  | "Very Heavy Armor"
-  | "Gloves" //hands
-  | "Boots" //feet
-  | "Belt" //waist
-  | "Trinket" //trinket
-  //NON EQUIPPABLE:
-  | "Material"
-  | "Consumable"
-  | "Item"
-  | "Quest Item"
-  | "NONE";
+export type ItemSlot = //proficiency - expertise - mastery
+
+    | "NONE" //normal slot            //alternate slot
+    | "Light Weapon" //mainhand       //offhand           dual weilding proficiency
+    | "Medium Weapon" //mainhand      //offhand(rare)     dual weilding mastery
+    | "Heavy Weapon" //bothhand       //mainhand          heavy weapon expertise
+    | "Very Heavy Weapon" //bothhand
+    | "Exotic Weapon" //mainhand
+    | "Throwing Weapon" //consumable that grants a skill
+    | "Light Ranged Weapon" //mainhand //offhand          light ranged mastery
+    | "Ranged Weapon" //bothhand
+    | "Firearm" //mainhand            //offhand           firearm mastery
+    | "Heavy Firearm" //bothhand
+    | "Light Shield" //offhand
+    | "Medium Shield" //mainhand      //offhand           medium shield proficiency
+    | "Heavy Shield" //bothhand       //offhand           heavy shield proficiency
+    | "Implement" //offhand/mainhand                      implement proficiency
+    | "Light Helmet"
+    | "Medium Helmet"
+    | "Heavy Helmet"
+    | "Light Armor"
+    | "Medium Armor"
+    | "Heavy Armor"
+    | "Very Heavy Armor"
+    | "Gloves" //hands
+    | "Boots" //feet
+    | "Belt" //waist
+    | "Trinket" //trinket
+    //NON EQUIPPABLE:
+    | "Material"
+    | "Consumable"
+    | "Item"
+    | "Quest Item"
+    | "NONE";
 
 export type Target = "SELF" | "ALLY" | "ENEMY" | "ANY" | "ITEM";
 

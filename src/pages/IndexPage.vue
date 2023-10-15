@@ -88,9 +88,7 @@
           :where="directedWhere"
           :key="selectedItem"
           :chara="(selectedCharacter as Character)"
-          @equipItem="equipItem"
-          @unequipItem="unequipItem"
-          @discardItem="discardItem"
+          @update="updatePanes"
         ></item-info-pane>
         <JobInfoPane
           v-else-if="selectedJob"
@@ -321,24 +319,6 @@ export default defineComponent({
       console.log(selectedCharacter.value);
     }
 
-    //iteminfopane
-
-    function equipItem(item: Item): void {
-      selectedCharacter.value.equipItem(item);
-      updatePanes();
-    }
-
-    function unequipItem(item: Item): void {
-      selectedCharacter.value.unequipItemByItem(item);
-      updatePanes();
-    }
-
-    function discardItem(item: Item): void {
-      selectedCharacter.value.unequipItemByItem(item);
-      selectedCharacter.value.removeItemFromInventory(item);
-      updatePanes();
-    }
-
     //job pane
 
     function jobTileClicked(job: [Job, number]): void {
@@ -496,9 +476,6 @@ export default defineComponent({
       inventoryTileClicked,
       jobTileClicked,
       charaClicked,
-      equipItem,
-      unequipItem,
-      discardItem,
       updateSortingSchema,
       changeVisiblePane,
       deityClicked,

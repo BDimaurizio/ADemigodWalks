@@ -221,7 +221,11 @@ export default class Item {
     this.cacheDirty = true;
   }
 
-  public consume(consumer: Character): void {
+  public consume(consumer: Character, user?: Character): void {
+    if (!user) {
+      user = consumer;
+    }
+
     this.BaseMods.forEach((mod) => {
       if (mod.modType == "CONSUMABLE" && mod.consume) {
         mod.consume(consumer, this);
@@ -247,5 +251,30 @@ export default class Item {
         mod.consume(consumer, this);
       }
     });
+
+    //useable-related traits
+    let consume: boolean = this.baseBodyMod.modType == "CONSUMABLE";
+
+    if (
+      this.baseBodyMod.name == "Scroll" &&
+      consumer.isTraitExistAndEligible("Sage's Touch")
+    ) {
+      const roll =
+        Math.random() * 50 + Math.log(Math.abs(consumer.stats.INT) + 1) * 4;
+      if (roll > 45) {
+        consume = false;
+      }
+    }
+    if (
+      this.baseBodyMod.name == "Scroll" &&
+      consumer.isTraitExistAndEligible("Power-Hungry")
+    ) {
+      consumer.gainEXP(10);
+    }
+
+    //remove the item if its a consumable
+    if (consume) {
+      user.removeItemFromInventory(this);
+    }
   }
 }

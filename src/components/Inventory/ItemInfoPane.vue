@@ -28,6 +28,7 @@
   <div>Expected Price: {{ item.expectedPrice }}</div>
   <q-separator />
   <div class="row justify-center q-mt-xl">
+    <!--use button-->
     <q-btn
       v-if="
         propWhere.includes('my_inventory') &&
@@ -35,15 +36,51 @@
       "
       class="col-5 q-pa-sm q-ma-sm"
       label="Use"
-      @click="onClickConsume"
+      @click="onClickUse"
     ></q-btn>
+    <!--equip buttons-->
     <q-btn
-      v-if="propWhere.includes('my_inventory') && item.isEquipment"
+      v-if="
+        propWhere.includes('my_inventory') &&
+        item.isEquipment &&
+        chara.checkEquipPossibility(item).length == 0
+      "
       class="col-5 q-pa-sm q-ma-sm"
       label="Equip"
       :disable="item.baseBodyMod.slot == 'Trinket' && !chara.checkAttunement()"
       @click="onClickEquip"
     ></q-btn>
+    <q-btn
+      v-if="
+        propWhere.includes('my_inventory') &&
+        item.isEquipment &&
+        chara.checkEquipPossibility(item).includes(0)
+      "
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Equip To Main Hand"
+      @click="onClickAltEquip(0)"
+    ></q-btn>
+    <q-btn
+      v-if="
+        propWhere.includes('my_inventory') &&
+        item.isEquipment &&
+        chara.checkEquipPossibility(item).includes(1)
+      "
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Equip To Off Hand"
+      @click="onClickAltEquip(1)"
+    ></q-btn>
+    <q-btn
+      v-if="
+        propWhere.includes('my_inventory') &&
+        item.isEquipment &&
+        chara.checkEquipPossibility(item).includes(-1)
+      "
+      class="col-5 q-pa-sm q-ma-sm"
+      label="Equip To Both Hands"
+      @click="onClickAltEquip(-1)"
+    ></q-btn>
+    <!--unequp and discard buttons-->
     <q-btn
       v-if="propWhere.includes('my_chara')"
       class="col-5 q-pa-sm q-ma-sm"
@@ -77,7 +114,7 @@ export default defineComponent({
     where: { type: String, required: true },
     chara: { type: Object as PropType<Character>, required: true },
   },
-  emits: ["equipItem", "unequipItem", "discardItem"],
+  emits: ["update"],
 
   computed: {
     itemName(): string {
@@ -107,34 +144,32 @@ export default defineComponent({
     const cachedStats = ref(getModStatsFormatted(theItem.value, true, false));
 
     function onClickEquip() {
-      context.emit("equipItem", props.item);
+      props.chara.equipItem(props.item);
+      context.emit("update");
+      propWhere.value = "my_chara"; //todo fix this switching the button to unequip even if the equip is unsucessful
+    }
+
+    function onClickAltEquip(slot: number) {
+      props.chara.equipItemAlt(props.item, slot);
+      context.emit("update");
       propWhere.value = "my_chara"; //todo fix this switching the button to unequip even if the equip is unsucessful
     }
 
     function onClickUnequip() {
-      context.emit("unequipItem", props.item);
+      props.chara.unequipItemByItem(props.item);
+      context.emit("update");
       propWhere.value = "my_inventory";
     }
 
     function onClickDiscard() {
-      context.emit("discardItem", props.item);
+      props.chara.unequipItemByItem(props.item);
+      props.chara.removeItemFromInventory(props.item);
+      context.emit("update");
       propWhere.value = "discarded";
     }
 
-    function onClickConsume() {
+    function onClickUse() {
       props.item.consume(props.chara);
-      if (props.chara.isTraitExistAndEligible("Sage's Touch")) {
-        const roll =
-          Math.random() * 50 +
-          Math.log(Math.abs(props.chara.stats.INT) + 1) * 4;
-        if (roll > 45) {
-          return; // small chance (10-20% depending on your int) to preserve the scroll
-        }
-      }
-      if (props.chara.isTraitExistAndEligible("Power-Hungry")) {
-        props.chara.gainEXP(10);
-      }
-      onClickDiscard();
     }
 
     return {
@@ -145,9 +180,10 @@ export default defineComponent({
 
       //methods
       onClickEquip,
+      onClickAltEquip,
       onClickUnequip,
       onClickDiscard,
-      onClickConsume,
+      onClickUse,
     };
   },
 });

@@ -7,6 +7,7 @@ import { combineMods } from "src/Services/ModListManipulationService";
 import {
   Gender,
   ImportantStatPossibility,
+  ItemSlot,
   OpinionArray,
   ResistArray,
   Tag,
@@ -15,6 +16,7 @@ import Skill from "./Skill";
 import { removeDuplicateTags, removeDuplicates } from "src/Services/Funcs";
 import Stance from "./Stance";
 import { getStanceByIndex } from "src/Resources/StanceList";
+import { get2HanderDummyItem } from "src/Services/ItemService";
 
 export default class Character {
   public name: string;
@@ -363,6 +365,16 @@ export default class Character {
     return this.equippedTrinkets;
   };
 
+  equipItemAlt = (item: Item, slot: number): boolean => {
+    //0 = mainhand, 1 = offhand, -1 = 2hander
+    this.cacheDirty = true;
+    if (!this.removeItemFromInventory(item, true)) {
+      console.log("item not in inventory", slot);
+      return false;
+    }
+    return true;
+  };
+
   equipItem = (item: Item): boolean => {
     this.cacheDirty = true;
     if (!this.removeItemFromInventory(item, true)) {
@@ -370,6 +382,7 @@ export default class Character {
       return false;
     }
     let index = 0;
+    let hander2dummyrequired = false;
     switch (item.baseBodyMod.slot) {
       case "Light Weapon":
       case "Medium Weapon":
@@ -377,17 +390,18 @@ export default class Character {
       case "Throwing Weapon":
       case "Light Ranged Weapon":
       case "Firearm":
+      case "Medium Shield":
+      case "Implement":
         break;
       case "Heavy Weapon":
       case "Very Heavy Weapon":
       case "Ranged Weapon":
       case "Heavy Firearm":
+      case "Heavy Shield":
         this.unequipItemByIndex(1);
+        hander2dummyrequired = true;
         break;
       case "Light Shield":
-      case "Medium Shield":
-      case "Heavy Shield":
-      case "Implement":
         index = 1;
         break;
       case "Light Helmet":
@@ -422,8 +436,22 @@ export default class Character {
       default:
         return false;
     }
+    //check if offhand overwriting 2hander
+    if (
+      index == 1 &&
+      this.equippedItems[index] &&
+      this.equippedItems[index]?.baseBodyMod.name == "2HanderDummyItem"
+    ) {
+      this.unequipItemByIndex(0);
+    }
+    //unequip old item
     this.unequipItemByIndex(index);
-    this.equippedItems[index] = item; //TODO check if offhand overwriting 2hander
+    //if new item is a 2 hander, equip the dummy item in the offhand
+    if (hander2dummyrequired) {
+      this.equippedItems[1] = get2HanderDummyItem();
+    }
+    //equip the new item
+    this.equippedItems[index] = item;
     this.updateLog(`${this.name} equipped item: ${item.fullName}`);
     return true;
   };
@@ -431,6 +459,13 @@ export default class Character {
   unequipItemByIndex = (index: number, trinket: boolean = false): boolean => {
     this.cacheDirty = true;
     if (!trinket) {
+      if (
+        index == 0 &&
+        this.equippedItems[1] &&
+        this.equippedItems[1].baseBodyMod.name == "2HanderDummyItem"
+      ) {
+        this.equippedItems[1] = undefined;
+      }
       if (
         this.equippedItems[index] &&
         this.equippedItems[index]!.fullName != "NONE"
@@ -564,14 +599,54 @@ export default class Character {
   };
 
   damage = (amount: number): void => {
+    this.cacheDirty = true;
     this.currentHP += amount;
   };
 
   heal = (amount: number): void => {
+    this.cacheDirty = true;
     this.currentHP -= amount;
   };
 
   changeStance = (stance: Stance): void => {
+    this.cacheDirty = true;
     this.currentStance = stance;
+  };
+
+  checkEquipPossibility = (item: Item): number[] => {
+    const slot: ItemSlot = item.baseBodyMod.slot;
+    switch (slot) {
+      case "Light Weapon":
+        if (this.isTraitExistAndEligible("Dual Wielding Proficiency"))
+          return [0, 1];
+        break;
+      case "Medium Weapon":
+        if (this.isTraitExistAndEligible("Dual Wielding Mastery"))
+          return [0, 1];
+        break;
+      case "Heavy Weapon":
+        if (this.isTraitExistAndEligible("Heavy Weapon Expertise"))
+          return [0, -1];
+        break;
+      case "Light Ranged Weapon":
+        if (this.isTraitExistAndEligible("Light Ranged Mastery")) return [0, 1];
+        break;
+      case "Firearm":
+        if (this.isTraitExistAndEligible("Firearm Mastery")) return [0, 1];
+        break;
+      case "Medium Shield":
+        if (this.isTraitExistAndEligible("Medium Shield Proficiency"))
+          return [0, 1];
+        break;
+      case "Heavy Shield":
+        if (this.isTraitExistAndEligible("Heavy Shield Proficiency"))
+          return [-1, 1];
+        break;
+      case "Implement":
+        if (this.isTraitExistAndEligible("Implement Proficiency"))
+          return [0, 1];
+        break;
+    }
+    return [];
   };
 }

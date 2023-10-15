@@ -13,6 +13,7 @@ const ModList: Partial<Mod>[] = [
     description: "grrrdgfffg",
     rarity: 0,
     tags: ["Plague"],
+    attackType: "Toxic",
   },
 ];
 

@@ -223,6 +223,15 @@ const ModList: Partial<Mod>[] = [
         ?.baseBodyMod.tags.includes("Tool");
     },
   },
+  {
+    name: "Dual Wielding Proficiency",
+    description: "blah",
+    rarity: 0,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
 ];
 
 export function getTraitByIndex(index: number): Mod {
