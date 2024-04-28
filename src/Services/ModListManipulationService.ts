@@ -43,6 +43,7 @@ function criterionizeArrayExclude(
 
 export function prepareModForExport(mod: Partial<Mod>, modType: ModType): Mod {
   if (!mod) {
+    console.log("prepareModForExport FAILED!");
     return new Mod();
   }
   mod.modType = modType;

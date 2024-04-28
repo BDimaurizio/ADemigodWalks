@@ -20,7 +20,8 @@ const StanceList: Stance[] = [
     [["VIT"], [3], "Avoidance"], //elemental
     [["WIL"], [4], "Flat Reduction"], //psychic
     [["LUK"], [2], "Percentage Reduction"], //toxic
-    [["FAI"], [3], "Flat Reduction"] //judgement
+    [["FAI"], [3], "Flat Reduction"], //judgement
+    "Stagger" //impact type
   ),
   new Stance(
     "Basic Stance",
@@ -30,7 +31,8 @@ const StanceList: Stance[] = [
     [["Evasion"], [0.9], "Avoidance"], //elemental
     [["Resolve"], [0.9], "Flat Reduction"], //psychic
     [["Fortitude"], [0.9], "Percentage Reduction"], //toxic
-    [["Resolve"], [0.1], "Flat Reduction"] //judgement
+    [["Resolve"], [0.1], "Flat Reduction"], //judgement
+    "Stagger"
   ),
   new Stance(
     "Martial Defense",
@@ -40,7 +42,8 @@ const StanceList: Stance[] = [
     [["Deflect"], [1], "Percentage Reduction"], //elemental
     [["Supression", "Fortitude"], [1, 0.1], "Percentage Reduction"], //psychic
     [["Fortitude"], [1], "Percentage Reduction"], //toxic
-    [["Fortitude"], [0.1], "Flat Reduction"] //judgement
+    [["Fortitude"], [0.1], "Flat Reduction"], //judgement
+    "Stagger"
   ),
   new Stance(
     "Mental Defense",
@@ -50,7 +53,8 @@ const StanceList: Stance[] = [
     [["Ward"], [1], "Flat Reduction"], //elemental
     [["Resolve"], [1], "Flat Reduction"], //psychic
     [["Fortitude"], [1], "Percentage Reduction"], //toxic
-    [["Resolve"], [0.1], "Flat Reduction"] //judgement
+    [["Resolve"], [0.1], "Flat Reduction"], //judgement
+    "Break"
   ),
 ];
 

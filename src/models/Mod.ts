@@ -58,6 +58,7 @@ export default class Mod {
   public Accuracy = 0; //chance to hit (physical & piercing attacks)
   public Clarity = 0; //chance to hit (magic attacks)
   public Attack = 0; //weapon attack damage
+  public Impact = 0; //chance to stagger the target, reducing their sp or mp
   public Arcana = 0; //spell attack damage
   public CriticalChance = 0;
   public CriticalDamage = 0;

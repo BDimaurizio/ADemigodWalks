@@ -218,56 +218,57 @@ export default class Character {
     const output = { ...mod };
     //VIT
     output.HP += mod.VIT;
-    output.SP += mod.VIT;
-    if (output.Fortitude > 0) output.Fortitude += mod.VIT;
+    output.SP += mod.VIT / 2;
+    if (output.Fortitude > 0) output.Fortitude += mod.VIT / 2;
     //STR
-    output.Attack += mod.STR;
-    output.CriticalDamage += mod.STR;
+    output.Attack += mod.STR / 2;
+    output.CriticalDamage += mod.STR / 2;
+    if (output.Impact > 0) output.Impact += mod.STR / 3;
     if (output.Mining > 0) output.Mining += mod.STR;
     //DEX
-    output.Accuracy += mod.DEX;
-    if (output.Deflect > 0) output.Deflect += mod.DEX;
-    if (output.Parry > 0) output.Parry += mod.DEX;
+    output.Accuracy += mod.DEX / 2;
+    if (output.Deflect > 0) output.Deflect += mod.DEX / 2;
+    if (output.Parry > 0) output.Parry += mod.DEX / 2;
     //AGI
-    output.Evasion += mod.AGI;
-    output.Initiative += mod.AGI;
-    if (output.Stealth > 0) output.Stealth += mod.AGI;
-    if (output.Survival > 0) output.Survival += mod.AGI;
+    output.Evasion += mod.AGI / 2;
+    output.Initiative += mod.AGI / 2;
+    if (output.Stealth > 0) output.Stealth += mod.AGI / 2;
+    if (output.Survival > 0) output.Survival += mod.AGI / 2;
     //INT
-    output.Arcana += mod.INT;
-    output.MP += mod.INT;
-    if (output.CriticalChance > 0) output.CriticalChance += mod.INT / 2;
-    if (output.Crafting > 0) output.Crafting += mod.INT;
+    output.Arcana += mod.INT / 2;
+    output.MP += mod.INT / 2;
+    if (output.CriticalChance > 0) output.CriticalChance += mod.INT / 3;
+    if (output.Crafting > 0) output.Crafting += mod.INT / 2;
     //FAI
-    output.Clarity += mod.FAI;
+    output.Clarity += mod.FAI / 2;
     if (output.Medicine > 0) output.Medicine += mod.FAI;
     for (let i = 0; i < OpinionTags.length; i++) {
       if (output[OpinionTags[i]] > 9) {
-        output[OpinionTags[i]] += mod.FAI;
+        output[OpinionTags[i]] += mod.FAI / 2;
       } else if (output[OpinionTags[i]] < -9) {
-        output[OpinionTags[i]] += mod.FAI / 3;
+        output[OpinionTags[i]] += mod.FAI / 5;
       }
     }
     //WIL
     output.Attunement += mod.WIL / 10;
-    if (output.Ward > 0) output.Ward += mod.WIL;
-    if (output.Resolve > 0) output.Resolve += mod.WIL;
+    if (output.Ward > 0) output.Ward += mod.WIL / 2;
+    if (output.Resolve > 0) output.Resolve += mod.WIL / 2;
     for (let i = 0; i < ResistTags.length; i++) {
       if (output[ResistTags[i]] > 0) {
-        output[ResistTags[i]] += mod.FAI;
+        output[ResistTags[i]] += mod.FAI / 2;
       }
     }
     //CHA
-    output.Leadership += mod.CHA;
-    output.Diplomacy += mod.CHA;
-    output.Bargaining += mod.CHA;
+    output.Leadership += mod.CHA / 2;
+    output.Diplomacy += mod.CHA / 2;
+    output.Bargaining += mod.CHA / 2;
     //LUK
-    if (output.CriticalChance > 0) output.CriticalChance += mod.LUK / 2;
+    if (output.CriticalChance > 0) output.CriticalChance += mod.LUK / 4;
 
     //trait-based bonuses
     //VIT
     if (this.isTraitExistAndEligible("Heroic Aura")) {
-      output.Leadership += mod.VIT;
+      output.Leadership += mod.VIT / 2;
     }
     //STR
 
@@ -277,7 +278,7 @@ export default class Character {
 
     //FAI
     if (this.isTraitExistAndEligible("Righteous Cause")) {
-      output.Resolve += mod.FAI;
+      output.Resolve += mod.FAI / 2;
     }
     //WIL
 
@@ -418,12 +419,14 @@ export default class Character {
       case "Firearm":
       case "Medium Shield":
       case "Implement":
+      case "Instrument":
         break;
       case "Heavy Weapon":
       case "Very Heavy Weapon":
       case "Ranged Weapon":
       case "Heavy Firearm":
       case "Heavy Shield":
+      case "Heavy Instrument":
         this.unequipItemByIndex(1);
         hander2dummyrequired = true;
         break;
@@ -670,6 +673,10 @@ export default class Character {
         break;
       case "Implement":
         if (this.isTraitExistAndEligible("Implement Proficiency"))
+          return [0, 1];
+        break;
+      case "Instrument":
+        if (this.isTraitExistAndEligible("Instrument Proficiency"))
           return [0, 1];
         break;
     }

@@ -13,13 +13,13 @@
   <div
     class="q-ma-sm row"
     v-for="(inventoryObject, index) in inventoryArray"
-    :key="inventoryObject.baseBodyMod.name + index"
+    :key="index"
   >
     <InventoryTile
       class="col"
       :item="(inventoryObject as Item)"
       :showMaterial="showMaterial"
-      @inventoryClicked="inventoryClicked(inventoryObject as Item, index)"
+      @inventoryClicked="inventoryClicked(inventoryObject as Item)"
     ></InventoryTile>
   </div>
 </template>
@@ -46,20 +46,14 @@ export default defineComponent({
         .filter((item: Item) => item.baseBodyMod.name != "2HanderDummyItem")
     );
     const sortingSchema = ref(props.itemSortingSchema);
-    let prevIndex = -1;
 
     const showMaterial = ref(true);
 
-    function inventoryClicked(item: Item, index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
+    function inventoryClicked(item: Item): void {
       context.emit("inventoryClicked", item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
       if (style == "Name") {
         inventoryArray.value.sort((a, b) =>
           a.fullNameWithoutMateiral > b.fullNameWithoutMateiral

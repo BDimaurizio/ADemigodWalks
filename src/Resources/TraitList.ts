@@ -56,9 +56,8 @@ const ModList: Partial<Mod>[] = [
     },
   },
   {
-    name: "Greedy",
-    description:
-      "You have a keen eye for money a lust for treasure. Well, fortune does favor the bold...",
+    name: "Wealth Seeker",
+    description: "You have a keen eye for money.",
     rarity: 0,
     Bargaining: 1,
     LUK: 1,
@@ -225,6 +224,24 @@ const ModList: Partial<Mod>[] = [
   },
   {
     name: "Dual Wielding Proficiency",
+    description: "blah",
+    rarity: 0,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: "Carpentry I",
+    description: "blah",
+    rarity: 0,
+    tags: [],
+    eligibilityChecker() {
+      return true;
+    },
+  },
+  {
+    name: "Carpentry II",
     description: "blah",
     rarity: 0,
     tags: [],

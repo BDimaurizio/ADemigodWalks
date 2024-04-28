@@ -15,17 +15,15 @@
       v-if="partyMemberObject"
       class="col"
       :partyMember="(partyMemberObject as Character)"
-      @partyMemberClicked="
-        partyMemberClicked(partyMemberObject as Character, index)
-      "
+      @partyMemberClicked="partyMemberClicked(partyMemberObject as Character)"
     ></PartyMemberTile>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted, PropType } from 'vue';
-import PartyMemberTile from './PartyMemberTile.vue';
-import Character from 'src/models/Character';
+import { ref, defineComponent, onMounted, PropType } from "vue";
+import PartyMemberTile from "./PartyMemberTile.vue";
+import Character from "src/models/Character";
 
 export default defineComponent({
   components: { PartyMemberTile },
@@ -33,7 +31,7 @@ export default defineComponent({
     partyMemberList: { type: Object as PropType<Character[]>, required: true }, // array of characters
     partyMemberSortingSchema: { type: Object, required: true },
   },
-  emits: ['partyMemberClicked', 'updateSortingSchema'],
+  emits: ["partyMemberClicked", "updateSortingSchema"],
 
   computed: {},
 
@@ -42,23 +40,17 @@ export default defineComponent({
       props.partyMemberList.filter(Boolean) as Character[]
     );
     const sortingSchema = ref(props.partyMemberSortingSchema);
-    let prevIndex = -1;
 
-    function partyMemberClicked(partyMember: Character, index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
-      context.emit('partyMemberClicked', partyMember);
+    function partyMemberClicked(partyMember: Character): void {
+      context.emit("partyMemberClicked", partyMember);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         partyMemberArray.value.sort((a, b) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
-      } else if (style == 'Level') {
+      } else if (style == "Level") {
         partyMemberArray.value.sort((a, b) =>
           a.totalLevel < b.totalLevel ? 1 : b.totalLevel < a.totalLevel ? -1 : 0
         );
@@ -75,11 +67,11 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sort(sortingSchema.value.style ?? 'name', true);
+      sort(sortingSchema.value.style ?? "name", true);
     });
 
     return {

@@ -5,37 +5,29 @@
     <q-btn class="col" label="Level" @click="sort('Level')"></q-btn>
   </div>
   <h5>Trained Classes:</h5>
-  <div
-    class="q-ma-sm row"
-    v-for="(jobObject, index) in jobArray"
-    :key="jobObject"
-  >
+  <div class="q-ma-sm row" v-for="jobObject in jobArray" :key="jobObject">
     <job-tile
       v-if="jobObject[1] > 0"
       class="col"
       :job="jobObject"
-      @jobClicked="jobClicked(jobObject, index)"
+      @jobClicked="jobClicked(jobObject)"
     ></job-tile>
   </div>
   <h5>Potential Classes:</h5>
-  <div
-    class="q-ma-sm row"
-    v-for="(jobObject, index) in jobArray"
-    :key="jobObject"
-  >
+  <div class="q-ma-sm row" v-for="jobObject in jobArray" :key="jobObject">
     <job-tile
       v-if="jobObject[1] < 1"
       class="col"
       :job="jobObject"
-      @jobClicked="jobClicked(jobObject, index)"
+      @jobClicked="jobClicked(jobObject)"
     ></job-tile>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from 'vue';
-import Job from 'src/models/Job';
-import JobTile from './JobTile.vue';
+import { ref, defineComponent, onMounted } from "vue";
+import Job from "src/models/Job";
+import JobTile from "./JobTile.vue";
 
 export default defineComponent({
   components: { JobTile },
@@ -43,30 +35,24 @@ export default defineComponent({
     jobList: { type: Object, required: true }, // array of tuples [job : object, level : integer]
     jobSortingSchema: { type: Object, required: true },
   },
-  emits: ['jobClicked', 'updateSortingSchema'],
+  emits: ["jobClicked", "updateSortingSchema"],
 
   computed: {},
 
   setup(props, context) {
     const jobArray = ref(props.jobList.filter(Boolean));
     const sortingSchema = ref(props.jobSortingSchema);
-    let prevIndex = -1;
 
-    function jobClicked(item: [Job, number], index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
-      context.emit('jobClicked', item);
+    function jobClicked(item: [Job, number]): void {
+      context.emit("jobClicked", item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         jobArray.value.sort((a: [Job, number], b: [Job, number]) =>
           a[0].name > b[0].name ? 1 : b[0].name > a[0].name ? -1 : 0
         );
-      } else if (style == 'Level') {
+      } else if (style == "Level") {
         jobArray.value.sort((a: [Job, number], b: [Job, number]) =>
           a[1] < b[1] ? 1 : b[1] < a[1] ? -1 : 0
         );
@@ -83,11 +69,11 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sort(sortingSchema.value.style ?? 'name', true);
+      sort(sortingSchema.value.style ?? "name", true);
     });
 
     return {

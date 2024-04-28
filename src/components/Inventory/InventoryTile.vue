@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import Item from "src/models/Item";
-import { ref, defineComponent, PropType } from "vue";
+import { defineComponent, PropType } from "vue";
 /*
 https://github.com/game-icons/icons
 https://opengameart.org/content/tool-icons
@@ -56,29 +56,27 @@ export default defineComponent({
   computed: {
     itemName(): string {
       if (this.$props.showMaterial) {
-        return this.item.fullName;
+        return this.$props.item.fullName;
       } else {
-        return this.item.fullNameWithoutMateiral;
+        return this.$props.item.fullNameWithoutMateiral;
       }
     },
     itemRarityColor(): string {
-      return this.item.rarityColor;
+      return this.$props.item.rarityColor;
+    },
+    iconPath(): URL {
+      return this.$props.item.inventoryIcon;
     },
   },
 
   setup(props, context) {
-    const theItem = ref(props.item.computeStats);
-
-    const iconPath = ref(props.item.inventoryIcon);
-
     function inventoryClicked() {
+      console.log(props.item.fullName);
       context.emit("inventoryClicked");
     }
 
     return {
       ...props,
-      theItem,
-      iconPath,
 
       //methods
       inventoryClicked,

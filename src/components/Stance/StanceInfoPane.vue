@@ -30,6 +30,11 @@ Toxic Defense: {{ stanceDescription2[5] }}
 Judgement Defense: {{ stanceDescription2[6] }}
 {{ showCalc ? stanceDescription1[6] : undefined }}  </pre
     >
+    <pre class="text-bold text-orange-10" style="font-family: Arial">
+Impact Type: {{ stance.impactType }}
+
+</pre
+    >
     <div class="row">
       <q-checkbox
         class="col-9"

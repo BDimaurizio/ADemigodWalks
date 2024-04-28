@@ -38,7 +38,9 @@ export type ItemSlot = //proficiency - expertise - mastery
     | "Light Shield" //offhand
     | "Medium Shield" //mainhand      //offhand           medium shield proficiency
     | "Heavy Shield" //bothhand       //offhand           heavy shield proficiency
-    | "Implement" //offhand/mainhand                      implement proficiency
+    | "Implement" //mainhand          /offhandhand        implement proficiency
+    | "Instrument" //mainhand         /offhand            instrument proficiency
+    | "Heavy Instrument" //bothhand
     | "Light Helmet"
     | "Medium Helmet"
     | "Heavy Helmet"
@@ -122,6 +124,16 @@ export type Tag =
   | "HIDE"
   | "CLOTH"
   | "PARCHMENT"
+  //allowed material types
+  | "allow_WOOD"
+  | "allow_METAL"
+  | "allow_STONE"
+  | "allow_GEM"
+  | "allow_BONE"
+  | "allow_LEATHER"
+  | "allow_HIDE"
+  | "allow_CLOTH"
+  | "allow_PARCHMENT"
   //weapon types
   | "Weapon"
   | "Tool"
@@ -171,6 +183,11 @@ export type DefenseType =
   | "Percentage Reduction"
   | "Flat Reduction";
 
+export type ImpactType =
+  | "Stagger" //-sp
+  | "Break" //-mp
+  | "Crush"; //-hp
+
 export type ImportantStatPossibility =
   | "price"
   | "priceMultiplier"
@@ -193,6 +210,7 @@ export type ImportantStatPossibility =
   | "Accuracy"
   | "Clarity"
   | "Attack"
+  | "Impact"
   | "Arcana"
   | "CriticalChance"
   | "CriticalDamage"

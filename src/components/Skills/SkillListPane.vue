@@ -7,22 +7,22 @@
   <div
     class="q-ma-sm row"
     v-for="(skill, index) in skillListArray"
-    :key="skill"
+    :key="index"
   >
     <SkillTile
       class="col"
       :skill="skill"
-      @inventoryClicked="skillClicked(skill, index)"
+      @inventoryClicked="skillClicked(skill)"
     ></SkillTile>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
-import { ref, defineComponent, onMounted } from 'vue';
-import SkillTile from './SkillTile.vue';
-import Mod from 'src/models/Mod';
-import Character from 'src/models/Character';
+import { ref, defineComponent, onMounted } from "vue";
+import SkillTile from "./SkillTile.vue";
+import Mod from "src/models/Mod";
+import Character from "src/models/Character";
 
 export default defineComponent({
   components: { SkillTile },
@@ -31,30 +31,24 @@ export default defineComponent({
     sortingSchema: { type: Object, required: true },
     chara: { type: Character, required: true },
   },
-  emits: ['skillListClicked', 'updateSortingSchema'],
+  emits: ["skillListClicked", "updateSortingSchema"],
 
   computed: {},
 
   setup(props, context) {
     const skillListArray = ref(props.skillList.filter(Boolean));
     const sortingSchema = ref(props.sortingSchema);
-    let prevIndex = -1;
 
-    function skillClicked(item: Mod, index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
-      context.emit('skillListClicked', item);
+    function skillClicked(item: Mod): void {
+      context.emit("skillListClicked", item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         skillListArray.value.sort((a: Mod, b: Mod) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
-      } else if (style == 'Eligibility') {
+      } else if (style == "Eligibility") {
         skillListArray.value.sort((a: Mod, b: Mod) =>
           a.eligibilityChecker!(props.chara) >
           b.eligibilityChecker!(props.chara)
@@ -77,11 +71,11 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sort(sortingSchema.value.style ?? 'name', true);
+      sort(sortingSchema.value.style ?? "name", true);
     });
 
     return {

@@ -226,10 +226,10 @@ export default defineComponent({
 
     party.value.push(testProtagonist("(you)"));
     party.value.push(testCharacter("albert"));
-    party.value.push(testCharacter("dianne"));
-    party.value.push(testCharacter("luchious"));
-    party.value.push(testCharacter("martholemew"));
-    party.value.push(testCharacter("mathmatical"));
+    //party.value.push(testCharacter("dianne"));
+    //party.value.push(testCharacter("luchious"));
+    //party.value.push(testCharacter("martholemew"));
+    //party.value.push(testCharacter("mathmatical"));
 
     let selectedCharacter = ref(party.value[0]);
 

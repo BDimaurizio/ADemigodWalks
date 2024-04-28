@@ -1,4 +1,4 @@
-import { DefenseType, ImportantStatPossibility } from "./Index";
+import { DefenseType, ImpactType, ImportantStatPossibility } from "./Index";
 import Mod from "./Mod";
 
 export default class Stance {
@@ -10,6 +10,7 @@ export default class Stance {
   public psychicDefense: [ImportantStatPossibility[], number[], DefenseType];
   public toxicDefense: [ImportantStatPossibility[], number[], DefenseType];
   public judgementDefense: [ImportantStatPossibility[], number[], DefenseType];
+  public impactType: ImpactType;
 
   constructor(
     name: string,
@@ -19,7 +20,8 @@ export default class Stance {
     elementalDefense: [ImportantStatPossibility[], number[], DefenseType],
     psychicDefense: [ImportantStatPossibility[], number[], DefenseType],
     toxicDefense: [ImportantStatPossibility[], number[], DefenseType],
-    judgementDefense: [ImportantStatPossibility[], number[], DefenseType]
+    judgementDefense: [ImportantStatPossibility[], number[], DefenseType],
+    impactType: ImpactType
   ) {
     this.name = name;
     this.physicalDefense = physicalDefense;
@@ -29,6 +31,7 @@ export default class Stance {
     this.psychicDefense = psychicDefense;
     this.toxicDefense = toxicDefense;
     this.judgementDefense = judgementDefense;
+    this.impactType = impactType;
   }
 
   get defenseArray(): [ImportantStatPossibility[], number[], DefenseType][] {

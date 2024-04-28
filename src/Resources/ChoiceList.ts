@@ -122,7 +122,7 @@ export const ChoiceBucketMotivationI: Choice[] = [
       return true;
     },
     onSelection(party) {
-      party[0].tackOnTrait(getTraitByName("Greedy"));
+      party[0].tackOnTrait(getTraitByName("Wealth Seeker"));
       party[0].addItemToInventory([
         geti("mat=silver=misc=coin"),
         geti("base=pickaxe=mat=iron"),
@@ -174,8 +174,8 @@ export const ChoiceBucketMotivationI: Choice[] = [
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Heroic Aura"));
       party[0].addItemToInventory([
-        geti("base=cape=pre=heroic"),
-        geti("suf=of viltality", [getBaseModByCriteria([], 0, 0)]),
+        geti("base=cape=pre=heroic", [], true),
+        geti("suf=of viltality", [getBaseModByCriteria([], 0, 0)], true),
       ]);
     },
   },
@@ -190,8 +190,8 @@ export const ChoiceBucketMotivationI: Choice[] = [
     onSelection(party) {
       party[0].tackOnTrait(getTraitByName("Righteous Cause"));
       party[0].addItemToInventory([
-        geti("base=robes=pre=acolyte's"),
-        geti("base=club=suf=of punishment"),
+        geti("base=robes=pre=acolyte's", [], true),
+        geti("base=club=suf=of punishment", [], true),
       ]);
     },
   },
@@ -326,7 +326,20 @@ export const ChoiceBucketMotivationI: Choice[] = [
   },
 ];
 
-export const ChoiceBucketOccupationI: Choice[] = [];
+export const ChoiceBucketOccupationI: Choice[] = [
+  {
+    id: "occulpation-carpenter",
+    text: "I was a carpenter",
+    nextHappeningID: "init-occupation",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+];
 
 export const ChoiceBucketDivinityI: Choice[] = [];
 

@@ -25,7 +25,7 @@
           class="col"
           :partyMember="(partyMemberObject as Character)"
           @partyMemberClicked="
-            partyMemberClicked(partyMemberObject as Character, index)
+            partyMemberClicked(partyMemberObject as Character)
           "
         ></PartyMemberTile>
       </div>
@@ -51,13 +51,13 @@
       <div
         class="q-ma-sm row"
         v-for="(inventoryObject, index) in inventoryArray"
-        :key="inventoryObject.fullName + index"
+        :key="index"
       >
         <InventoryTile
           class="col"
           :item="(inventoryObject as Item)"
           :show-material="showMaterial"
-          @inventoryClicked="inventoryClicked(inventoryObject as Item, index)"
+          @inventoryClicked="inventoryClicked(inventoryObject as Item)"
         ></InventoryTile>
       </div>
     </div>
@@ -94,7 +94,6 @@ export default defineComponent({
       props.partyMemberList.filter(Boolean) as Character[]
     );
     const sortingSchema = ref(props.sortingSchema);
-    let prevIndex = -1;
 
     const inventoryArray = ref(
       props.partyMemberList[0].getInventory().filter(Boolean)
@@ -109,31 +108,20 @@ export default defineComponent({
 
     const castSuccess = ref(false);
 
-    function partyMemberClicked(partyMember: Character, index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
+    function partyMemberClicked(partyMember: Character): void {
       charSelectionsRemaining.value--;
       charSelectionTargets.value.push(partyMember);
       if (charSelectionsRemaining.value < 1) {
-        prevIndex = -1;
         if (itemSelectionsRemaining.value < 1) {
           doCast();
         }
       }
     }
 
-    function inventoryClicked(item: Item, index: number): void {
-      console.log(item.fullName);
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
+    function inventoryClicked(item: Item): void {
       itemSelectionsRemaining.value--;
       itemSelectionTargets.value.push(item);
       if (itemSelectionsRemaining.value < 1) {
-        prevIndex = -1;
         if (charSelectionsRemaining.value < 1) {
           doCast();
         }
@@ -150,7 +138,6 @@ export default defineComponent({
     }
 
     function sortChar(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
       if (style == "Name") {
         partyMemberArray.value.sort((a, b) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
@@ -176,7 +163,6 @@ export default defineComponent({
     }
 
     function sortItem(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
       if (style == "Name") {
         inventoryArray.value.sort((a, b) =>
           a.fullName > b.fullName ? 1 : b.fullName > a.fullName ? -1 : 0

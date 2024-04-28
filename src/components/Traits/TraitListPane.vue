@@ -7,23 +7,23 @@
   <div
     class="q-ma-sm row"
     v-for="(trait, index) in traitListArray"
-    :key="trait"
+    :key="index"
   >
     <TraitTile
       class="col"
       :trait="trait"
       :active="trait.cachedEligibility"
-      @inventoryClicked="traitClicked(trait, index)"
+      @inventoryClicked="traitClicked(trait)"
     ></TraitTile>
   </div>
 </template>
 
 <script lang="ts">
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
-import { ref, defineComponent, onMounted } from 'vue';
-import TraitTile from 'src/components/Traits/TraitTile.vue';
-import Mod from 'src/models/Mod';
-import Character from 'src/models/Character';
+import { ref, defineComponent, onMounted } from "vue";
+import TraitTile from "src/components/Traits/TraitTile.vue";
+import Mod from "src/models/Mod";
+import Character from "src/models/Character";
 
 export default defineComponent({
   components: { TraitTile },
@@ -32,7 +32,7 @@ export default defineComponent({
     sortingSchema: { type: Object, required: true },
     chara: { type: Character, required: true },
   },
-  emits: ['traitListClicked', 'updateSortingSchema'],
+  emits: ["traitListClicked", "updateSortingSchema"],
 
   computed: {},
 
@@ -44,23 +44,17 @@ export default defineComponent({
     }
 
     const sortingSchema = ref(props.sortingSchema);
-    let prevIndex = -1;
 
-    function traitClicked(item: Mod, index: number): void {
-      if (index == prevIndex) {
-        return;
-      }
-      prevIndex = index;
-      context.emit('traitListClicked', item);
+    function traitClicked(item: Mod): void {
+      context.emit("traitListClicked", item);
     }
 
     function sort(style: string, forceDirection: boolean = false): void {
-      prevIndex = -1;
-      if (style == 'Name') {
+      if (style == "Name") {
         traitListArray.value.sort((a: Mod, b: Mod) =>
           a.name > b.name ? 1 : b.name > a.name ? -1 : 0
         );
-      } else if (style == 'Eligibility') {
+      } else if (style == "Eligibility") {
         traitListArray.value.sort((a: Mod, b: Mod) =>
           a.eligibilityChecker!(props.chara) >
           b.eligibilityChecker!(props.chara)
@@ -83,11 +77,11 @@ export default defineComponent({
       }
 
       sortingSchema.value.style = style;
-      context.emit('updateSortingSchema', sortingSchema.value);
+      context.emit("updateSortingSchema", sortingSchema.value);
     }
 
     onMounted(() => {
-      sort(sortingSchema.value.style ?? 'name', true);
+      sort(sortingSchema.value.style ?? "name", true);
     });
 
     return {
