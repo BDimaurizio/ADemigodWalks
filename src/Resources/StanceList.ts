@@ -56,6 +56,17 @@ const StanceList: Stance[] = [
     [["Resolve"], [0.1], "Flat Reduction"], //judgement
     "Break"
   ),
+  new Stance(
+    "Nessie Stance",
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //physical
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //piercing
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //arcane
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //elemental
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //psychic
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //toxic
+    [["Evasion", "INT"], [1.2, -0.2], "Avoidance"], //judgement
+    "Break"
+  ),
 ];
 
 export function getStanceByIndex(index: number): Stance {

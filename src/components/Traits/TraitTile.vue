@@ -2,7 +2,7 @@
   <q-card
     class="row flex inventoryItem clickable cursor-pointer"
     style="outline: 2px ridge rgba(50, 0, 0, 0.5)"
-    :dark="!active"
+    :dark="!$props.active"
     @click="inventoryClicked"
   >
     <div class="col text-h5 vertical-center">
@@ -13,7 +13,7 @@
 
 <script lang="ts">
 //import Mod from 'src/models/Mod';
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   components: {},
@@ -21,17 +21,17 @@ export default defineComponent({
     trait: { type: Object, required: true },
     active: { type: Boolean, required: true },
   },
-  emits: ['inventoryClicked'],
+  emits: ["inventoryClicked"],
 
   setup(props, context) {
     function inventoryClicked() {
-      context.emit('inventoryClicked');
+      context.emit("inventoryClicked");
     }
 
     return {
       ...props,
       name: computed(() => props.trait.name),
-      colour: computed(() => (props.active ? 'red' : 'white')),
+      colour: computed(() => (props.active ? "red" : "white")),
 
       //methods
       inventoryClicked,

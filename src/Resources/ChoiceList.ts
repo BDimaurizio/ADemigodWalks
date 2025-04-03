@@ -328,9 +328,141 @@ export const ChoiceBucketMotivationI: Choice[] = [
 
 export const ChoiceBucketOccupationI: Choice[] = [
   {
-    id: "occulpation-carpenter",
+    id: "occupation-carpenter",
     text: "I was a carpenter",
-    nextHappeningID: "init-occupation",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-blacksmith",
+    text: "I was a blacksmith",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-teacher",
+    text: "I was a teacher",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-soldier",
+    text: "I was a soldier",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-farmer",
+    text: "I was a farmer",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-neet",
+    text: "I did nothing",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-bard",
+    text: "I was a bard",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-chef",
+    text: "I was a chef",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-student",
+    text: "I was a student",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-priest",
+    text: "I was a priest",
+    nextHappeningID: "init-divinity",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-mage",
+    text: "I was a mage",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+  {
+    id: "occupation-outlaw",
+    text: "I was a thief...",
+    nextHappeningID: "init-detriment",
     nextHappeningContext: "",
     eligibility() {
       return true;
@@ -341,8 +473,47 @@ export const ChoiceBucketOccupationI: Choice[] = [
   },
 ];
 
-export const ChoiceBucketDivinityI: Choice[] = [];
+export const ChoiceBucketDivinityI: Choice[] = [
+  {
+    id: "divinity-test",
+    text: "test",
+    nextHappeningID: "init-detriment",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+];
 
-export const ChoiceBucketDetrimentI: Choice[] = [];
+export const ChoiceBucketDetrimentI: Choice[] = [
+  {
+    id: "detriment-test",
+    text: "test",
+    nextHappeningID: "init-heirloom",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+];
 
-export const ChoiceBucketHeirloomI: Choice[] = [];
+export const ChoiceBucketHeirloomI: Choice[] = [
+  {
+    id: "heirloom-test",
+    text: "test",
+    nextHappeningID: "",
+    nextHappeningContext: "",
+    eligibility() {
+      return true;
+    },
+    onSelection(party) {
+      console.log(party[0]);
+    },
+  },
+];

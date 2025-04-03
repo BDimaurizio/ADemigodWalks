@@ -14,7 +14,6 @@ import {
 import Choice from "src/models/Choice";
 
 const HappeningList: Happening[] = [
-  //idea:a log below the main buttons showing recent stuff like items gained?
   {
     id: "test-0",
     title: "test",

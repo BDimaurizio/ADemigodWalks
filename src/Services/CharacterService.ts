@@ -19,7 +19,7 @@ export function testProtagonist(name: string): Character {
   output.gainJob(getJobByName("Adventurer"));
   output.tackOnTrait(getTraitByName("Carpentry I"));
   output.tackOnTrait(getTraitByName("Carpentry II"));
-  output.tackOnTrait(getTraitByName("Carpentry I"));
+  output.tackOnTrait(getTraitByName("Hat Wearer"));
   output.clearLog();
   return output;
 }

@@ -57,6 +57,9 @@ export default class Character {
   constructor(name: string) {
     this.name = name;
     this.editTackedOnMod(new Mod({ Stances: [getStanceByIndex(1)] }));
+    this.editTackedOnMod(new Mod({ Stances: [getStanceByIndex(2)] }));
+    this.editTackedOnMod(new Mod({ Stances: [getStanceByIndex(3)] }));
+    this.editTackedOnMod(new Mod({ Stances: [getStanceByIndex(4)] }));
     this.currentStance = getStanceByIndex(1);
   }
 
